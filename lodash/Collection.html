@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lodash-collection</title>
+    <script src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <script>
+        /**
+         * @function countBy
+         * key（键）是经过 iteratee（迭代函数） 执行处理collection中每个元素后返回的结果,value值是 iteratee（迭代函数）返回该key（键）的次数
+         * _.countBy(collection, [iteratee=_.identity])
+         * 返回一个组成集合对象。
+         * */
+        const countBy=_.countBy([6.1, 4.2, 6.3], Math.floor);
+        console.log('countBy',countBy)//key值为迭代结果，value为迭代次数
+
+        /**
+         * @function every
+         * 通过 predicate（断言函数） 检查 collection（集合）中的 所有 元素是否都返回真值。
+         * _.every(collection, [predicate=_.identity])
+         *  检查后都返回真值，那么就返回true，否则返回 false
+         * */
+        const every=_.every( [
+            { 'user': 'barney', 'age': 36, 'active': false },
+            { 'user': 'fred',   'age': 40, 'active': false }
+        ], { 'user': 'barney', 'active': false });
+        console.log('every',every)
+
+        /**
+         * @function forEach
+         * 调用 iteratee 遍历 collection(集合) 中的每个元素
+         * _.forEach(collection, [iteratee=_.identity])
+         *返回集合 collection
+         * */
+        const forEach=_.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
+            console.log(key);
+        });
+        console.log('forEach',forEach)
+
+        /**
+         * @function forEachRight
+         * 这个方法类似 _.forEach，不同之处在于，_.forEachRight 是从右到左遍历集合中每一个元素的。
+         * _.forEachRight(collection, [iteratee=_.identity])
+         * */
+
+        /**
+         * @function find
+         * 遍历 collection（集合）元素，返回 predicate（断言函数）第一个返回真值的第一个元素。
+         * _.find(collection, [predicate=_.identity], [fromIndex=0])
+         *  返回匹配元素，否则返回 undefined。
+         * */
+        const find=_.find( [
+            { 'user': 'barney', 'age': 36, 'active': false },
+            { 'user': 'fred',   'age': 40, 'active': false }
+        ], function(o) { return o.age < 40; });
+        console.log('find',find)
+
+        /**
+         * @function findLast
+         * 与find相似，不同之处在于，_.findLast是从右至左遍历collection （集合）元素的。
+         * */
+
+        /**
+         * @function filter
+         * 遍历 collection（集合）元素，返回 predicate（断言函数）返回真值 的所有元素的数组。
+         * _.filter(collection, [predicate=_.identity])
+         * 返回一个新的过滤后的数组。
+         * */
+        const filter=_.filter( [
+            { 'user': 'barney', 'age': 36, 'active': true },
+            { 'user': 'fred',   'age': 40, 'active': false }
+        ], function(o) { return !o.active; });
+        console.log('filter',filter)
+
+        /**
+         * @function filter
+         * _.filter的反向方法;此方法 返回 predicate（断言函数） 不 返回 truthy（真值）的collection（集合）元素
+         * */
+
+        /**
+         * @function flatMap
+         * 创建一个扁平化的数组，这个数组的值来自collection（集合）中的每一个值经过 iteratee处理后返回的结果，并且扁平化合并。
+         * _.flatMap(collection, [iteratee=_.identity])
+         * 返回新扁平化数组。
+         * */
+        const flatMap= _.flatMap([1, 2], function duplicate(n) {
+            return [n, n];
+        });
+        console.log('flatMap',flatMap)
+
+        /**
+         * @function groupBy
+         * key 是 iteratee 遍历 collection中的每个元素返回的结果。 分组值的顺序是由他们出现在 collection中的顺序确定的。
+         * _.groupBy(collection, [iteratee=_.identity])
+         * 返回一个组成聚合的对象。
+         * */
+        const groupBy=_.groupBy(['one', 'two', 'three'], 'length');
+        console.log('groupBy',groupBy)
+
+        /**
+         * @function includes
+         * 检查 value(值) 是否在 collection(集合) 中。如果 collection(集合)是一个字符串，那么检查 value（值，子字符串） 是否在字符串中， 否则使用 SameValueZero 做等值比较。 如果指定 fromIndex 是负数，那么从 collection(集合) 的结尾开始检索。
+         * _.includes(collection, value, [fromIndex=0])
+         * 如果找到 value 返回 true， 否则返回 false。
+         * */
+        const  includes=_.includes([{ 'user': 'fred', 'age': 40 },{ 'user': 'fred', 'age': 41 },{ 'user': 'fred', 'age': 42 }], { 'user': 'fred', 'age': 41 });
+        console.log('includes',includes)
+
+        /**
+         * @function map
+         * 创建一个数组， value（值） 是 iteratee（迭代函数）遍历 collection（集合）中的每个元素后返回的结果
+         * _.map(collection, [iteratee=_.identity])
+         * 返回新的映射后数组。
+         * */
+        const map=_.map([4, 8], function square(n) {
+            return n * n;
+        });
+        console.log('map',map)
+
+        /**
+         * @function orderBy
+         * 对数组进行排序
+         * _.orderBy(collection, [iteratees=[_.identity]], [orders])
+         * 排序排序后的新数组。
+         * */
+        var users = [
+            { 'user': 'fred',   'age': 48 },
+            { 'user': 'barney', 'age': 34 },
+            { 'user': 'fred',   'age': 40 },
+            { 'user': 'barney', 'age': 36 }
+        ];
+        const orderBy=_.orderBy(users, ['user', 'age'], ['asc', 'desc']);
+        console.log('orderBy',orderBy)
+
+        /**
+         * @function partition
+         * 创建一个分成两组的元素数组，第一组包含predicate（断言函数）返回为 truthy（真值）的元素，第二组包含predicate（断言函数）返回为 falsey（假值）的元素
+         * _.partition(collection, [predicate=_.identity])
+         * 返回元素分组后的数组
+         * */
+        const partition=_.partition( [
+            { 'user': 'barney',  'age': 36, 'active': false },
+            { 'user': 'fred',    'age': 40, 'active': true },
+            { 'user': 'pebbles', 'age': 1,  'active': false }
+        ], function(o) { return o.active; });
+        console.log('partition',partition)
+
+        /**
+         * @function reduce
+         * 压缩 collection（集合）为一个值，通过 iteratee遍历 collection中的每个元素，每次返回的值会作为下一次迭代使用。 如果没有提供 accumulator，则 collection中的第一个元素作为初始值。
+         * _.reduce(collection, [iteratee=_.identity], [accumulator])
+         * 返回累加后的值。
+         * */
+        const reduce=_.reduce([1, 2], function(sum, n) {
+            return sum + n;
+        }, 0);
+        console.log('reduce',reduce)
+
+        /**
+         * @function reduceRight
+         * 与reduce类似，只不过它是从右往左遍历
+         * */
+       const reduceRight=_.reduceRight( [[0, 1], [2, 3], [4, 5]], function(flattened, other) {
+            return flattened.concat(other);
+        }, []);
+        console.log('reduceRight',reduceRight)
+
+        /**
+         * @function simple
+         * 从collection（集合）中获得一个随机元素。
+         * _.sample(collection)
+         *  返回随机元素。
+         * */
+        const simple=_.sample([1, 2, 3, 4]);
+        console.log('simple',simple)
+
+        /**
+         * @function sampleSize
+         * 从collection（集合）中获得 n 个随机元素。
+         * _.sampleSize(collection, [n=1])
+         *  返回随机元素。
+         * */
+        const sampleSize=_.sampleSize([1, 2, 3], 2);
+        console.log('sampleSize',sampleSize)
+
+        /**
+         * @function shuffle
+         * 创建一个被打乱值的集合
+         * _.shuffle(collection)
+         *  返回打乱的新数组。
+         * */
+        const shuffle=_.shuffle([1, 2, 3, 4]);
+        console.log('shuffle',shuffle)
+
+        /**
+         * @function size
+         * 返回collection（集合）的长度，如果集合是类数组或字符串，返回其 length ；如果集合是对象，返回其可枚举属性的个数。
+         * _.size(collection)
+         * */
+        const size=_.size([1, 2, 3]);
+        console.log('size',size)
+
+        /**
+         * @function some
+         * 通过 predicate（断言函数） 检查collection（集合）中的元素是否存在 任意 truthy（真值）的元素，一旦 predicate（断言函数） 返回 truthy（真值），遍历就停止。
+         * _.some(collection, [predicate=_.identity])
+         * 如果任意元素经 predicate 检查都为 truthy（真值），返回 true ，否则返回 false 。
+         * */
+        const some=_.some([
+            { 'user': 'barney', 'active': true },
+            { 'user': 'fred',   'active': false }
+        ], { 'user': 'barney', 'active': false });
+        console.log('some',some)
+
+        /**
+         * @function sortBy
+         * 创建一个元素数组。 以 iteratee 处理的结果升序排序。 这个方法执行稳定排序，也就是说相同元素会保持原始排序。
+         * _.sortBy(collection, [iteratees=[_.identity]])
+         * 返回排序后的数组。
+         * */
+        const sortBy=_.sortBy([
+            { 'user': 'fred',   'age': 48 },
+            { 'user': 'barney', 'age': 36 },
+            { 'user': 'fred',   'age': 40 },
+            { 'user': 'barney', 'age': 34 }
+        ], ['user', 'age']);
+        console.log('sortBy',sortBy)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <title>touch on mobile</title>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        html {
+            -ms-touch-action: none;
+        }
+
+        body, ul, li {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        body {
+            font-size: 12px;
+            font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+            overflow: hidden;
+            /* this is important to prevent the whole page to bounce */
+        }
+
+        #header {
+            position: absolute;/*设为absolute，下面的footer，content也设为absolute*/
+            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            background: #CD235C;
+            padding: 0;
+            color: #eee;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #footer {
+            position: absolute;
+            z-index: 2;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background: #444;
+            padding: 0;
+            border-top: 1px solid #444;
+        }
+
+        #content {
+            position: absolute;
+            z-index: 1;
+            top: 45px;/*设置了top，bottom所以高度也就限制了*/
+            bottom: 48px;
+            left: 0;
+            width: 100%;
+            background: #ccc;
+            overflow: hidden;
+        }
+
+        #scroller {
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            width: 100%;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+
+        #scroller ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            text-align: left;
+        }
+
+        #scroller li {
+            padding: 0 10px;
+            height: 50px;
+            line-height: 50px;
+          /*  border-bottom: 1px solid #ccc;
+            border-top: 1px solid #fff;*/
+            background-color: #fafafa;
+            font-size: 14px;
+            position: relative;
+            left: 0;/*！重要，要首先设置left,否则第一次动画不起作用*/
+            transition: left cubic-bezier(.68,.69,.11,.4) 0.2s;
+            -webkit-transition: left cubic-bezier(.68,.69,.11,.4) 0.2s;
+        }
+        .list-btn{
+            text-align: center;
+            color: #e6e6e6;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+
+            position: absolute;
+            right: -100px;
+            top: 0;
+        }
+        .list-btn span{
+            display: inline-block;
+            width: 50%;
+            height: 100%;
+        }
+        .list-btn span:first-child{
+            background: #bab3ba;
+        }
+        .list-btn span:last-child{
+            background: #ff5b2e;
+        }
+        #scroller li::after {
+            position: absolute;
+            content: '';
+            top: -50%;
+            bottom: -50%;
+            left: -50%;
+            right: -50%;
+            -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+            border-bottom: 1px solid #aaa;
+        }
+        #pullDown, #pullUp {
+            height: 60px;
+            line-height: 60px;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        #pullDown .pullDownIcon, #pullUp .pullUpIcon {
+            display: block;
+            float: left;
+            width: 40px;
+            height: 40px;
+            -webkit-background-size: 40px 80px;
+            background-size: 40px 80px;
+            -webkit-transition-property: -webkit-transform;
+            -webkit-transition-duration: 250ms;
+        }
+
+        #pullDown .pullDownIcon {
+            -webkit-transform: rotate(0deg) translateZ(0);
+        }
+
+        #pullUp .pullUpIcon {
+            -webkit-transform: rotate(-180deg) translateZ(0);
+        }
+
+        #pullDown.flip .pullDownIcon {
+            -webkit-transform: rotate(-180deg) translateZ(0);
+        }
+
+        #pullUp.flip .pullUpIcon {
+            -webkit-transform: rotate(0deg) translateZ(0);
+        }
+
+        #pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+            background-position: 0 100%;
+            -webkit-transform: rotate(0deg) translateZ(0);
+            -webkit-transition-duration: 0ms;
+            -webkit-animation-name: loading;
+            -webkit-animation-duration: 2s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+        }
+
+        @-webkit-keyframes loading{
+            from {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+            to {
+                -webkit-transform: rotate(360deg) translateZ(0);
+            }
+        }
+    </style>
+
+
+</head>
+<body onload="loaded()">
+<div id="header">iScroll</div>
+
+<div id="content">
+    <div id="scroller">
+        <div id="pullDown" class="ub ub-pc c-gra">
+            <div class="pullDownIcon"></div>
+            <div class="pullDownLabel">下拉刷新</div>
+        </div>
+        <ul id="add">
+            <li>Pretty row 1左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 2左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 3左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 4左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 5左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 6左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 7左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 8左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 9左滑看看<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看0<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看1<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看2<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看3<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看4<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看5<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看6<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看6<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看6<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+            <li>Pretty row 1左滑看看6<div class="list-btn"><span>置顶</span><span>删除</span></div></li>
+        </ul>
+        <div id="pullUp" class="ub ub-pc c-gra">
+            <div class="pullUpIcon"></div>
+            <div class="pullUpLabel">上拉显示更多...</div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+
+</body>
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="iscroll-probe.js"></script>
+<script>
+    var myScroll;
+    var pullDownEl, pullDownL;
+    var pullUpEl, pullUpL;
+    var Downcount = 0, Upcount = 0;
+    var loadingStep = 0;//加载状态0默认，1显示加载状态，2执行加载数据，只有当为0时才能再次加载，这是防止过快拉动刷新
+    function pullDownAction() {//下拉事件
+        setTimeout(function () {
+            var el, li, i,liBtn;
+            el = $('#add');
+            for (i = 0; i < 3; i++) {
+                li = $("<li></li>");
+                liBtn=$("<div class='list-btn'><span>置顶</span><span>删除</span></div>");
+                Downcount++;
+                li.text('new Add ' + Downcount + " ！");
+                li.prepend(liBtn)
+                el.prepend(li);
+            }
+            pullDownEl.removeClass('loading');
+            pullDownL.html('下拉显示更多...');
+            pullDownEl['class'] = pullDownEl.attr('class');
+            pullDownEl.attr('class', '').hide();
+            myScroll.refresh();
+            loadingStep = 0;
+        }, 1000); //1秒
+    }
+    function pullUpAction() {//上拉事件
+        setTimeout(function () {
+            var el, li, i,liBtn;
+            el = $('#add');
+            for (i = 0; i < 3; i++) {
+                li = $("<li></li>");
+                liBtn=$("<div class='list-btn'><span>置顶</span><span>删除</span></div>");
+                Upcount++;
+                li.text('new Add ' + Upcount + " ！");
+                li.append(liBtn)
+                el.append(li);
+            }
+            pullUpEl.removeClass('loading');
+            pullUpL.html('上拉显示更多...');
+            pullUpEl['class'] = pullUpEl.attr('class');
+            pullUpEl.attr('class', '').hide();
+            myScroll.refresh();
+            loadingStep = 0;
+        }, 1000);
+    }
+
+    function loaded() {
+        pullDownEl = $('#pullDown');
+        pullDownL = pullDownEl.find('.pullDownLabel');
+        pullDownEl['class'] = pullDownEl.attr('class');
+        pullDownEl.attr('class', '').hide();//清空class,并隐藏
+
+        pullUpEl = $('#pullUp');
+        pullUpL = pullUpEl.find('.pullUpLabel');
+        pullUpEl['class'] = pullUpEl.attr('class');
+        pullUpEl.attr('class', '').hide();//清空class,并隐藏
+
+        myScroll = new IScroll('#content', {
+            probeType: 2,//probeType：1对性能没有影响。在滚动事件被触发时，滚动轴是不是忙着做它的东西。probeType：2总执行滚动，除了势头，反弹过程中的事件。这类似于原生的onscroll事件。probeType：3发出的滚动事件与到的像素精度。注意，滚动被迫requestAnimationFrame（即：useTransition：假）。
+            mouseWheel: true,//允许滑轮滚动
+            fadeScrollbars: true,//滚动时显示滚动条，默认影藏，并且是淡出淡入效果
+            bounce: true,//边界反弹
+            interactiveScrollbars: true,//滚动条可以拖动
+            shrinkScrollbars: 'scale',// 当滚动边界之外的滚动条是由少量的收缩。'clip' or 'scale'.
+            click: true,// 允许点击事件
+            keyBindings: true,//允许使用按键控制
+            momentum: true,// 允许有惯性滑动
+            preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|A)$/ }
+        });
+        //滚动时
+        myScroll.on('scroll', function () {
+
+            if (loadingStep == 0 && !pullDownEl.attr('class').match('flip|loading') && !pullUpEl.attr('class').match('flip|loading')) {
+                if (this.y > 5) {/*当前判断向下拉，this.y为正。this.y this.x 当前的位置*/
+                    //下拉刷新效果
+                    pullDownEl.attr('class', pullUpEl['class'])
+                    pullDownEl.show();
+                    myScroll.refresh();//刷新myScroll对象
+                    pullDownEl.addClass('flip');
+                    pullDownL.html('准备刷新...');
+                    loadingStep = 1;
+                } else if (this.y < (this.maxScrollY - 5)) {/*当前判断向上拉，this.y的绝对值变大，。this.maxScrollY当滚动到底部时的 myScroll.x/y滚动到地步this.y=maxScrollY*/
+                    //上拉刷新效果
+                    pullUpEl.attr('class', pullUpEl['class'])
+                    pullUpEl.show();
+                    myScroll.refresh();
+                    pullUpEl.addClass('flip');
+                    pullUpL.html('准备刷新...');
+                    loadingStep = 1;
+                }
+            }
+        });
+        //滚动完毕
+        myScroll.on('scrollEnd', function () {
+            if (loadingStep == 1) {
+                if (pullUpEl.attr('class').match('flip|loading')) {
+                    pullUpEl.removeClass('flip').addClass('loading');
+                    pullUpL.html('Loading...');
+                    loadingStep = 2;
+                    pullUpAction();
+                } else if (pullDownEl.attr('class').match('flip|loading')) {
+                    pullDownEl.removeClass('flip').addClass('loading');
+                    pullDownL.html('Loading...');
+                    loadingStep = 2;
+                    pullDownAction();
+                }
+            }
+        });
+    }
+    var mylitouch = (function() {
+        var x, y, X, Y, swipeX, swipeY;
+        return { //返回对象
+            tStart: function(event) { //获取触摸到屏幕时的坐标
+                if(event.type === 'touchstart'){
+                    x = event.changedTouches[0].pageX;
+                    y = event.changedTouches[0].pageY;
+                }else if(event.type === 'mousedown'){
+                    x = event.clientX;
+                    y = event.clientY;
+                }
+                swipeX = true;
+                swipeY = true ;
+
+
+            },
+            tMove: function(event) { //手指在屏幕上移动时触发左/右/上/下滑事件
+                if(event.type === 'touchmove'){
+                    X = event.changedTouches[0].pageX;
+                    Y = event.changedTouches[0].pageY;
+
+                    // 左右滑动
+                    if(swipeX && Math.abs(X-x) - Math.abs(Y-y) > 0) {
+
+                        if(X - x > 30) {
+                            this.style.left = '0px';
+                        }
+                        if(x - X > 30) {
+                            this.style.left = '-100px';
+                        }
+                        swipeY = false;
+                    }
+
+                    // 上下滑动
+                    if(swipeY && Math.abs(X-x) - Math.abs(Y-y) < 0) {
+                        swipeX = false;
+                    }
+                }else if(event.type === 'mousemove'){
+                }
+
+            },
+            tEnd: function(event) {
+                if(event.type === 'touchend'){
+                }else if(event.type === 'mouseup'){
+                    X = event.clientX;
+                    Y = event.clientY;
+                    // 左右滑动
+                    if(swipeX && Math.abs(X-x) - Math.abs(Y-y) > 0) {
+
+                        if(X - x > 30) {
+                            this.style.left = '0px';
+                        }
+                        if(x - X > 30) {
+                            this.style.left = '-100px';
+                        }
+                        swipeY = false;
+                    }
+                    // 上下滑动
+                    if(swipeY && Math.abs(X-x) - Math.abs(Y-y) < 0) {
+                        swipeX = false;
+                    }
+                }
+            }
+        };
+    })();
+    $(document).on("touchstart","#add li" ,mylitouch.tStart);
+    $(document).on("touchmove","#add li" ,mylitouch.tMove);
+    $(document).on("touchend", "#add li",mylitouch.tEnd);
+    $(document).on("mousedown" ,"#add li",mylitouch.tStart);
+    $(document).on("mousemove","#add li" ,mylitouch.tMove);
+    $(document).on("mouseup", "#add li",mylitouch.tEnd);
+</script>
+</html>

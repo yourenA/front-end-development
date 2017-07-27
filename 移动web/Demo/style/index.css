@@ -1,0 +1,599 @@
+html{
+    width: 100%;
+    height: auto;
+}
+
+/*viewport*/
+.viewport{
+    width: 500%;
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    overflow: hidden;
+    /*pointer-events: none; 去掉这句话*/
+    -webkit-transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    position: relative;
+}
+.pageview{
+    flex: 0 0 20%;
+    overflow: hidden;
+}
+.pageview h4{
+    margin-top: 58%;
+    text-align: center;
+    font-size: 20px;
+}
+
+[data-dpr="2"] .pageview h4{
+    font-size: 40px;
+}
+[data-dpr="3"] .pageview h4{
+    font-size: 60px;
+}
+header{
+    overflow: hidden;
+    width: 100%;
+    height: 1.3333rem;
+}
+footer{
+    overflow: hidden;
+    width: 100%;
+    height: 1.4333rem;
+}
+.bottom-menu{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1.4333rem;
+}
+.bottom-menu ul{
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.bottom-menu ul li {
+    color: #ffffff;
+    text-align: center;
+    flex: 0 0 20%;
+}
+.bottom-menu ul li i{
+    margin-top: 0.2rem;
+    font-size: 25px;
+}
+.bottom-menu ul li.active{
+    background: rgb(174, 62, 86) ;
+}
+[data-dpr="2"] .bottom-menu ul li i{
+    font-size: 50px;
+}
+[data-dpr="3"] .bottom-menu ul li i{
+    font-size: 75px;
+}
+.bottom-menu ul li div:first-child{
+    width: 100%;
+    height: 60%;
+
+}
+.bottom-menu ul li div:last-child{
+    width: 100%;
+    height: 40%;
+    line-height: normal;
+    font-size: 12px;
+}
+[data-dpr="2"] .bottom-menu ul li div:last-child{
+    font-size: 24px;
+}
+[data-dpr="3"] .bottom-menu ul li div:last-child{
+    font-size: 36px;
+}
+/*顶部搜索框*/
+.top-menu,.bottom-menu {
+    position: fixed;
+    z-index: 1000;
+
+    background: rgb(210, 33, 71);
+    font-size: 13px;
+}
+.top-menu{
+    width: 20%;
+    left: 0;
+    top: 0;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+}
+
+[data-dpr="2"] .top-menu {
+    font-size: 26px;
+}
+
+[data-dpr="3"] .top-menu {
+    font-size: 39px;
+}
+
+.top-menu .address {
+    display: inline-block;
+    width: 2.8rem;
+    background: url("../image/turn-down.png") no-repeat right center;
+    background-size:0.37333rem 0.21333rem ;
+    padding-left: 0.3333rem;
+    color: rgb(255, 255, 255);
+}
+
+.top-menu .address p {
+    width: 2.1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.top-menu .search {
+    display: inline-block;
+    vertical-align: top;
+    width: 5.466666rem;
+    padding-left: 0.36rem;
+}
+
+.top-menu .search input {
+    color: #dfbac2;
+    margin-top: 0.2rem;
+    width: 5.13333rem;
+    border-radius: 0.3333rem;
+    outline: none;
+    border: 0;
+    height: 0.86667rem;
+    line-height: 0.86667rem;
+    padding-top: calc((0.86667rem - 13px) / 2);
+    padding-bottom: calc((0.86667rem - 13px) / 2);
+    padding-left:  0.93333rem;
+    background: rgb(174, 62, 86) url("../image/search.png") no-repeat 0.24rem center;
+    background-size: 0.586667rem;
+}
+[data-dpr="2"] .top-menu .search input {
+    padding-top: calc((0.86667rem - 29px) / 2);
+    padding-bottom: calc((0.86667rem - 29px) / 2);
+
+}
+
+[data-dpr="3"] .top-menu .search input {
+    padding-top: calc((0.86667rem - 39px) / 2);
+    padding-bottom: calc((0.86667rem - 39px) / 2);
+}
+
+.top-menu .mine {
+    float: right;
+    display: inline-block;
+    width: 1.53333rem;
+    vertical-align: top;
+
+    background: url("../image/user.png") no-repeat 0.253333rem center;
+    background-size: 0.346667rem;
+}
+
+.top-menu .mine a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    padding-left: 0.63333rem;
+}
+/*地区*/
+.top-area{
+    display: none;
+    position: fixed;
+    width: 20%;
+    height: 20%;
+    background: rgb(174, 62, 86) ;
+    top:1.3333rem;
+    z-index: 1000;
+    overflow: hidden;
+}
+.top-area-content{
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.top-area-div{
+    font-size:16px ;
+    border-right:1px solid #ffffff ;
+    flex: 0 0 33.3%;
+    overflow-y:scroll ;
+    color:  #ffffff ;
+}
+[data-dpr="2"] .top-area-div {
+    font-size: 32px;
+}
+
+[data-dpr="3"] .top-area-div {
+    font-size: 48px;
+}
+.top-area-div ul li{
+    width: 100%;
+    padding:0.1333rem;
+    text-align: center;
+    font-size: 14px;
+}
+[data-dpr="2"] .top-area-div ul li{
+    font-size: 28px;
+}
+
+[data-dpr="3"] .top-area-div ul li {
+    font-size: 42px;
+}
+/*container*/
+.container {
+    width: 100%;
+    position: relative;
+    left: 0;
+    top: 0;
+    transition: top  0.2s;
+    -webkit-transition: top  0.2s;
+}
+.container::before{
+    display: block;
+    position: absolute;
+    top: -200px;
+    background: #00AEE8;
+    height: 200px;
+    width: 100%;
+    content: '';
+}
+/*轮播图*/
+.carousel {
+    width: 100%;
+    height: 3.6667rem;
+    position: relative;
+    overflow: hidden;
+}
+#list1{
+    position: absolute;
+    width: 300%;
+    height: 100%;
+    left: 0;
+    transition: left cubic-bezier(.68,.69,.11,.4) 0.2s;
+    -webkit-transition: left cubic-bezier(.68,.69,.11,.4) 0.4s;
+}
+#list1 li {
+    width: calc(100% / 3);
+    float: left;
+    height: 100%;
+}
+#list1 img{
+    width: 100%;
+    height: 3.6667rem;
+    overflow: hidden;
+}
+
+#list2 {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom:0.2rem;
+    z-index: 100;
+}
+.dot {
+    display: inline-block;
+    width:0.26667rem;
+    height: 0.26667rem;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 50%;
+}
+.active {
+    background-color: rgba(0,0,0,0.3);
+}
+/*间隔*/
+.space {
+    width: 100%;
+    height: 0.33333rem;
+    background: #f2f0f0;
+}
+
+
+.brand {
+    width: 200%;
+    height: 3.3333rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand ul {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 3.3333rem;
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+}
+
+.brand ul li {
+    display: inline-block;
+    flex: 0 0 16.66%;
+}
+
+.brand ul li img {
+    width: 100%;
+    height: 100%;
+}
+
+.panicbuy {
+    width: 100%;
+    height: 2.53333rem;
+}
+
+.panicbuy a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.panicbuy a img {
+    width: 100%;
+    height: 100%;
+}
+
+.classification {
+    width: 100%;
+    padding: 0 0.426667rem;
+    font-size: 13px;
+}
+
+[data-dpr="2"] .classification {
+    font-size: 26px;
+}
+
+[data-dpr="3"] .classification {
+    font-size: 39px;
+}
+
+.classification ul {
+    width: 100%;
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+    flex-wrap: wrap;
+}
+
+.classification ul li {
+    padding: 0.1833rem 0 0.2333rem;
+    flex: 0 0 25%;
+    text-align: center;
+
+}
+.classification ul li a{
+    color: #525252;
+}
+.classification ul li div {
+    margin-bottom: 0.1333rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.classification ul li:nth-child(1) div {
+    background: #ea8a57;
+}
+.classification ul li:nth-child(2) div {
+    background: #cd9cc9;
+}
+
+.classification ul li:nth-child(3) div {
+    background: #76c0d9;
+}
+
+.classification ul li:nth-child(4) div {
+    background: #7687f1;
+}
+
+.classification ul li:nth-child(5)  div{
+    background: #f56f6c;
+}
+
+.classification ul li:nth-child(6)  div{
+    background: #66ccee;
+}
+
+.classification ul li:nth-child(7)  div {
+    background: #eea83b;
+}
+
+.classification ul li:nth-child(8)  div{
+    background: #7687f1;
+}
+
+.classification ul li div img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.57333rem;
+    height: 0.46667rem;
+    transform: translate(-50%, -50%);
+}
+
+.recommend{
+    width: 100%;
+}
+.recommend-title{
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #cdcdd1;
+}
+.recommend-title i{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0.32rem;
+    display: inline-block;
+    width: 0.10667rem;
+    height: 0.46667rem;
+    background: #cc0530;
+    border-radius: 20px;
+}
+.recommend-title h3{
+    padding-left: 0.74rem;
+    vertical-align: middle;
+    display: inline-block;
+    height: 1.08rem;
+    line-height: 1.08rem;
+    font-size: 16px;
+    font-weight: bold;
+}
+[data-dpr="2"] .recommend-title  h3{
+    font-size: 32px;
+}
+
+[data-dpr="3"] .recommend-title  h3{
+    font-size: 48px;
+}
+.recommend-list ul li{
+    width: 100%;
+    height: 3.06667rem;
+    padding:0.266667rem 0.2rem;
+    overflow: hidden;
+    border-bottom: 1px solid #ededef;
+}
+.recommend-list ul li .recommend-pic{
+    display: inline-block;
+    height: 2.53333rem;
+    width: 2.85333rem;
+    border-radius: 15px;
+}
+.recommend-list ul li .recommend-pic img{
+    width: 100%;
+    height: 100%;
+}
+.recommend-list ul li .recommend-desc {
+    position: relative;
+    height: 2.53333rem;
+    display: inline-block;
+    /*width: 6.7333rem;*/
+    width: calc(100% - 2.85333rem);
+    vertical-align: top;
+    padding-left: 0.46667rem;
+}
+.recommend-list ul li .recommend-desc a{
+    display: block;
+    width: 100%;
+    font-size: 18px;
+    color: #181818;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+[data-dpr="2"] .recommend-list ul li .recommend-desc a{
+    font-size: 36px;
+}
+
+[data-dpr="3"] .recommend-list ul li .recommend-desc a{
+    font-size: 54px;
+}
+.recommend-list ul li .recommend-desc .desc{
+    font-size: 13px;
+    line-height: 1.4;
+    color: #979797;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin:0.299667rem 0 ;
+}
+
+.recommend-list ul li .recommend-desc .sale-info{
+    position: absolute;
+    padding-right: 0.5rem;
+    width: 100%;
+    bottom: 0;
+    display: inline-block;
+    font-size: 13px;
+    color: #525252;
+}
+
+[data-dpr="2"]  .recommend-list ul li .recommend-desc  .desc ,
+[data-dpr="2"]  .recommend-list ul li .recommend-desc .sale-info{
+    font-size: 26px;
+}
+
+[data-dpr="3"] .recommend-list ul li .recommend-desc  .desc,
+[data-dpr="3"] .recommend-list ul li .recommend-desc  .sale-info{
+    font-size: 39px;
+}
+.recommend-list ul li .recommend-desc .count {
+    margin: 0 0.13333rem;
+    color: #cc0530;
+    font-weight: bold;
+}
+.recommend-list ul li .recommend-desc .discount{
+    margin-left: 0.13333rem;
+    color: #ffffff;
+    display: inline-block;
+    width:1.50667rem ;
+    padding-left: 0.2rem;
+    background: url("../image/tj-arr.png") no-repeat left center;
+    background-size: 1.12rem 0.44rem;
+}
+
+.recommend-list ul li .recommend-desc .red-packet{
+    color: #525252;
+    display: inline-block;
+    float: right;
+    padding-left: 0.32rem;
+    background: url("../image/tj-hb.png") no-repeat left center;
+    background-size: 0.32rem 0.29333rem;
+}
+
+/*品牌*/
+.brand-content{
+    font-size:0;
+    width: 100%;
+    height: 3.53333rem;
+    overflow: hidden;
+}
+.brand-content>div{
+    vertical-align: top;
+    font-size:0;
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+}
+.brand-item{
+    font-size: 0;
+    width: 100%;
+    overflow: hidden;
+}
+.brand-item a{
+    display: block;
+    font-size:0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.brand-item a img{
+    display: block;
+    font-size:0;
+    width: 100%;
+    height: 100%;
+}
+.brand-big{
+    height: 100%;
+}
+.brand-small{
+    height: 50%;
+}

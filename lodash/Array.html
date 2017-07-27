@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lodash</title>
+    <script src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <script>
+        /**
+         * @function chunk
+         * 按照size长度拆分数组
+         * _.chunk(array, [size=1])
+         *  如果array 无法被分割成全部等长的区块，那么最后剩余的元素将组成一个区块。
+         * 返回一个新的二维数组
+         * */
+        const chunk=_.chunk(['a', 'b', 'c', 'd'], 1);
+        console.log('chunk',chunk);
+
+        /**
+         * @function compact
+         * 过滤假值元素
+         * _.compact(array)
+         * false, null, 0, "", undefined, 和 NaN 都是被认为是“假值”。
+         * 返回过滤掉假值的新数组。
+         * */
+        const campact=_.compact([0, 1, false, 2, '', 3]);
+        console.log('campact',campact)
+
+        /**
+         * @function concat
+         * 将array与任何数组 或 值连接在一起
+         * _.concat(array, [values])
+         * 与值或一维数组连接，直接将值或一维数组的值添加到数组，与二维数组连接，将二维数组中的每一个一维数组添加到原来数组
+         * 返回连接后的新数组。
+         * */
+
+        const concat= _.concat([1], 2, [3], [[4]],[{name:123},{name:456}]);
+        console.log('concat',concat)
+
+        /**
+         * @function difference
+         * 过滤数组值
+         * _.difference(array, [values]) [values]为需要排除的项
+         *  返回一个过滤值后的新数组。
+         * */
+        const difference=_.difference([3, 2, 1], [4, 2]);
+        console.log('difference',difference)
+
+        /**
+         * @function differenceBy
+         * 根据迭代器iteratee过滤数组值
+         * _.differenceBy(array, [values], [iteratee=_.identity])  iteratee调用每个元素。
+         * 返回一个过滤值后的新数组
+         * */
+        const differenceBy=_.differenceBy([3.1, 2.2, 1.3], [4.4, 2.5], Math.floor);//对原数组和需要过滤的数组同时向下取整
+        console.log('differenceBy',differenceBy)
+
+        const differenceBy2=_.differenceBy([{ 'x': 2 }, { 'y': 1 }], [{ 'x': 1 }], 'x');
+        console.log('differenceBy2',differenceBy2)
+
+        /**
+         * @function differenceWith
+         * 根据比较器comparator 过滤数组值
+         * _.differenceWith(array, [values], [comparator]) 比较器comparator形式 function (a,b){return (a.key === b.key)}
+         * 返回一个过滤值后的新数组。
+         * */
+        const differenceWith=_.differenceWith( [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }], [{ 'x': 1, 'y': 2 }], _.isEqual);
+        console.log('differenceWith',differenceWith)
+
+        /**
+         * _.isEqual
+         * var object = { 'a': 1 };
+         * var other = { 'a': 1 };
+         * _.isEqual(object, other);
+         * // => true
+         * object === other;
+         * // => false
+         *
+         * */
+
+        /**
+         * @function drop
+         * 去除array前面的n个元素
+         * _.drop(array, [n=1])
+         * 返回array剩余切片
+         * */
+        const drop=_.drop([1, 2, 3], 2);
+        console.log('drop',drop);
+
+        /**
+         * @function dropRight
+         * 去除array尾部的n个元素
+         * _.dropRight(array, [n=1])
+         * 返回array剩余切片
+         * */
+        const dropRight=_.dropRight([1, 2, 3], 2);
+        console.log('dropRight',dropRight);
+
+        /**
+         * @function dropWhile
+         * 去除array中从起点开始到 predicate 返回假值结束部分
+         * _.dropWhile(array, [predicate=_.identity])  第二个参数表示需要切掉的值
+         * 返回array剩余切片。
+         * */
+        const users = [
+            { 'user': 'barney',  'active': false },
+            { 'user': 'fred',    'active': false },
+            { 'user': 'pebbles', 'active': true }
+        ];
+        const dropWhile=_.dropWhile(users, function(o) { return !o.active;});//为true，切掉
+        console.log('dropWhile',dropWhile);
+
+        /**
+         * @function dropRightWhile
+         * 去除array中从 predicate 返回假值开始到尾部的部分
+         * _.dropRightWhile(array, [predicate=_.identity])  第二个参数表示需要切掉的值
+         * 返回array剩余切片。
+         * */
+        const dropRightWhile=_.dropRightWhile(users, function(o) { return !o.active;});//为true，切掉
+        console.log('dropRightWhile',dropRightWhile);
+
+        /**
+         * @function fill
+         * 使用 value 值来填充（替换） array
+         * _.fill(array, value, [start=0], [end=array.length]) 从start位置开始, 到end位置结束（但不包含end位置）
+         * 返回 array，不是创建新数组
+         * */
+        const fill=_.fill([4, 6, 8, 10], '*', 1, 3);
+        console.log('fill',fill);
+
+        /**
+         * @function find
+         * 遍历 collection（集合）元素，返回 predicate（断言函数）第一个返回真值的**第一个元素**
+         * _.find(collection, [predicate=_.identity], [fromIndex=0])
+         * 返回匹配元素，否则返回 undefined
+         * */
+        const users2 = [
+            { 'user': 'barney',  'age': 36, 'active': true },
+            { 'user': 'fred',    'age': 40, 'active': false },
+            { 'user': 'pebbles', 'age': 1,  'active': true }
+        ];
+        const find=_.find(users2, function(o) { return o.age < 40; });
+        console.log('find',find)
+
+        /**
+         * @function findLast
+         * 从右至左遍历collection （集合）元素的，返回 predicate（断言函数）第一个返回真值的**第一个元素**
+         * _.findLast(collection, [predicate=_.identity], [fromIndex=0])
+         * 返回匹配元素，否则返回 undefined
+         * */
+        const findLast=_.findLast(users2, function(o) { return o.age < 40; });
+        console.log('findLast',findLast)
+
+
+        /**
+         * @function findIndex
+         * 返回第一个通过 predicate 判断为真值的元素的索引值（index），而不是元素本身
+         * _.findIndex(array, [predicate=_.identity], [fromIndex=0])
+         * 返回找到元素的 索引值（index），否则返回 -1
+         * */
+        const findIndex=_.findIndex(users2, function(o) { return o.user == 'barney'; });
+        console.log('findIndex',findIndex)
+
+        /**
+         * @function findLastIndex
+         * 从右到左的迭代集合array中的元素,返回第一个通过 predicate 判断为真值的元素的索引值（index），而不是元素本身
+         * _.findLastIndex(array, [predicate=_.identity], [fromIndex=0])
+         * 返回找到元素的 索引值（index），否则返回 -1,虽然事从右往左，但是返回的仍然是原来的索引
+         * */
+        const findLastIndex=_.findLastIndex(users2, function(o) { return o.user == 'barney'; });
+        console.log('findLastIndex',findLastIndex)
+
+        /**
+         * @function flatten
+         * 减少一级array嵌套深度。
+         * _.flatten(array)
+         * 返回减少嵌套层级后的新数组
+         * */
+        const flatten=_.flatten([1, [2, [3, [4]], 5],[6]]);
+        console.log('flatten',flatten)
+
+        /**
+         * @function flattenDepth
+         * 根据 depth 递归减少 array 的嵌套层级
+         * _.flattenDepth(array, [depth=1])
+         * 返回减少嵌套层级后的新数组
+         * */
+        const flattenDepth=_.flattenDepth( [1, [2, [3, [4]], 5]], 2);
+        console.log('flattenDepth',flattenDepth)
+
+        /**
+         * @function fromPairs
+         * 根据键值对数组生成新的对象
+         * _.fromPairs(pairs)
+         * 返回一个新对象
+         * */
+        const fromParis=_.fromPairs([['fred', 30], ['barney', 40]]);
+        console.log('fromParis',fromParis)
+
+        /**
+         * @function head === first
+         * 获取数组 array 的第一个元素。
+         * _.head(array)
+         * */
+
+        /**
+         * @function last
+         * 获取数组 array 的最后一个元素。
+         * _.last(array)
+         * */
+
+        /**
+         * @function indexOf
+         * 返回首次 value 在数组array中被找到的 索引值
+         * _.indexOf(array, value, [fromIndex=0])
+         * 返回 值value在数组中的索引位置, 没有找到为返回-1。
+         * */
+        const indexOf=_.indexOf([1, 2, 1, 2], 2);
+        console.log('indexOf',indexOf)
+
+        /**
+         * @function lastIndexOf
+         * 返回首次 value 在数组array中被找到的 索引值，右到左遍历array的元素
+         * _.lastIndexOf(array, value, [fromIndex=array.length-1])
+         * 返回 值value在数组中的索引位置, 没有找到为返回-1。
+         * */
+        const lastIndexOf=_.lastIndexOf([1, 2, 1, 2], 2);
+        console.log('lastIndexOf',lastIndexOf)
+
+
+        /**
+         * @function initial
+         * 获取数组array中除了最后一个元素之外的所有元素
+         * _.initial(array)
+         * 返回截取后的数组array。
+         * */
+        const initial= _.initial([1, 2, 3]);
+        console.log('initial',initial)
+
+        /**
+         * @function intersection
+         * 获取给定数组的交集
+         * _.intersection([arrays])
+         * 返回一个包含所有传入数组交集元素的新数组。
+         * */
+        const intersection=_.intersection([2, 1], [4, 2], [1, 2]);
+        console.log('intersection',intersection)
+
+        /**
+         * @function intersectionBy
+         * 获取给定数组的交集,接受一个 iteratee 调用每一个arrays的每个值以产生一个值,结果值是从第一数组中选择
+         * _.intersectionBy([arrays], [iteratee=_.identity])
+         * 返回一个包含所有传入数组交集元素的新数组。
+         * */
+        const intersectionBy=_.intersectionBy([2.1, 1.2], [4.3, 2.4], Math.floor);
+        console.log('intersectionBy',intersectionBy)
+
+        /**
+         * @function intersectionWith
+         * 获取给定数组的交集,接受一个 comparator 调用比较arrays中的元素,结果值是从第一数组中选择
+         * _.intersectionWith([arrays], [comparator])
+         * 返回一个包含所有传入数组交集元素的新数组。
+         * */
+        var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+        var others = [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }];
+        const intersectionWith=_.intersectionWith(objects, others, _.isEqual);
+        console.log('intersectionWith',intersectionWith)
+
+        /**
+         * @function join
+         * 将 array 中的所有元素转换为由 separator 分隔的字符串。
+         * _.join(array, [separator=','])
+         * 返回连接字符串。
+         * */
+        const join=_.join(['a', 'b', 'c'], '~');
+        console.log('join',join)
+
+        /**
+         * @function nth
+         * 获取array数组的第n个元素。如果n为负数，则返回从数组结尾开始的第n个元素。
+         * _.nth(array, [n=0])
+         * 获取array数组的第n个元素。
+         * */
+        const nth=_.nth( ['a', 'b', 'c', 'd'], 1);
+        console.log('nth',nth)
+
+        /**
+         * @function pull
+         * 移除数组array中所有和给定值相等的元素
+         * _.pull(array, [values])
+         * 返回修改后的 array.
+         * */
+        const pull=_.pull([1, 2, 3, 1, 2, 3], 2, 3);
+        console.log('pull',pull)
+
+        /**
+         * @function pullAll
+         * 移除数组array中所有和给定值相等的元素
+         * _.pullAll(array, values) 第二个参数为数组
+         * 返回修改后的 array, 不同于 _.difference, 这个方法会改变数组 array.
+         * */
+        const pullAll=_.pullAll([1, 2, 3, 1, 2, 3], [2, 3]);
+        console.log('pullAll',pullAll)
+
+        /**
+         * @function pullAllBy
+         * 移除数组array中所有和给定值相等的元素 ，接受一个 iteratee（迭代函数） 调用 array 和 values的每个值以产生一个值，通过产生的值进行了比较
+         * .pullAllBy(array, values, [iteratee=_.identity])
+         * 返回修改后的 array, 不同于 _.differenceBy, 这个方法会改变数组 array.
+         * */
+        const pullAllBy=_.pullAllBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 3 }, { 'x': 1 }],[{ 'x': 1 }, { 'x': 3 }],'x');//如果不加第三个参数，则一个都不会移除
+        console.log('pullAllBy',pullAllBy)
+
+        /**
+         * @function pullAllBy
+         * 移除数组array中所有和给定值相等的元素 ，这个方法接受 comparator 调用array中的元素和values比较
+         * _.pullAllWith(array, values, [comparator])
+         * 返回修改后的 array, 不同于 _.differenceBWith 这个方法会改变数组 array.
+         * */
+        const pullAllWith=_.pullAllWith([{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }],[{ 'x': 3, 'y': 4 }], _.isEqual);//如果不加第三个参数，则一个都不会移除
+        console.log('pullAllWith',pullAllWith)
+
+        /**
+         * @function pullAt
+         * 根据索引 indexes，移除array中对应的元素，并返回被移除元素的数组。
+         * _.pullAt(array, [indexes])
+         * 返回移除元素组成的新数组,也会改变原数组
+         * */
+        const pullAt=_.pullAt([5, 10, 15, 20], 1, 3);
+        console.log('pullAt',pullAt)
+
+        /**
+         * @function remove
+         * 移除数组中predicate（断言）返回为真值的所有元素，并返回移除元素组成的数组
+         * _.remove(array, [predicate=_.identity])
+         * 返回移除元素组成的新数组
+         * */
+        const remove= _.remove( [1, 2, 3, 4], function(n) {
+            return n % 2 == 0;
+        });
+        console.log('remove',remove);
+
+        /**
+         * @function reverse
+         * 反转array，使得第一个元素变为最后一个元素，第二个元素变为倒数第二个元素，依次类推。
+         * _.reverse(array)
+         * 返回 array
+         * */
+        const reverse=_.reverse([1, 2, 3]);
+        console.log('reverse',reverse)
+
+        /**
+         * @function slice
+         * 裁剪数组array，从 start 位置开始到end结束，但不包括 end 本身的位置。
+         * _.slice(array, [start=0], [end=array.length])
+         *  数组array 裁剪部分的新数组
+         * */
+        const slice=_.slice([1, 2, 3,4,5],1,3);
+        console.log('slice',slice)
+
+        /**
+         * @function uniq
+         * 创建一个去重后的array数组副本
+         * _.uniq(array)
+         * 返回新的去重后的数组
+         * */
+        const uniq=_.uniq([1, 2, 3,4,5,1,2]);
+        console.log('uniq',uniq)
+
+        /**
+         * @function uniqBy
+         * 创建一个去重后的array数组副本 接受一个 iteratee （迭代函数），调用每一个数组（array）的每个元素以产生唯一性计算的标准
+         * _.uniqBy(array, [iteratee=_.identity])
+         * 返回新的去重后的数组
+         * */
+        const uniqBy=_.uniqBy([2.1, 1.2, 2.3], Math.floor);
+        console.log('uniqBy',uniqBy)
+
+
+        /**
+         * @function tail
+         * 获取除了array数组第一个元素以外的全部元素。
+         * _.tail(array)
+         * 返回 array 数组的切片（除了array数组第一个元素以外的全部元素）。
+         * */
+        const tail=_.tail(_.tail([1, 2, 3]));
+        console.log('tail',tail)
+
+        /**
+         * @function take
+         * 从array数组的起始元素开始提取n个元素
+         * _.take(array, [n=1])
+         * 返回 array 数组的切片
+         * */
+        const take=_.take([1, 2, 3], 2);
+        console.log('take',take)
+
+        /**
+         * @function takeWhile
+         * 从array数组的起始元素开始提取元素，直到 predicate 返回假值。
+         * _.takeWhile(array, [predicate=_.identity])//第二个参数为满足条件
+         * 返回 array 数组的切片
+         * */
+        const takeWhile=_.takeWhile( [
+            { 'user': 'barney',  'active': false },
+            { 'user': 'fred',    'active': false},
+            { 'user': 'pebbles', 'active': true }
+        ],  function(o) { return !o.active; });
+        console.log('takeWhile',takeWhile)
+
+        /**
+         * @function takeRight
+         * 从array数组的最后一个元素开始提取n个元素。
+         * _.takeRight(array, [n=1])
+         * 返回 array 数组的切片
+         * */
+        const takeRight=_.takeRight([1, 2, 3], 2);
+        console.log('takeRight',takeRight);
+
+        /**
+         * @function takeRightWhile  （与takeWhile相似）
+         * 从array数组的最后一个开始提取元素，直到 predicate 返回假值。
+         * _.takeRightWhile(array, [predicate=_.identity])//第二个参数为满足条件
+         * 返回 array 数组的切片
+         * */
+
+        /**
+         * @function union
+         *  arrays（数组）的并集，按顺序返回，返回数组的元素是唯一的
+         *  _.union([arrays])
+         *  返回一个新的联合数组
+         * */
+        const union=_.union([2], [1, 2]);
+        console.log('union',union)
+
+        /**
+         * @function unionBy
+         *  arrays（数组）的并集，按顺序返回，返回数组的元素是唯一的,接受一个 iteratee （迭代函数），调用每一个数组（array）的每个元素以产生唯一性计算的标准
+         * _.unionBy([arrays], [iteratee=_.identity])
+         *  返回一个新的联合数组
+         * */
+        const unionBy=_.unionBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
+        console.log('unionBy',unionBy)
+
+        /**
+         * @function uniqWith
+         *  arrays（数组）的并集，按顺序返回，返回数组的元素是唯一的,它接受一个 comparator 调用比较arrays数组的每一个元素
+         * _.uniqWith(array, [comparator])
+         *   返回新的去重后的数组。
+         * */
+        const uniqWith=_.uniqWith([{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }, { 'x': 1, 'y': 2 }], _.isEqual);
+        console.log('uniqWith',uniqWith)
+
+        /**
+         * @function zip
+         * 创建一个分组元素的数组a，数组a的第一个元素包含所有给定数组的第一个元素，数组a的第二个元素包含所有给定数组的第二个元素，以此类推。
+         * _.zip([arrays])
+         * 返回分组元素的新数组
+         * */
+        const zip=_.zip(['fred', 'barney'], [30, 40], [true, false]);
+        console.log('zip',zip)
+
+        /**
+         * @function unzip
+         * zip的相反操作
+         * _.unzip(array)
+         * 返回重组元素的新数组。
+         * */
+        const unzip=_.unzip(zip);
+        console.log('unzip',unzip)
+
+        /**
+         * @function zipWith
+         * 创建一个分组元素的数组a，数组a的第一个元素包含所有给定数组的第一个元素，数组a的第二个元素包含所有给定数组的第二个元素，以此类推。
+         * 它接受一个 iteratee（迭代函数），来 指定分组的值应该如何被组合。
+         * _.zipWith([arrays], [iteratee=_.identity])
+         * 返回分组元素的新数组
+         * */
+        const zipWith=_.zipWith([1, 2], [10, 20], [100, 200], function(a, b, c) {
+            return a + b + c;
+        });
+        console.log('zipWith',zipWith)
+
+        /**
+         * @function zipObject
+         * 它接受2个数组，第一个数组中的值作为属性标识符（属性名），第二个数组中的值作为相应的属性值。
+         * _.zipObject([key=[]], [values=[]])
+         * 返回一个对象
+         * */
+        const zipObject=_.zipObject(['a', 'b'], [1, 2]);
+        console.log('zipObject',zipObject)
+
+        /**
+         * @function without
+         * 创建一个剔除所有给定值的新数组
+         * _.without(array, [values])
+         * 返回过滤值后的新数组
+         * */
+        const without=_.without([2, 1, 2, 3], 1, 2);
+        console.log('without',without)
+
+        /**
+         * @function xor
+         * 剔除数组共同拥有的值，返回所有不同的值的数组
+         * _.xor([arrays])
+         * 返回过滤值后的新数组
+         * */
+        const xor=_.xor([2, 1], [2, 3]);
+        console.log('sor',xor)
+
+        /**
+         * @function xorBy
+         * 剔除数组共同拥有的值，返回所有不同的值的数组，接受 iteratee（迭代器），这个迭代器 调用每一个 arrays（数组）的每一个值，以生成比较的新值
+         * _.xorBy([arrays], [iteratee=_.identity])
+         * 返回过滤值后的新数组
+         * */
+        const xorBy=_.xorBy([2.1, 1.2], [2.3, 3.4], Math.floor);
+        console.log('xorBy',xorBy)
+
+        /**
+         * @function xorWith
+         * 剔除数组共同拥有的值，返回所有不同的值的数组，接受一个 comparator ，以调用比较数组的元素
+         * _.xorWith([arrays], [comparator])
+         * 返回过滤值后的新数组
+         * */
+        const xorWith=_.xorWith([{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }],  [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }], _.isEqual);
+        console.log('xorWith',xorWith)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

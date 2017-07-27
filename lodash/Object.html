@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lodash-object</title>
+    <script src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <script>
+        /**
+         * @function assign
+         * 分配**来源对象**的可枚举属性到**目标对象**上。下一个对象的属性会覆盖上一个对象的属性。
+         * _.assign(object, [sources])
+         *  返回 object.
+         * */
+        function Foo() {
+            this.a = 1;
+        }
+
+        function Bar() {
+            this.c = 3;
+        }
+
+        Foo.prototype.b = 2;
+        Bar.prototype.d = 4;
+        const assign=_.assign({ 'a': 0 }, new Foo, new Bar);//不会枚举prototype继承的属性
+        console.log('assign',assign)
+
+        /**
+         * @function assignIn
+         * 这个方法类似 _.assign， 除了它会遍历并继承来源对象的(prototype)属性。
+         * _.assignIn(object, [sources])
+         * */
+        const assignIn=_.assignIn({ 'a': 0 }, new Foo, new Bar);//会枚举prototype继承的属性
+        console.log('assignIn',assignIn)
+
+        /**
+         * @function at
+         * 创建一个数组，值来自 object 的paths路径相应的值。
+         * _.at(object, [paths])
+         * 返回选中值的数组。
+         * */
+        const at=_.at( { 'a': [{ 'b': { 'c': 3 } }, 4] }, ['a[0].b.c', 'a[1]']);
+        console.log('at',at)
+
+        /**
+         * @function defaults
+         * 分配来源对象的可枚举属性到目标对象所有解析为 undefined 的属性上。 来源对象从左到右应用。 一旦设置了相同属性的值，后续的将被忽略掉。
+         * _.defaults(object, [sources])
+         * 返回 object。
+         * */
+        const defaults=_.defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
+        console.log('defaults',defaults)
+
+        /**
+         * @function defaults
+         * 这个方法类似 _.defaults，除了它会递归分配默认属性。
+         * _.defaultsDeep(object, [sources])
+         * 返回 object。
+         * */
+        const defaultsDeep=_.defaultsDeep({ 'a': { 'b': 2 } }, { 'a': { 'b': 1, 'c': 3 } });
+        console.log('defaultsDeep',defaultsDeep)
+
+        /**
+         * @function findKey
+         * 返回最先被 predicate 判断为真值的元素 key，而不是元素本身。
+         * _.findKey(object, [predicate=_.identity])
+         * 返回匹配的 key，否则返回 undefined。
+         * */
+        const findKey=_.findKey({
+            'barney':  { 'age': 36, 'active': true },
+            'fred':    { 'age': 40, 'active': false },
+            'pebbles': { 'age': 1,  'active': true }
+        }, function(o) { return o.age < 40; });
+        console.log('findKey',findKey)
+
+        /**
+         * @function findLastKey
+         * 这个方法类似_.findKey。 不过它是反方向开始遍历的。
+         * _.findLastKey(object, [predicate=_.identity])
+         * */
+
+        /**
+         * @function forIn
+         * 使用 iteratee 遍历对象的**自身**和**继承**的可枚举属性。
+         * _.forIn(object, [iteratee=_.identity])
+         * 返回 object。
+         * */
+        function Foo2() {
+            this.a = 1;
+            this.b = 2;
+        }
+
+        Foo2.prototype.c = 3;
+
+        const forIn=_.forIn(new Foo2, function(value, key) {
+            console.log(key);
+        });
+        console.log('forIn',forIn)
+
+        /**
+         * @function forInRight
+         * 这个方法类似 _.forIn。 除了它是反方向开始遍历object的。
+         * _.forInRight(object, [iteratee=_.identity])
+         * */
+
+        /**
+         * @function forOwn
+         * 使用 iteratee 遍历**自身**的可枚举属性
+         * _.forOwn(object, [iteratee=_.identity])
+         * 返回 object。
+         * */
+        function Foo3() {
+            this.a = 1;
+            this.b = 2;
+        }
+
+        Foo3.prototype.c = 3;
+
+        const forOwn=_.forOwn(new Foo3, function(value, key) {
+            console.log(key);
+        });
+        console.log('forOwn',forOwn)
+
+        /**
+         * @function forOwnRight
+         * 这个方法类似 _.forOwn。 除了它是反方向开始遍历object的
+         * _.forOwnRight(object, [iteratee=_.identity])
+         * */
+
+        /**
+         * @function get
+         * 根据 object对象的path路径获取值。 如果解析 value 是 undefined 会以 defaultValue 取代。
+         * _.get(object, path, [defaultValue])
+         *  返回解析的值
+         * */
+        const get=_.get( { 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
+        console.log('get',get)
+
+        /**
+         * @function has
+         * 检查 path 是否是object对象的直接属性。
+         * _.has(object, path)
+         *  如果path存在，那么返回 true ，否则返回 false。
+         * */
+        const has=_.has({ 'a': { 'b': 2 } }, 'a');
+        console.log('has',has)
+
+        /**
+         * @function invert
+         * 创建一个object键值倒置后的对象。 如果 object 有重复的值，后面的值会覆盖前面的值。
+         * _.invert(object)
+         *  返回新的键值倒置后的对象。
+         * */
+        const invert=_.invert({ 'a': 1, 'b': 2, 'c': 1 });
+        console.log('invert',invert)
+
+        /**
+         * @function invert
+         * 创建一个object键值倒置后的对象。每个反转键相应反转的值是一个负责生成反转值key的数组
+         * _.invertBy(object, [iteratee=_.identity])
+         *  返回新的键值倒置后的对象。
+         * */
+        const invertBy=_.invertBy({ 'a': 1, 'b': 2, 'c': 1 }, function(value) {
+            return 'group' + value;
+        });
+        console.log('invert',invertBy)
+
+        /**
+         * @function keys
+         * 创建一个 object 的自身可枚举属性名为数组。
+         * _.keys(object)
+         * 返回包含属性名的数组。
+         * */
+        function Foo() {
+            this.a = 1;
+            this.b = 2;
+        }
+        Foo.prototype.c = 3;
+        const keys=_.keys(new Foo);
+        console.log('keys',keys)
+
+        /**
+         * @function keysIn
+         * 创建一个 object 自身 和 继承的可枚举属性名为数组。
+         * _.keysIn(object)
+         * 返回包含属性名的数组。
+         * */
+        const keysIn=_.keys(new Foo);
+        console.log('keysIn',keysIn)
+
+        /**
+         * @function mapKeys
+         * 这个方法创建一个对象，**对象的值与object相同**，**key不同**， key 是通过 iteratee 运行 object 中每个自身可枚举属性名字符串产生的。
+         * _.mapKeys(object, [iteratee=_.identity])
+         * 返回映射后的新对象。
+         * */
+        const mapKeys=_.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
+            return key + value;
+        });
+        console.log('mapKeys',mapKeys)
+
+        /**
+         * @function mapKeys
+         * 创建一个对象，**对象的key与object对象相同**，***value不同**值是通过 iteratee 运行 object 中每个自身可枚举属性名字符串产生的
+         * _.mapValues(object, [iteratee=_.identity])
+         * 返回映射后的新对象。
+         * */
+        const mapValues=_.mapValues({
+            'fred':    { 'user': 'fred',    'age': 40 },
+            'pebbles': { 'user': 'pebbles', 'age': 1 }
+        }, function(o) { return o.age; });
+        console.log('mapValues',mapValues)
+
+        /**
+         * @function merge
+         * 递归合并 sources 来源对象自身和继承的可枚举属性到 object 目标对象
+         * _.merge(object, [sources])
+         * 返回 object.
+         * */
+        const merge=_.merge({
+            'a': [{ 'b': 2 }, { 'd': 4 }]
+        }, {
+            'a': [{ 'c': 3 }, { 'e': 5 }]
+        });
+        console.log('merge',merge)
+
+        /**
+         * @function omit
+         * 忽略对象的属性,
+         * _.omit(object, [props])
+         * 返回新对象
+         * */
+        const omit=_.omit( { 'a': 1, 'b': '2', 'c': 3 }, ['a', 'c']);
+        console.log('omit',omit)
+
+        /**
+         * @function omitBy
+         * 忽略对象的属性,忽略 predicate（断言函数）判断是真值的属性
+         * _.omitBy(object, [predicate=_.identity])
+         * 返回新对象
+         * */
+        const omitBy=_.omitBy( { 'a': 1, 'b': '2', 'c': 3 },_.isNumber);
+        console.log('omitBy',omitBy)
+
+        /**
+         * @function pick
+         * 创建一个从 object 中选中的属性的对象。
+         * _.pick(object, [props])
+         * 返回新对象
+         * */
+        const pick=_.pick({ 'a': 1, 'b': '2', 'c': 3 }, ['a', 'c']);
+        console.log('pick',pick)
+
+        /**
+         * @function pickBy
+         * 创建一个对象，这个对象组成为从 object 中经 predicate 判断为真值的属性
+         * _.pickBy(object, [predicate=_.identity])
+         * 返回新对象
+         * */
+        const pickBy=_.pickBy( { 'a': 1, 'b': '2', 'c': 3 },_.isNumber);
+        console.log('pickBy',pickBy)
+
+        /**
+         * @function toPairs
+         * 创建一个object对象**自身**可枚举属性的键值对数组。这个数组可以通过_.fromPairs撤回。
+         * _.toPairs(object)
+         * 返回键值对的数组。
+         * */
+        const toPairs=_.toPairs(new Foo);
+        console.log('toPairs',toPairs);
+
+        /**
+         * @function toPairsIn
+         * 创建一个object对象**自身**和**继承**的可枚举属性的键值对数组。
+         * _.toPairsIn(object)
+         * 返回键值对的数组。
+         * */
+        const toPairsIn=_.toPairsIn(new Foo);
+        console.log('toPairsIn',toPairsIn)
+
+        /**
+         * @function transform
+         * 此方法将转换object对象为一个新的accumulator对象，结果来自iteratee处理自身可枚举的属性.如果返回 false，iteratee 会提前退出。
+         * _.transform(object, [iteratee=_.identity], [accumulator])
+         * 返回叠加后的值。
+         * */
+        const transform=_.transform([2, 3, 4], function(result, n) {
+            result.push(n *= n);
+            return n % 2 == 0;
+        }, []);
+        console.log('transform',transform)
+
+        /**
+         * @function values
+         * 创建 object 自身可枚举属性的值为数组。
+         *  _.values(object)
+         *  返回对象属性的值的数组。
+         * */
+        const values=_.values(new Foo);
+        console.log('values',values)
+
+        /**
+         * @function valuesIn
+         * 创建 object 自身和继承的可枚举属性的值为数组
+         * */
+    </script>
+</head>
+<body>
+
+</body>
+</html>
