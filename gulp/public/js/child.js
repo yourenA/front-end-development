@@ -1,0 +1,7 @@
+'use strict';
+
+/**
+ * Created by Administrator on 2017/2/13.
+ */
+console.log('child');
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNoaWxkLmpzIl0sIm5hbWVzIjpbImNvbnNvbGUiLCJsb2ciXSwibWFwcGluZ3MiOiI7O0FBQUE7OztBQUdBQSxRQUFRQyxHQUFSLENBQVksT0FBWiIsImZpbGUiOiJjaGlsZC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBDcmVhdGVkIGJ5IEFkbWluaXN0cmF0b3Igb24gMjAxNy8yLzEzLlxyXG4gKi9cclxuY29uc29sZS5sb2coJ2NoaWxkJykiXX0=

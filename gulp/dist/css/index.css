@@ -1,0 +1,12 @@
+div {
+  border: 1px solid #295;
+  border-radius: 16px;
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+  width: 50%;
+  height: 400px;
+  overflow: hidden;
+  background: url("../image/bg.jpg") no-repeat; }
+  div a {
+    color: #295;
+    font-size: 80px; }

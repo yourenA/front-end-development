@@ -1,0 +1,11 @@
+'use strict';
+
+/**
+ * Created by Administrator on 2017/2/13.
+ */
+var colleague = function colleague(num) {
+  var FQ = 'gulp56-projec.';
+  console.log(FQ + num);
+};
+colleague('1.999900066666');
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbImNvbGxlYWd1ZSIsIm51bSIsIkZRIiwiY29uc29sZSIsImxvZyJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7O0FBR0EsSUFBS0EsWUFBWSxTQUFaQSxTQUFZLENBQUNDLEdBQUQsRUFBTztBQUNwQixNQUFNQyxLQUFHLGdCQUFUO0FBQ0FDLFVBQVFDLEdBQVIsQ0FBWUYsS0FBR0QsR0FBZjtBQUNILENBSEQ7QUFJQUQsVUFBVSxnQkFBViIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBDcmVhdGVkIGJ5IEFkbWluaXN0cmF0b3Igb24gMjAxNy8yLzEzLlxyXG4gKi9cclxudmFyICBjb2xsZWFndWUgPSAobnVtKT0+e1xyXG4gICAgY29uc3QgRlE9J2d1bHA1Ni1wcm9qZWMuJztcclxuICAgIGNvbnNvbGUubG9nKEZRK251bSlcclxufTtcclxuY29sbGVhZ3VlKCcxLjk5OTkwMDA2NjY2NicpOyJdfQ==

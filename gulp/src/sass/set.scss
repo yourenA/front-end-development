@@ -1,0 +1,16 @@
+@charset "UTF-8";
+$main-color: #295;
+$style: solid;
+$base-fontSize: 16px;
+
+.div {
+  border-radius: $base-fontSize;
+  height: 900px;
+  overflow: hidden;
+  background: url("../image/bg.jpg") no-repeat;
+
+}
+a {
+  color: $main-color;
+  font-size: $base-fontSize * 10;
+}
