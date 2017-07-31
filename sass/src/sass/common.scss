@@ -1,0 +1,319 @@
+@charset "utf-8";
+//在顶部使用utf-8，那么在scss文件中就可以使用中文注释
+
+html {
+  font-size: 16px;
+}
+
+//定义变量
+$main-color: #293;
+$style: solid;
+$base-fontSize: 16px;
+div {
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 50%;
+  height: 100px;
+  line-height: 100px;
+  border: 1px solid $main-color;
+  text-align: center;
+}
+
+div.var {
+  //标签嵌套
+  a {
+    display: block;
+    color: $main-color;
+    font-size: $base-fontSize * 2;
+  }
+}
+
+//定义 @mixin,通过 @include mixinName引用mixin
+//遍历 @each $prefix in -webkit-, -moz-, -ms-, -o-, '' 。$prefix为将遍历列表的每一个值赋值给$prefix
+//拼接变量与普通字符串 #{}-bottom
+
+@mixin css3($property, $value) {
+  @each $prefix in -webkit-, -moz-, -ms-, -o-, '' {
+    #{$prefix}#{$property}: $value;
+  }
+}
+
+div.css3prefix {
+  @include css3(border-radius, 20px)
+}
+
+//定义 @function 通过functionName直接使用
+//@return @function需要有一个返回值
+
+@function black($opacity) {
+  @return rgba(0, 0, 0, $opacity)
+}
+
+@function white($opacity) {
+  @return rgba(255, 255, 255, $opacity)
+}
+
+div.BRWOpacity {
+  background: black(0.05);
+}
+
+//公共占位符 %name
+//@extend %name 引用公共占位符
+%message {
+  margin-bottom: .5em;
+  border-radius: .15em;
+  border: 1px solid;
+}
+
+// @if{} @else{} 判断语句 判断条件只有2个等号==
+// type-of判断类型
+// lighten内置颜色方法
+// @warn警告提示
+@mixin message($color) {
+  @if type-of($color) == color {
+    //引入公共占位代码
+    @extend %message;
+    color: $color;
+    border-color: lighten($color, 20%);
+    background: lighten($color, 40%);
+  } @else {
+    @warn "#{$color} is not a color for `message`.";
+  }
+}
+
+//定义键值对变量 $name:( key:value,key:value)
+$message-types: (
+        error : #b94a40,
+        valid : #468847,
+        warning : #c09853,
+        info : #3a87ad
+) !default;
+
+//@each $key,$value in $name 遍历键值对，不用通过map-get获取属性值
+@each $type, $color in $message-types {
+  .message-#{$type} {
+    @include message($color);
+  }
+}
+
+//px转rem
+//unitless 判断是否有单位
+//unit 获取当前的单位
+@function px2rem($px, $base-font-size: 16px) {
+  @if (unitless($px)) {
+    @return px2rem($px + 0px); // 调用自己
+  } @else if (unit($px) == rem) { //如果单位是rem，则直接返回rem
+    @return $px;
+  }
+  @return ($px / $base-font-size) * 1rem;
+}
+
+div.px2rem {
+  height: px2rem(125px);
+}
+
+//手淘flexible字号设置
+// & 为父一级元素
+@mixin font-dpr($font-size) {
+  font-size: $font-size;
+  [data-dpr="2"] & {
+    font-size: $font-size * 2;
+  }
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+  }
+}
+
+div.flexibleFontSize {
+  @include font-dpr(16px);
+}
+
+//利用键值对定义不同的z-index
+$layer: (
+        offcanvas: 1,
+        lightbox: 500,
+        dropdown: 10,
+        tooltip: 15
+);
+
+// map-has-key(对象, 属性) 判断对象中是否有属性
+// map-get(对象, 属性) 从键值对中获取属性
+@function layer($name) {
+  @if map-has-key($layer, $name) { //$layer中是否有lightbox这个属性
+    @return map-get($layer, $name);
+  }
+  @warn "The key #{$name} is not in the map '$layer'";
+  @return null;
+}
+
+div.ZIndex {
+  z-index: layer(lightbox);
+}
+
+//利用map处理断点
+$breakpoints: (
+        small: 320px,
+        medium: 600px,
+        large: 768px
+);
+
+//`@content`用在`mixin`里面的，当定义一个`mixin`后，并且设置了`@content`；
+//`@include`的时候可以传入相应的内容到`mixin`里面,也就是include后面的{}
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $value: map-get($breakpoints, $breakpoint); //将对象的某一个值赋值为变量
+    @media screen and (min-width: $value) {
+      @content; //@content读取@include下面的内容{}
+    }
+  } @else {
+    @warn "Unknown `#{$breakpoint}` in $breakpoints";
+  }
+}
+
+.breakpoint {
+  background-color: #f2f2f2;
+  @include respond-to(medium) {
+    background-color: #666;
+  }
+  @include respond-to(large) {
+    background-color: #4455ff;
+  }
+}
+
+//利用map更换主题
+$themes: (
+        theme1: theme-light,
+        theme2: theme-dark
+);
+//嵌套map
+$config: (
+        theme1: (
+                background: #f2f2f2,
+                color: #000
+        ),
+        theme2: (
+                background: #666,
+                color: #fff
+        )
+);
+
+@function setStyle($map, $object, $style) {
+  @if map-has-key($map, $object) {
+    @return map-get(map-get($map, $object), $style);
+  }@else{
+    @warn "The key `#{$object}` is not available in the map.";
+    @return null;
+  }
+}
+
+div.theme {
+  //遍历$themes
+  @each $key, $value in $themes {
+    @if map-has-key($config, $key) {
+      .#{$value} & {//   .theme-light div.theme / .theme-dark div.theme
+        background: setStyle($config, $key, background);
+        color: setStyle($config, $key, color);
+      }
+    } @else {
+      @warn "The key `#{$key} isn't defined in the map $config`"
+    }
+  }
+}
+
+//根据dpr选择不同大小的图片作为背景图
+//@media 媒体查询 格式 @media(),()或@media screen and ()
+@mixin bg-image($url){
+  background-image: url($url +'@2x.png');
+  @media(-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3){
+    background-image: url($url +'@3x.png');
+  }
+}
+
+//清除浮动
+$legacy-support-for-ie: true !default;
+@mixin clearfix {
+  //判断是否要支持ie
+  @if $legacy-support-for-ie {
+    *zoom: 1;
+  }
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+//公共占位符使用include引入mixin
+%clearfix {
+  @include clearfix;
+}
+
+//通过extend 引入公共占位符
+.clearfix {
+  @extend %clearfix;
+}
+
+//透明度
+@mixin opacity($opacity:50) {//在参数中可以设置默认值
+  opacity: $opacity / 100;
+  //判断是否要支持ie
+  @if $legacy-support-for-ie {
+    filter: alpha(opacity=$opacity);
+  }
+}
+
+.opacity {
+  background: black(1);
+  @include opacity(10);
+  color: white(1);
+  a {
+    color: white(1);
+  }
+}
+
+//三角形
+@mixin arrow($direction,$size,$color) {
+  //在mixin中也可以使用& 表示引用这个mixin的上一级
+  &:after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    border-width: $size;
+    cursor: pointer;
+    @if $direction == top {
+      border-style: dashed dashed solid dashed;
+      border-color: transparent transparent $color transparent;
+      border-top: none;
+    } @else if $direction == bottom {
+      border-style: solid dashed dashed dashed;
+      border-color: $color transparent transparent transparent;
+      border-bottom: none;
+    } @else if $direction == right {
+      border-style: dashed dashed dashed solid;
+      border-color: transparent transparent transparent $color;
+      border-right: none;
+    } @else if $direction == left {
+      border-style: dashed solid dashed dashed;
+      border-color: transparent $color transparent transparent;
+      border-left: none;
+    }
+  }
+
+}
+
+.arrow {
+  position: relative;
+  //mixin中也是 &:after
+  &:after{
+    top: 100%;
+    left: 0;
+  }
+  @include arrow(bottom, 20px, $main-color); //向下，10px大小，绿色箭头
+}

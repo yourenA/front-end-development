@@ -1,0 +1,112 @@
+html {
+  font-size: 16px; }
+
+div {
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 50%;
+  height: 100px;
+  line-height: 100px;
+  border: 1px solid #293;
+  text-align: center; }
+
+div.var a {
+  display: block;
+  color: #293;
+  font-size: 32px; }
+
+div.css3prefix {
+  border-radius: 20px; }
+
+div.BRWOpacity {
+  background: rgba(0, 0, 0, 0.05); }
+
+.message-error, .message-valid, .message-warning, .message-info {
+  margin-bottom: .5em;
+  border-radius: .15em;
+  border: 1px solid; }
+
+.message-error {
+  color: #b94a40;
+  border-color: #d68f89;
+  background: #f0d7d5; }
+
+.message-valid {
+  color: #468847;
+  border-color: #7aba7b;
+  background: #bdddbd; }
+
+.message-warning {
+  color: #c09853;
+  border-color: #dbc59e;
+  background: #f7f1e8; }
+
+.message-info {
+  color: #3a87ad;
+  border-color: #7ab5d3;
+  background: #c7e0ec; }
+
+div.px2rem {
+  height: 7.8125rem; }
+
+div.flexibleFontSize {
+  font-size: 16px; }
+  [data-dpr="2"] div.flexibleFontSize {
+    font-size: 32px; }
+  [data-dpr="3"] div.flexibleFontSize {
+    font-size: 48px; }
+
+div.ZIndex {
+  z-index: 500; }
+
+.breakpoint {
+  background-color: #f2f2f2; }
+  @media screen and (min-width: 600px) {
+    .breakpoint {
+      background-color: #666; } }
+  @media screen and (min-width: 768px) {
+    .breakpoint {
+      background-color: #4455ff; } }
+
+.theme-light div.theme {
+  background: #f2f2f2;
+  color: #000; }
+.theme-dark div.theme {
+  background: #666;
+  color: #fff; }
+
+.clearfix {
+  *zoom: 1; }
+  .clearfix:before, .clearfix:after {
+    content: "";
+    display: table; }
+  .clearfix:after {
+    clear: both;
+    overflow: hidden; }
+
+.opacity {
+  background: black;
+  opacity: 0.1;
+  filter: alpha(opacity=10);
+  color: white; }
+  .opacity a {
+    color: white; }
+
+.arrow {
+  position: relative; }
+  .arrow:after {
+    top: 100%;
+    left: 0; }
+  .arrow:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    border-width: 20px;
+    cursor: pointer;
+    border-style: solid dashed dashed dashed;
+    border-color: #293 transparent transparent transparent;
+    border-bottom: none; }
