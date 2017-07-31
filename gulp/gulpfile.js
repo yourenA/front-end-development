@@ -50,7 +50,11 @@ gulp.task('sass', function() {
         }))
         .pipe(gulp.dest('./public/css'))
 });
-
+gulp.task('css', function() {
+    gulp.src('./src/css/*.css')
+        .pipe(gulp.dest('./public/css'))
+        .pipe(browserSync.reload({stream: true}));
+});
 gulp.task('js', function() {
     gulp.src('./src/js/*.js')
         .pipe(sourcemaps.init())
@@ -72,10 +76,11 @@ gulp.task('image', function() {
         .pipe(imagemin())
         .pipe(gulp.dest('./public/image'))
 });
-gulp.task('release', ['sass', 'html','js','image']);
+gulp.task('release', ['sass','css', 'html','js','image']);
 
 gulp.task('watch', function() {
     gulp.watch('src/sass/*.scss', ['sass']); //监控scss文件
+    gulp.watch('src/css/*.css', ['css']); //监控css文件
     gulp.watch(['src/*.html'], ['html']); //监控html文件
     gulp.watch(['src/js/*.js'], ['js']); //监控js文件
     gulp.watch(['src/image/*'], ['image']); //监控图片文件
