@@ -5,10 +5,14 @@ $base-fontSize: 16px;
 
 .div {
   border-radius: $base-fontSize;
-  height: 900px;
   overflow: hidden;
   background: url("../image/bg.jpg") no-repeat;
-
+  cursor: pointer;
+  height: 32px;
+  line-height: 32px;
+  div{
+    display: inline-block;
+  }
 }
 a {
   color: $main-color;

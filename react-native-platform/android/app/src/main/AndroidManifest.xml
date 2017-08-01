@@ -1,0 +1,81 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.reactnativeplatform"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!--*************************高德地图-定位所需要权限*************************-->
+    <!-- Normal Permissions 不需要运行时注册 -->
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+
+    <!-- 请求网络 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
+    <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->
+
+    <!-- 需要运行时注册的权限 -->
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--用于提高GPS定位速度-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--读取缓存数据-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- 更改设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!--*************************高德地图-定位所需要权限*************************-->
+    <!--相机-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-sdk
+            android:minSdkVersion="16"
+            android:targetSdkVersion="22"/>
+
+    <application
+            android:name=".MainApplication"
+            android:allowBackup="true"
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher"
+            android:theme="@style/AppTheme">
+        <meta-data
+                android:name="com.baidu.lbsapi.API_KEY"
+                android:value="o6cTOkWfvsvGuSWrWoqgGXPiDwgpSbB1"/>
+        <!--高德地图SDK key设置-->
+        <!--<meta-data-->
+        <!--android:name="com.amap.api.v2.apikey"-->
+        <!--android:value="7a56c03ec77699dc844315e1ec478a21"/>-->
+        <!--高德地图APS服务设置-->
+        <!--<service android:name="com.amap.api.location.APSService" >-->
+        <!--</service>-->
+        <activity
+                android:name=".MainActivity"
+                android:label="@string/app_name"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+                android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- 微信Activity -->
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:exported="true"
+                android:label="@string/app_name"/>
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
+    </application>
+
+</manifest>

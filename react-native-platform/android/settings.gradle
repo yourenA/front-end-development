@@ -1,0 +1,20 @@
+rootProject.name = 'ReactNativePlatform'
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
+include ':react-native-splash-screen'
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
+//include ':RNLocation'
+//project(':RNLocation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gps')
+//include ':ele-react-native-location'
+//project(':ele-react-native-location').projectDir = new File(rootProject.projectDir, '../node_modules/ele-react-native-location/android')
+//include ':react-native-smart-amap-location'
+//project(':react-native-smart-amap-location').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smart-amap-location/android')
+//include ':react-native-smart-amap'
+//project(':react-native-smart-amap').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smart-amap/android')
+include ':react-native-baidu-map'
+project(':react-native-baidu-map').projectDir = new File(settingsDir, '../node_modules/react-native-baidu-map/android')
+include ':react-native-photo-view'
+project(':react-native-photo-view').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-photo-view/android')
+include ':RCTWeChat'
+project(':RCTWeChat').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-wechat/android')
+include ':app'

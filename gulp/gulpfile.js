@@ -22,12 +22,12 @@ gulp.task('server', function() {
             baseDir: "./public"
         },
         ui: {
-            port: 3002,/*PC端的UI控制界面端口*/
+            port: 4002,/*PC端的UI控制界面端口*/
             weinre: {
-                port: 3003/*手机端的UI控制界面端口*/
+                port: 4003/*手机端的UI控制界面端口*/
             }
         },
-        port: 3001,/*手机端是192.168.1.110.3001*/
+        port: 4001,/*手机端是192.168.1.110.4001*/
     });
 });
 gulp.task('html', function() {
