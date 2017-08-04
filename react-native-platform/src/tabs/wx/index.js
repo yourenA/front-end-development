@@ -24,7 +24,7 @@ export default class Wx extends Component {
         }
     }
 
-    async componentDidMount() {
+    async componentDidMount() { //async  componentDidMount() { } AsyncStorage为异步
         let wxSelectedId=await AsyncStorage.getItem('wxSelectedId');
         if(wxSelectedId){
             console.log("wxSelectedId",JSON.parse(wxSelectedId));

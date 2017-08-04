@@ -96,7 +96,7 @@ export default class Sub extends Component {
                 }
             }
             AsyncStorage.setItem('wxSelectedId', JSON.stringify(temp));
-            Actions.pop({ refresh: { test: true }})
+            Actions.pop({ refresh: { test: true }})// 返回上一个页面Actions.pop({}) 同时向上一个页面传递一个对象，方便在componentWillReceiveProps刷新state
         }
 
     }

@@ -28,15 +28,15 @@ export default class Content extends Component {
         this.timer && clearTimeout(this.timer)
     }
     _fetch=()=>{
-        fetch('http://news-at.zhihu.com/api/4/news/' + this.props.articleID)
-            .then((response) => response.json())
+        fetch('http://news-at.zhihu.com/api/4/news/' + this.props.articleID)//直接使用react-native自带的fetch
+            .then((response) => response.json()) //将返回数据转变为json
             .then((responseJson) => {
                 fetch('http://daily.zhihu.com/css/share.css?v=5956a')
-                    .then((responseCSS) => responseCSS.text())
+                    .then((responseCSS) => responseCSS.text()) //将返回数据转变为text
                     .then((css) => {
                         let cssLink = '<style>'+css+'</style>',
+                            //imgLink 题图
                             imgLink = '<div class="img-wrap"><h1 class="headline-title">'+responseJson.title+'</h1><span class="img-source"></span><img src="'+responseJson.image+'" alt=""><div class="img-mask"></div></div>'
-                        console.log(cssLink + responseJson.body.replace(/<div class=\"img-place-holder\"><\/div>/, imgLink))
                         this.setState({
                             html: cssLink + responseJson.body.replace(/<div class=\"img-place-holder\"><\/div>/, imgLink),
                         })

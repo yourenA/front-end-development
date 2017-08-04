@@ -8,8 +8,9 @@ import axios from 'axios';
 let url = 'http://news-at.zhihu.com/api/4/news/latest'
 exports.fetchEndPoints = ()=> {
     return async(dispatch)=> {
-        dispatch(endpointsRequest());
+        dispatch(endpointsRequest());//发起请求
         try {
+            //异步请求
             let response = await axios({
                 url:url,
             });

@@ -151,10 +151,12 @@ dependencies {
     //compile project(':react-native-smart-amap')
     compile project(':react-native-baidu-map')
     compile project(':react-native-photo-view')
+    compile project(':react-native-fetch-blob')
     compile project(':RCTWeChat')    // Add this line only.
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
+    compile "com.squareup.okhttp3:okhttp:3.4.1"
 
 }
 

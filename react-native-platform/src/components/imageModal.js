@@ -41,14 +41,19 @@ export default class ImageModal extends Component {
      * 这个方法和 componentDidMount 类似，在组件重新被渲染之后，
      * componentDidUpdate(object prevProps, object prevState) 会被调用。可以在这里访问并修改 DOM。
      * */
+    componentDidMount(){
+        console.log('componentDidMount')
+    }
     componentDidUpdate() {
-        this.props.hide ? this._hideModal() : this._showModal()
+        console.log('componentDidUpdate')
+        this.props.hide ? this._hideModal() : this._showModal()//初始的时候就调用了_hideModal
     }
 
     _hideModal = ()=> {
         console.log('hdieModal');
         let animated = Animated.sequence([
             Animated.parallel([
+                //响应式数据，改变的时候，绑定的视图也会同时改变
                 Animated.timing(this.state.modalSize, {
                     toValue: .5,
                     duration: this.state.animatedDuration,

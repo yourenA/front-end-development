@@ -28,8 +28,8 @@ export default class LoadingSpinner extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flex: 1,//使用flex布局占据全部，默认主轴是垂直方向
+        justifyContent: 'center',//主轴对齐
+        alignItems: 'center',//侧轴对齐
     },
 })

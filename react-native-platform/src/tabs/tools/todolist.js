@@ -22,7 +22,6 @@ import {
     Image,
     Alert
 } from 'react-native';
-import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import {Actions} from 'react-native-router-flux'
 import NavBar from './../../components/NavBar'
 
@@ -63,7 +62,6 @@ export default class Todolist extends Component {
                             AsyncStorage.setItem('todoListDate', JSON.stringify(this.state.todolist));
                             break
                         }
-
                     }
                 }},
             ]
@@ -152,7 +150,7 @@ const styles = StyleSheet.create({
         width:60,
         height:30,
         marginRight:5,
-        position:'absolute',
+        position:'absolute',//absolute不会受到flex的影响
         left:250
     }
 });

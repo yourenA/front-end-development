@@ -44,7 +44,7 @@ export default class Pic extends Component {
                         <TouchableWithoutFeedback onPress={this.onPressImage.bind(this,rowID)}>
                             <View style={{
                                 padding: 10,
-                                marginTop: 10,
+                                marginTop: 10,//不同方向的margi需要分开写
                                 marginLeft: 10,
                                 marginRight: 10,
                                 borderRadius: 5,

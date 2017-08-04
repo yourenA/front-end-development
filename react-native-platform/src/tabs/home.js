@@ -22,8 +22,10 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 import LoadingSpinner from '../components/loadingSpinner'
 import { fetchEndPoints } from './../actions/fetchZH';
 import { connect } from 'react-redux';
-import NavBar from './../components/NavBar'
-const ListItem = ({data}) => {
+import NavBar from './../components/NavBar';
+
+//使用纯函数定义无状态(无state)函数组件,第一个参数为props,只有一个render方法
+const ListItem = ({data}) => {//{data}==> data=this.props.data获得this.props中的某个值
     return (
         <TouchableNativeFeedback
             background={   TouchableNativeFeedback.Ripple('#ffdb42',false)}
@@ -47,9 +49,7 @@ class Home extends Component {
         super()
     }
     componentDidMount=()=>{
-        console.log("this.props",this.props);
         if(!this.props.fetchZH.loaded){
-            console.log("获取数据")
             this.props.dispatch( fetchEndPoints());
         }
     }
@@ -67,7 +67,7 @@ class Home extends Component {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}
-                            source={{uri: ele.image}}
+                            source={{uri: ele.image}}//{uri}图片地址，不是url
                             resizeMode='cover'
                         >
                             <Text style={styles.slideTitle}>
@@ -95,9 +95,9 @@ class Home extends Component {
                     />
                     <ListView
                         dataSource={this.props.fetchZH.stories}
-                        renderRow={(rowData, sectionID, rowID) => <ListItem data={rowData} key={rowID}/>}
+                        renderRow={(rowData, sectionID, rowID) => <ListItem data={rowData} key={rowID}/>}//renderRow渲染每一个item
                         renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => {
-                            return <View style={{borderWidth: .3, borderColor: '#ccc'}} key={rowID}></View>
+                            return <View style={{borderWidth: .3, borderColor: '#ccc'}} key={rowID}></View>//renderSeparator渲染item之间的分界
                         }}
                     />
                 </ScrollView>
@@ -113,8 +113,8 @@ let deviceWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingBottom: 50
+        flex: 1,//要定义，否则没有高度
+        paddingBottom: 50//因为底部有导航，所以需要paddingBottom
     },
     slideContainer: {
         height: 200,
@@ -133,18 +133,18 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     listItem: {
-        flexDirection: 'row',
+        flexDirection: 'row',//改变flex默认方向
         width: deviceWidth,
         padding: 10,
         backgroundColor: 'transparent',
     },
     itemTitle: {
-        flex: 1,
+        flex: 1,//占据剩余宽度
         lineHeight: 20,
         marginRight: 5
     },
     itemImage: {
-        width: 60,
+        width: 60,//固定宽度
         height: 60
     }
 })

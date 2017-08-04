@@ -13,12 +13,9 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native'
-import {fetchToutiao} from './../../actions/news/toutiao';
-import {connect} from 'react-redux';
 import LoadingSpinner from '../../components/loadingSpinner'
 import WxItem from '../../components/wxItem'
 import RightBottomBtn from './../../components/rightBottomBtn'
-import {Actions} from 'react-native-router-flux'
 import axios from 'axios';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
@@ -77,6 +74,7 @@ class Tab extends Component {
     _renderTurnTopBtn=()=> {
         if(this.state.showTurnTop){
             return (
+                //this._scrollView.scrollTo({y: 0}) 指定scrollView 移动到哪个位置
             <RightBottomBtn onPress={() => { this._scrollView.scrollTo({y: 0}); }} icon="chevron-up" />
             )
         }else {
@@ -97,6 +95,7 @@ class Tab extends Component {
     }
     render() {
         /**
+         * ！important
          * data通过cloneWithRows拼接，不能直接使用data.length
          * */
         if (this.state.data.rowIdentities.length == 0) return <LoadingSpinner animating={true}/>;

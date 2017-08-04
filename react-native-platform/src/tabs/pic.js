@@ -14,14 +14,14 @@ import {
 } from 'react-native'
 
 import ImageModal from '../components/imageModal'
-const ImageItem = ({ url, images, rowID, t }) => {//t为Pic的this
+const ImageItem = ({ url, images, rowID, t }) => {//t为Pic的this ,父组件可以通过props将自身的this传递给子组件
     let gif = url.endsWith('.gif'), newUrl = url
     if (gif) newUrl = url.replace('mw690','small')
         .replace('mw1024','small')
         .replace('mw1200','small')
 
     return (
-        <TouchableWithoutFeedback onPress={() => {t.setState({modalUri: url, modalHide: false})}}>
+        <TouchableWithoutFeedback onPress={() => {t.setState({modalUri: url, modalHide: false})}}>{/*在子组件调用父组件的this.setState({})*/}
             <View style={{padding: 10, margin: 10, borderRadius: 5, backgroundColor: '#FFF'}}>
                 <Image
                     style={{
@@ -40,7 +40,7 @@ const ImageItem = ({ url, images, rowID, t }) => {//t为Pic的this
                             fontSize: 18
                         }}
                     >
-                        {gif && 'PLAY'}
+                        {gif && 'PLAY'}{/*如果事gif显示'PLAY'*/}
                     </Text>
                 </Image>
 
@@ -116,16 +116,16 @@ export default class Pic extends Component {
                             refreshing={this.state.isRefreshing}
                             onRefresh={this._onRefresh}
                             tintColor='#FFDB42'
-                            title='拼命加载中'
-                            titleColor="black"
+                            title='拼命加载中' //android没有
+                            titleColor="black"//android没有
                             colors={['black']}
                             progressBackgroundColor="#FFDB42"
 
                         />
                     }
 
-                    onEndReachedThreshold={200}
-                    onEndReached={this._onLoadMore}
+                    onEndReachedThreshold={200} //距离底部多少获取更多
+                    onEndReached={this._onLoadMore} //拉到底部钩子
                 />
                 <ImageModal
                     uri={this.state.modalUri}

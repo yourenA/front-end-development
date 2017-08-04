@@ -20,11 +20,13 @@ const shareIconWechat = require('../img/share_icon_wechat.png');
 const shareIconMoments = require('../img/share_icon_moments.png');
 const shareIconQQ = require('../img/share_icon_qq.png');
 const shareIconQQMoment = require('../img/share_icom_qqmoment.png');
+
 export default class Share extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            shareBottom: new Animated.Value(130),
+            //需要移动的值必须使用new Animated.Value()去定义
+            shareBottom: new Animated.Value(130),//初始的时候transform: [{translateY: this.state.shareBottom}]，向下移动130 ，隐藏
             isShareModal: this.props.isShareModal
         }
     }
@@ -42,7 +44,7 @@ export default class Share extends Component {
         this.setState({isShareModal: true});
         let animated = Animated.sequence([
             Animated.timing(this.state.shareBottom, {
-                toValue: 0,
+                toValue: 0, //移动到位置 0 显示
                 duration: 400,
             }),
         ])
@@ -53,7 +55,7 @@ export default class Share extends Component {
         this.setState({isShareModal: false}, function () {
             let animated = Animated.sequence([
                 Animated.timing(this.state.shareBottom, {
-                    toValue: 130,
+                    toValue: 130, //隐藏的时候要重新将位置改为 130 ，否则重新打开的时候就没有移动的动画效果
                     duration: 400,
                 }),
             ])
@@ -73,6 +75,7 @@ export default class Share extends Component {
                         onPress={this.hideShare}
                     >
                         <View key={'spinner'} style={styles.spinner}>
+                            {/*使用 Animated.View 包住需要运动的元素 */}
                             <Animated.View
                                 style={{
                                     position: 'absolute',
@@ -93,7 +96,7 @@ export default class Share extends Component {
                                         <TouchableOpacity
                                             style={styles.base}
                                             onPress={() => {
-                                                WeChat.isWXAppInstalled().then((isInstalled) => {
+                                                WeChat.isWXAppInstalled().then((isInstalled) => {//判断是否安装微信客户端
                                                     console.log("isInstalled", isInstalled)
                                                     if (isInstalled) {
                                                         WeChat.shareToSession(this.props.shareToSession).then((result)=> {

@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './../reducers/index';
 
 const configureStore = preloadedState => {
+    //createStore(rootReducer,preloadedState,applyMiddleware) 创建store
     return createStore (
         rootReducer,
         preloadedState,

@@ -33,6 +33,8 @@ export default class Content extends Component {
     componentDidMount = ()=> {
     }
     onNavigationStateChange=(navState)=>{
+        //当点击webview内部的链接进行页面跳转，进入下一层页面，navState.canGoBack 就会变成true
+        //当返回顶层页面，navState.canGoBack 就会变成false
         this.setState({
             WebViewCangoback:navState.canGoBack
         })
@@ -53,11 +55,11 @@ export default class Content extends Component {
                     ref={(WebView)=>this._WebView=WebView}
                     style={{flex: 1}}
                     startInLoadingState={true}
-                    renderLoading ={()=>{return <LoadingSpinner animating={true}/>}}
+                    renderLoading ={()=>{return <LoadingSpinner  animating={true}/>}}
                     source={{uri: this.state.url}}
-                    javaScriptEnabled={true}
-                    domStorageEnabled={true}
-                    onNavigationStateChange={this.onNavigationStateChange}
+                    javaScriptEnabled={true} //是否开启javascript ，默认开启
+                    domStorageEnabled={true} //是否开启DOM本地存储。
+                    onNavigationStateChange={this.onNavigationStateChange} //当导航状态发生变化的时候调用
                 />
             </View>
         );

@@ -53,14 +53,15 @@ export default class Todo extends Component {
     }
 
     changeTitle = (title)=> {
+        console.log("title",title);
         this.setState({title: title})
     }
 
     changeContent = (event)=> {
-        console.log(event.nativeEvent);
+        console.log("event",event.nativeEvent.contentSize);
         this.setState({
             content: event.nativeEvent.text,
-            height: event.nativeEvent.contentSize.height
+            height: event.nativeEvent.contentSize.height //改变内容输入框的高度
         });
     }
     leftBtnPress=()=>{
@@ -68,6 +69,7 @@ export default class Todo extends Component {
         Actions.pop()
     }
     async rightNewBtnPress(){
+        //新建
         if(this.state.title.length===0||this.state.content.length===0){
             Alert.alert('标题和内容不能为空');
             return false
@@ -91,6 +93,7 @@ export default class Todo extends Component {
 
     }
     async rightEditBtnPress(){
+        //编辑
         let todolistEditDate=await AsyncStorage.getItem('todoListDate');
         todolistEditDate=JSON.parse(todolistEditDate);
         console.log("todolistEditDate",todolistEditDate)
@@ -139,7 +142,7 @@ export default class Todo extends Component {
                                 editable={!this.props.isDone}
                                 placeholder="标题..."
                                 style={styles.title_input}
-                                onChangeText={this.changeTitle}
+                                onChangeText={this.changeTitle}//注意这里是onChangeText
                                 value={this.state.title}
                             />
                             {
@@ -155,7 +158,7 @@ export default class Todo extends Component {
                             editable={!this.props.isDone}
                             placeholder="内容..."
                             multiline={true}
-                            onChange={this.changeContent}
+                            onChange={this.changeContent}//注意这里是onChange
                             underlineColorAndroid="transparent"
                             style={[styles.textInputStyle, {height: Math.max(150, this.state.height)}]}
                             value={this.state.content}
@@ -206,6 +209,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingTop: 0,
         paddingBottom: 0,
-        textAlignVertical: 'top'
+        textAlignVertical: 'top'//顶部对齐，默认居中
     },
 });

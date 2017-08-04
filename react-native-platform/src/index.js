@@ -35,6 +35,7 @@ import ShowImage from './tabs/showImage';
 // import SmartLocation from './tabs/smartMapLocation';
 // import Location from './tabs/location';
 // import EleLocation from './tabs/eleLocation';
+import Pic from './tabs/pic';
 
 class TabIcon extends React.Component {
     render() {
@@ -72,7 +73,7 @@ export default class Index extends Component {
             this.lastBackPressed = Date.now()
             ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT)
             /**
-             * onExitApp返回true为退出
+             * onExitApp返回false为退出
              * */
             return true
         }else {
@@ -88,7 +89,7 @@ export default class Index extends Component {
          * paddingBottom: 50
          *
          * Scene下面如果又多个组件，则第一个组件是显示的主页
-         * 在主页可以通过Actions.keyName({articleID: '123456'})}跳转到子页面，子页面默认带返回按钮
+         * 在主页可以通过Actions.keyName({articleID: '123456'})}跳转到子页面，参数为一个需要向子页面传递的数据对象，子页面默认带返回按钮
          * hideNavBar显示与隐藏顶部
          * hideTabBar显示与隐藏底部
          * type="replace" 左按钮会覆盖back按钮
@@ -97,6 +98,7 @@ export default class Index extends Component {
             <Router onExitApp={this._backAndroidHandler}>
                 <Scene key="root" hideNavBar>
                     <Scene key="tabbar" tabs tabBarStyle={{backgroundColor: '#FFF', borderTopWidth: 1, borderTopColor: '#BBB'}}>
+                        {/*Scene 会传递相关的props到icon(TabIcon)中*/}
                         <Scene key="tab1"  title="知乎" icon={TabIcon} tabIcon="home" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='article'  component={Home} hideNavBar   duration={0}/>
                             <Scene key="content" component={Content}   duration={0} hideNavBar hideTabBar/>
@@ -113,7 +115,7 @@ export default class Index extends Component {
                         </Scene>
                         <Scene key="tab5"  title="千百度" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='tool' title='工具'  duration={0} component={Tool} hideNavBar />
-                            <Scene key='mqtt' title='Mqtt test'  duration={0} component={MqttTest} hideNavBar  hideTabBar/>
+                            <Scene key='mqtt' title='Mqtt test'  duration={0} component={Pic} hideNavBar  hideTabBar/>
                             <Scene key='scanQR' title='扫描二维码'  duration={0} component={ScanQR} hideNavBar  hideTabBar/>
                             <Scene key='weather' title='天气'  duration={0} component={Weather} hideNavBar  hideTabBar/>
                             <Scene key='todolist' title='记事本'   hideNavBar
@@ -134,6 +136,7 @@ export default class Index extends Component {
     }
 }
 
+//StyleSheet.create({key:{} })创建样式
 const styles = StyleSheet.create({
     container: {
         flex: 1,
