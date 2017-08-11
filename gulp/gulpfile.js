@@ -71,12 +71,16 @@ gulp.task('js', function() {
         }))
         .pipe(gulp.dest('./public/js'))
 });
+gulp.task('dist-js', function() {
+    gulp.src('./src/dist-js/*.js')
+        .pipe(gulp.dest('./public/js'))
+});
 gulp.task('image', function() {
     gulp.src('./src/image/*.{png,jpeg,jpg,gif,svg,ico}')
         .pipe(imagemin())
         .pipe(gulp.dest('./public/image'))
 });
-gulp.task('release', ['sass','css', 'html','js','image']);
+gulp.task('release', ['sass','css', 'html','js','dist-js','image']);
 
 gulp.task('watch', function() {
     gulp.watch('src/sass/*.scss', ['sass']); //监控scss文件

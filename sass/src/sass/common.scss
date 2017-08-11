@@ -9,7 +9,7 @@ html {
 $main-color: #293;
 $style: solid;
 $base-fontSize: 16px;
-div {
+.div {
   margin: 0 auto;
   margin-bottom: 10px;
   width: 50%;
@@ -81,7 +81,7 @@ div.BRWOpacity {
   }
 }
 
-//定义键值对变量 $name:( key:value,key:value)
+//定义键值对变量 $name:( key:value,key:value)，可以在样式中直接通过map-get($message-types, warning)来过去某一个值
 $message-types: (
         error : #b94a40,
         valid : #468847,
@@ -157,7 +157,7 @@ $breakpoints: (
         large: 768px
 );
 
-//`@content`用在`mixin`里面的，当定义一个`mixin`后，并且设置了`@content`；
+//内容块`@content`用在`mixin`里面的，当定义一个`mixin`后，并且设置了`@content`；
 //`@include`的时候可以传入相应的内容到`mixin`里面,也就是include后面的{}
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
@@ -177,6 +177,39 @@ $breakpoints: (
   }
   @include respond-to(large) {
     background-color: #4455ff;
+  }
+}
+
+
+//mixin 参数为类名
+@mixin equal-table($child: 'li') {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  //unquote($string)：删除字符串中的引号
+  #{unquote($child)} {
+    display: table-cell;
+  }
+}
+
+.actions {
+  @include equal-table('.actions-btn');
+  .actions-btn {
+    color: $main-color;
+    // background-color: #fff;
+    text-align: center;
+    border-top: 1px solid currentColor;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    box-sizing: border-box;
+    &:first-of-type {
+      border-left: none;
+    }
+    &:active,
+    &:hover {
+      background: darken(#fff, 10%);
+    }
   }
 }
 
@@ -316,4 +349,105 @@ $legacy-support-for-ie: true !default;
     left: 0;
   }
   @include arrow(bottom, 20px, $main-color); //向下，10px大小，绿色箭头
+}
+
+
+//线型进度条
+.bar-progress {
+  position: relative;
+  height: 2px;
+  background: #dbdbdb;
+  overflow: hidden;
+  border-radius: 2px;
+  .progress-percent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #007aff;
+    border-radius: 2px;
+  }
+}
+
+//圆形进度条
+.circle-progress{
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 4px solid #dbdbdb;
+  border-radius: 50%;
+  box-sizing: border-box;
+  .circle-left,.circle-right{
+    width: 50px;
+    height: 100px;
+    top: -4px;
+    position: absolute;
+    overflow: hidden;
+  }
+  %inner{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    border: 4px solid #007aff;
+    box-sizing: border-box;
+    transition: transform 0.5s linear;
+  }
+  .circle-left{
+    left:-4px;
+    .left-inner{
+      left:0;
+      transition-delay: 0.5s;
+      clip: rect(0, 100px, 100px, 50px);//clip: rect(0, 100px, 100px, 50px);相交的区域是结果，留下右半部分，因为overflow:hidden,所以只能通过旋转才能看到蓝色边框
+      @extend %inner;
+    }
+  }
+  .circle-right{
+    right:-4px;
+    .right-inner{
+      right:0;
+      clip: rect(0, 50px, 100px, 0);//留下左半部分
+      @extend %inner;
+    }
+  }
+
+}
+
+//input range
+
+.range-wrap{
+  width: 300px;
+  margin: 10px auto;
+  position: relative;
+  box-sizing: border-box;
+  height: 30px;
+  &::before{
+    content: '';
+    width: 100%;
+    background: #afa7ab;
+    height: 2px;
+    position: absolute;
+    top: 12px;
+    z-index: 49;
+  }
+  input[type=range] {
+    position: relative;
+    z-index: 59;
+    vertical-align: middle;
+    outline: 0;
+    -webkit-appearance: none;//同时设置-webkit-appearance
+    width:100%;
+    &::-webkit-slider-thumb {
+      z-index: 69;
+      -webkit-appearance: none;//同时设置-webkit-appearance
+      height: 20px;
+      width: 20px;
+      background: #4675ff;
+      border-radius: 50%; /*外观设置为圆形*/
+    }
+  }
 }

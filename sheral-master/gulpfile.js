@@ -10,10 +10,11 @@ gulp.task('connect', function() {
   	livereload: true
   });
 });
- 
+
+//如果没有demo/css/*.css 先运行 gulp sass
 gulp.task('sass', function () {
  return gulp.src(['./components/*.scss', './demo/sass/*.scss'])
-   .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+   .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))// outputStyle:'expanded'将两个文件拼接起来
    .pipe(autoprefixer({ browsers: ['last 3 versions', 'IE 9', 'Android >= 4.0'], cascade: false }))
    .pipe(gulp.dest('./demo/css'));
 });

@@ -5,55 +5,92 @@
     <title>sass-project</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+    <script src="./js/index.js"></script>
 </head>
 <body>
-    <div class="var">
+    <div class="div     var">
         <a href="">定义变量与嵌套</a>
     </div>
 
-    <div class="css3prefix">
+    <div class="div css3prefix">
         定义css3兼容属性前缀
     </div>
 
-    <div class="clearfix">清除浮动</div>
-    <div class="BRWOpacity">
+    <div class="div clearfix">清除浮动</div>
+    <div class="div BRWOpacity">
         定义黑白色透明度
     </div>
-    <div class="opacity">
+    <div class="div opacity">
         <a href="">定义透明度</a>
     </div>
-    <div class="message-error">定义valid error  warning info颜色组</div>
-    <div class="message-valid">定义valid error  warning info颜色组</div>
-    <div class="message-warning">定义valid error  warning info颜色组</div>
-    <div class="message-info">定义valid error  warning info颜色组</div>
+    <div class="div message-error">定义valid error  warning info颜色组</div>
+    <div class="div message-valid">定义valid error  warning info颜色组</div>
+    <div class="div message-warning">定义valid error  warning info颜色组</div>
+    <div class="div message-info">定义valid error  warning info颜色组</div>
 
-    <div class="px2rem">px转rem</div>
+    <div class="div px2rem">px转rem</div>
 
-    <div class="flexibleFontSize">
+    <div class="div flexibleFontSize">
         手淘flexible字号设置
     </div>
 
-    <div class="ZIndex">
+    <div class="div ZIndex">
         利用map定义不同的z-index
     </div>
 
-    <div class="breakpoint">
+    <div class="div breakpoint">
         利用map处理断点
     </div>
 
-    <div class="theme-dark">
+    <div class="div theme-dark">
         <div class="theme">
             利用map更换theme
         </div>
     </div>
-    <div class="theme-light">
+    <div class="div theme-light">
         <div class="theme">
             利用map更换theme
         </div>
     </div>
-    <div class="arrow">
+    <div class="div arrow">
         三角箭头
     </div>
+    <div class="div">
+        进度条
+        <p class="bar-progress">
+            <span class="progress-percent" style="transform: translateX(-50%)"></span>
+        </p>
+    </div>
+    <div class="div">
+        <div class="circle-progress">
+            <div class="circle-left">
+                <div class="left-inner "></div>
+
+            </div>
+            <div class="circle-right">
+                <div class="right-inner" ></div>
+            </div>
+            <span class="progress-num">0%</span>
+        </div>
+        <div class="circle-progress">
+            <div class="circle-left">
+                <div class="left-inner "></div>
+
+            </div>
+            <div class="circle-right">
+                <div class="right-inner" ></div>
+            </div>
+            <span class="progress-num">0%</span>
+        </div>
+    </div>
+
+    <div >
+        <div class="range-wrap">
+            <input type="range" class="range"  >
+        </div>
+    </div>
+
 
 </body>
 </html>

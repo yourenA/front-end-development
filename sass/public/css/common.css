@@ -1,7 +1,8 @@
+@charset "UTF-8";
 html {
   font-size: 16px; }
 
-div {
+.div {
   margin: 0 auto;
   margin-bottom: 10px;
   width: 50%;
@@ -68,6 +69,24 @@ div.ZIndex {
     .breakpoint {
       background-color: #4455ff; } }
 
+.actions {
+  display: table;
+  table-layout: fixed;
+  width: 100%; }
+  .actions .actions-btn {
+    display: table-cell; }
+  .actions .actions-btn {
+    color: #293;
+    text-align: center;
+    border-top: 1px solid currentColor;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    box-sizing: border-box; }
+    .actions .actions-btn:first-of-type {
+      border-left: none; }
+    .actions .actions-btn:active, .actions .actions-btn:hover {
+      background: #e6e6e6; }
+
 .theme-light div.theme {
   background: #f2f2f2;
   color: #000; }
@@ -110,3 +129,88 @@ div.ZIndex {
     border-style: solid dashed dashed dashed;
     border-color: #293 transparent transparent transparent;
     border-bottom: none; }
+
+.bar-progress {
+  position: relative;
+  height: 2px;
+  background: #dbdbdb;
+  overflow: hidden;
+  border-radius: 2px; }
+  .bar-progress .progress-percent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #007aff;
+    border-radius: 2px; }
+
+.circle-progress {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 4px solid #dbdbdb;
+  border-radius: 50%;
+  box-sizing: border-box; }
+  .circle-progress .circle-left, .circle-progress .circle-right {
+    width: 50px;
+    height: 100px;
+    top: -4px;
+    position: absolute;
+    overflow: hidden; }
+  .circle-progress .circle-left .left-inner, .circle-progress .circle-right .right-inner {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    border: 4px solid #007aff;
+    box-sizing: border-box;
+    -webkit-transition: -webkit-transform 0.5s linear;
+    transition: -webkit-transform 0.5s linear;
+    transition: transform 0.5s linear;
+    transition: transform 0.5s linear, -webkit-transform 0.5s linear; }
+  .circle-progress .circle-left {
+    left: -4px; }
+    .circle-progress .circle-left .left-inner {
+      left: 0;
+      -webkit-transition-delay: 0.5s;
+              transition-delay: 0.5s;
+      clip: rect(0, 100px, 100px, 50px); }
+  .circle-progress .circle-right {
+    right: -4px; }
+    .circle-progress .circle-right .right-inner {
+      right: 0;
+      clip: rect(0, 50px, 100px, 0); }
+
+.range-wrap {
+  width: 300px;
+  margin: 10px auto;
+  position: relative;
+  box-sizing: border-box;
+  height: 30px; }
+  .range-wrap::before {
+    content: '';
+    width: 100%;
+    background: #afa7ab;
+    height: 2px;
+    position: absolute;
+    top: 12px;
+    z-index: 49; }
+  .range-wrap input[type=range] {
+    position: relative;
+    z-index: 59;
+    vertical-align: middle;
+    outline: 0;
+    -webkit-appearance: none;
+    width: 100%; }
+    .range-wrap input[type=range]::-webkit-slider-thumb {
+      z-index: 69;
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      background: #4675ff;
+      border-radius: 50%;
+      /*外观设置为圆形*/ }
