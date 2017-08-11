@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+//---------------------------------------------------
+// layout.scss
+//---------------------------------------------------
+
+// header样式在_header.scss中定义
+
+.footer,
+.header-sub{
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+.footer {
+    bottom: 0;
+    z-index: $zIndexFooter;
+}
+.header-sub{
+    top: $barHeight;
+    z-index: $zIndexHeader;
+}
+.page {
+    width: 100%;
+    padding-top: $barHeight;
+    &.page--header-sub{
+        padding-top: $barHeight * 2;
+    }
+    &.page--no-header{
+        padding-top: 0;
+    }
+    &.page--has-footer{
+        padding-bottom: $barHeight + 4px;
+    }
+}
+.ios{
+    .page{
+        position: absolute;
+        top: $barHeight;
+        bottom: 0;
+        padding: 0;
+        -webkit-overflow-scrolling: touch;
+        &.page--header-sub{
+            top: $barHeight * 2;
+            padding-top: 0;
+        }
+        &.page--no-header{
+            top: 0;
+        }
+        &.page--has-footer{
+            bottom: $barHeight + 4px;
+        }
+    }
+}

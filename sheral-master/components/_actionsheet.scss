@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+//---------------------------------------------------
+// actionsheet.scss
+//---------------------------------------------------
+
+$actionsheetFullSwitch:    false !default;
+
+.panel--actionsheet {
+    background: $colorF;
+    display: none;
+    .active & {
+    	display: block;
+    }
+    @if $actionsheetFullSwitch{
+	    padding: 10px;
+	    .line-list{
+	        border-radius: $radiusBase;
+	    }
+	} @else {
+		.line-list{
+			position: relative;
+			&::after{
+				content: "";
+				@include retina-one-px-border(bottom);
+			}
+			&:last-of-type{
+				&::after{
+					top: 0;
+					bottom: auto;
+				}
+			}
+		}
+	}
+}

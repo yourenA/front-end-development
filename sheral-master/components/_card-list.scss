@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+//-----------------------------------------------------
+// card list
+//-----------------------------------------------------
+
+$cardFlexSwitch:       false !default; // 默认使用float布局
+$cardGap:              10px !default; // 默认间距10px
+$cardImgRation:        1 !default; // 图片比例
+$carLineNum:           2 !default; // 一行几个
+
+$cardBorderSwitch:     true !default; // 使用边框分割
+
+$cardGapSwitch:        true !default; // 使用间隙分割
+
+.card-list {
+	@if $cardFlexSwitch {
+		display: flex;
+		flex-wrap: wrap;
+	} @else {
+		overflow: hidden;
+	}
+	.card-item {
+		position: relative;
+		width: 100% / $carLineNum;
+		
+		@if not $cardFlexSwitch {
+			float: left;
+		}
+
+		.item-img-wrap{
+			@include object-wrap(percentage($cardImgRation), '.item-img');
+		}
+		.item-img{
+			width: 100%;
+		}
+		.item-tt {
+			line-height: 30px;
+		}
+	}
+}
+@if $cardBorderSwitch{
+	.card-list--border{
+		background: #fff;
+		position: relative;
+		&::before{
+			content: "";
+			@include retina-one-px-border(top);
+		}
+		.card-item{
+			padding: $cardGap !important;
+			&::after{
+				content: "";
+				@include retina-one-px-border(bottom);
+			}
+			
+			&::before{
+				content: "";
+				@include retina-one-px-border(right);
+			}
+
+			&:nth-of-type(#{$carLineNum}n){
+				&::before{
+					display: none;
+				}
+			}
+		}
+	}
+}
+@if $cardGapSwitch{
+	.card-list--gap{
+		padding-left: $cardGap / 2;
+		padding-right: $cardGap / 2;
+		.card-item{
+			margin-bottom: $cardGap;
+			padding-left: $cardGap / 2;
+			padding-right: $cardGap / 2;
+		}
+	}
+}

@@ -1,0 +1,120 @@
+﻿@charset "UTF-8";
+
+//---------------------------------------------------
+// form.scss
+//---------------------------------------------------
+
+$formLabelWidth: 90px !default;
+
+$formNoLabelSwitch: true !default;
+
+
+.f-text,
+.f-textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid $colorBorder;
+}
+.f-text{
+    height: $barHeight;
+    padding: 7px 5px;
+    &.f-text--right-icon{
+        padding-right: 30px;
+    }
+}
+.f-textarea {
+    height: 100px;
+    line-height: 1.5;
+    resize: none;
+}
+.form{
+    background: #fff;
+    @extend %border-tb;
+}
+.form-item{
+    display: flex;
+    align-items: center;
+    position: relative;
+    line-height: $barHeight;
+    overflow: hidden;
+    &:not(:first-of-type)::before {
+        content: "";
+        @include retina-one-px-border;
+    }
+
+    .item-label{
+        width: $formLabelWidth;
+        padding-left: 10px;
+    }
+    .item-field{
+        flex: 1;
+        width: 1%;
+        .f-text{
+            display: block;
+            border: 0 none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .icon-input-clear{
+            height: $barHeight;
+        }
+    }
+    .item-append{
+        margin-right: 10px;
+        color: $color9;
+        + .icon-v-right{
+            margin-left: -10px;
+        }
+    }
+    .img-captcha{
+        margin-left: 10px;
+    }
+    .icon-v-right{
+        display: block;
+        width: 30px;
+        height: $barHeight;
+        color: #ccc;
+    }
+}
+
+@if $formNoLabelSwitch {
+    .form--no-label{
+        .f-text,
+        .f-textarea {
+            border: 0 none;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
+
+.icon-input-clear{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0;
+    &::before{
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width:16px;
+        height: 16px;
+        transform: translate(-50%,-50%);
+        border-radius: 10px;
+        background-color: #ccc;
+        color: #fff;
+    }
+    .icon-cross {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: #fff;
+        &::before,
+        &::after {
+            height: 10px;
+        }
+    }
+}

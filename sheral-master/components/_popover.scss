@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+//---------------------------------------------------
+// popover.scss
+//---------------------------------------------------
+
+
+$popoverBg:            darken($primary, 5%) !default;
+$popoverTextColor:     #fff !default;
+$popoverRadius:        false !default;
+$popoverTriangle:      true !default;
+
+.popover{
+	position: fixed;
+	color: $popoverTextColor;
+	z-index: $zIndexOverlay;
+	.line-list{
+		background: $popoverBg;
+		@if $popoverRadius{
+			border-radius: $popoverRadius;
+		}
+	}
+	.line-item{
+		line-height: 36px;
+		padding: 0 10px;
+		display: flex;
+		align-items: center;
+		.item-icon{
+			margin-right: 5px;
+		}
+		@if $activeStateSwitch{
+			&:hover,&:active{
+				background: darken($popoverBg, 5%);
+			}
+		}
+	} 
+}
+
+.popover--header-more{
+	top: $barHeight;
+	right: 5px;
+
+	@if $popoverTriangle{
+		padding-top: 7px;
+		.popover-triangle{
+			position: absolute;
+			top: 1px;
+			right: 10px;
+			@include triangle(top, 6px, $popoverBg);
+		}
+	}
+}

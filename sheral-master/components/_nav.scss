@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+//---------------------------------------------------
+// nav.scss
+//---------------------------------------------------
+
+$navBottomHeight:     $barHeight + 4px !default;
+$navBotttomIconSize:  20px !default;
+$navBottomBg:         #333 !default;
+$navBottomText:       #999 #fff !default; 
+
+$navTabSwitch:        true !default;
+$navTabHeight:        35px !default;
+$navTabBg:            #fff !default;
+$navTabText:          #333 $primary !default;
+
+$navBtnSwitch:        true !default;
+$navBtnHeight:        34px !default;
+$navBtnBgActive:      $primary !default;
+$navBtnColorActive:   #fff !default;
+
+// nav list
+.nav-list{
+    @include equal-flex('.nav-item');
+    text-align: center; 
+}
+
+// nav list bottom
+.nav-list--bottom {
+    background-color: $navBottomBg;
+    height: $navBottomHeight;
+    text-align: center;
+    color: nth($navBottomText, 1);
+    font-size: 12px;
+    li {
+        padding-top: 27px;
+        position: relative;
+        cursor: pointer;
+        &.active {
+            color: nth($navBottomText, 2);
+        }
+    }
+    .item-icon {
+        width: $navBotttomIconSize;
+        height: $navBotttomIconSize;
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -10px;
+    }
+    .remind-circle,
+    .remind-num{
+        top: 3px;
+        left: 50%;
+        margin-left: 8px;
+    }
+}
+
+// nav list tab
+@if $navTabSwitch {
+    .nav-list--tab{
+        line-height: $navTabHeight - 1px;
+        background: $navTabBg;
+        border-bottom: 1px solid $colorBorder; 
+        
+        .nav-item{
+            position: relative;
+            color: nth($navTabText, 1);
+            
+            &.active{
+                color: nth($navTabText, 2);
+                &::after{
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: nth($navTabText, 2); 
+                }
+            }
+            
+        }
+    }
+}
+
+// nav list btn
+@if $navBtnSwitch{
+    .nav-list--btn{
+        line-height: $navBtnHeight - 2px;
+        .nav-item{
+            $itemRadius: ($navBtnHeight - 2px) / 2;
+            background: #fff;
+            border: 1px solid $colorBorder;
+            border-left-width: 0;
+            &:first-of-type{
+                border-left-width: 1px;
+                border-radius: $itemRadius 0 0 $itemRadius;
+            }
+            &:last-of-type{
+                border-radius: 0 $itemRadius $itemRadius 0;
+            }
+            &.active{
+                background: $navBtnBgActive;
+                color: $navBtnColorActive;
+                border-color: $navBtnBgActive;
+            }
+        }
+    }
+}

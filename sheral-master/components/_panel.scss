@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+//-----------------------------------------------------
+// panel.scss
+//-----------------------------------------------------
+
+.header-panel,
+.bottom-panel{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: $zIndexOverlay + 5;
+    background: #fff;
+}
+.header-panel{
+    top: $barHeight;
+}
+.bottom-panel{
+    bottom: 0;
+}
