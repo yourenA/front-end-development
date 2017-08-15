@@ -1,23 +1,18 @@
 var zNodes=[
-    {id:0,pId:-1,name:"Aaaa"},
-    {id:1,pId:0,name:"A"},
-    {id:11,pId:1,name:"A1"},
-    {id:12,pId:1,name:"A2"},
-    {id:13,pId:1,name:"A3"},
-    {id:2,pId:0,name:"B"},
-    {id:21,pId:2,name:"B1"},
-    {id:22,pId:2,name:"B2"},
-    {id:23,pId:2,name:"B3"},
-    {id:3,pId:0,name:"C"},
+    {id:1,name:"A"},
+    {id:2,name:"B"},
+    {id:3,name:"C"},
     {id:31,pId:3,name:"C1"},
-    {id:32,pId:3,name:"C2"},
-    {id:33,pId:3,name:"C3"},
-    {id:34,pId:31,name:"x"},
-    {id:35,pId:31,name:"y"},
     {id:36,pId:31,name:"z"},
     {id:37,pId:36,name:"z1123"} ,
     {id:38,pId:37,name:"z123123123"}
 ];
+for(let i=0,len=zNodes.length;i<len;i++){
+    if(zNodes[i].pId===undefined){
+        console.log('不存在pid')
+    }
+}
+console.log(zNodes)
 function treeMenu(a){
     this.tree=a||[];//this.tree 为 传入的数组
     this.groups={};
@@ -37,7 +32,6 @@ treeMenu.prototype={
                 this.groups[this.tree[i].pId].push(this.tree[i]);
             }
         }
-        console.log(this.groups)
     },
     getDom:function(a){
         if(!a){return ''}
@@ -52,6 +46,57 @@ treeMenu.prototype={
     }
 };
 var html=new treeMenu(zNodes).init(0);
-console.log(html);
+
+
+var tree = zNodes.reduce((o, x) => {
+    let id = x.id
+    let pId = x.pId
+    o[id] = o[id] || {children: []}
+    o[id].node = x
+    if (pId) {
+        o[pId] = o[pId] || {children: []} //改变父节点对象
+        o[pId].children.push(x)
+    }
+    console.log('o',o)
+    return o
+}, {})
+
+var node = {id:38,pId:37,name:"z123123123"}
+console.log(listParents(tree, node).map(x => x.name).concat(node.name).join(' -> '))
+
+console.log(listFirstChildren(tree, node).map(x => x.name).join(' -> '))
+
+function listParents(tree, node) {
+    if (!node.pId) {
+        return []
+    }
+
+    return _list(tree, tree[node.pId].node)
+
+    function _list (tree, node) {
+        console.log(node)
+        if (node.pId === undefined) {
+            return [node]//当没有pid的时候结束递归。跳出结构,有了跳出才有结果
+        } else {
+            return _list(tree, tree[node.pId].node).concat([node]) //递归，递归一般都是通过return
+        }
+    }
+}
+
+function listFirstChildren (tree, node) {
+    if (tree[node.id].children.length <= 0) {
+        return []
+    }
+
+    return _list(tree, tree[node.id].children[0])
+
+    function _list (tree, node) {
+        if (tree[node.id].children.length <= 0) {
+            return [node]
+        } else {
+            return [node].concat(_list(tree, tree[node.id].children[0]))
+        }
+    }
+}
 
 
