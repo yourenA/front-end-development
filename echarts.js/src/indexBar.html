@@ -15,19 +15,27 @@
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: 'ECharts 入门示例'
+            text: '条形图'
         },
-        tooltip: {},
+        tooltip: {
+            trigger: 'axis', //触发类型
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },//要显示tooltip，即使没有设置项，也需要设置为空
         legend: {
-            data:['一月','二月']
+            data:['一月','二月'] //图例中的data要与series[i]中的name对应
         },
         xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"],//xAxis中的data要与data中的数据一一对应
+            axisTick: {
+                alignWithLabel: true //刻度尺为位置在label中间，默认是在label两侧
+            }
         },
         yAxis: {},
         series: [{
             name: '一月',
-            type: 'bar',
+            type: 'bar',//条形图，设置为line则显示为折线图
             data: [5, 220, 1236, 120, 10, 20]
         },{
             name: '二月',

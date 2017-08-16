@@ -80,7 +80,7 @@ require('echarts/lib/component/title');
     - interval : 强制设置坐标轴分割间隔。
     - minInterval: 自动计算的坐标轴最小间隔大小。只在数值轴中（type: 'value'）有效。
     - triggerEvent: 坐标轴的标签是否响应和触发鼠标事件，默认不响应。
-    
+    - boundaryGap:坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样。
 - yAxis :直角坐标系 grid 中的 y 轴 (各设置项与xAxis中相似)
 
 - polar: 极坐标系，可以用于散点图和折线图。每个极坐标系拥有一个**角度轴**和一个**半径轴**。

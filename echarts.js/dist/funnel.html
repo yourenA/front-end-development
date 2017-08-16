@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本柱状图</title>
+    <script src="js/echarts.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width:100vw;height:100vh"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    option = {
+        title: {
+            text: '漏斗图',
+            subtext: '纯属虚构'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        toolbox: {
+            feature: {
+                dataView: {readOnly: false},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data: ['展现','点击','访问','咨询','订单']
+        },
+        calculable: true,
+        series: [
+            {
+                name:'漏斗图',
+                type:'funnel',
+                left: '10%',
+                top: 60,
+                //x2: 80,
+                bottom: 60,
+                width: '80%',
+                // height: {totalHeight} - y - y2,
+                min: 0,
+                max: 100,
+                minSize: '0%',
+                maxSize: '100%',
+                sort: 'descending', //数据排序， 可以取 'ascending'，'descending'，递增还是递减
+                gap: 2, //间隔
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside',
+                        textStyle: {
+                            fontSize: 16
+                        },
+                    },
+                    emphasis: {
+                        textStyle: {
+                            fontSize: 20
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        length: 10,
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid'
+                        }
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }
+                },
+                data: [
+                    {value: 60, name: '访问'},
+                    {value: 40, name: '咨询'},
+                    {value: 10, name: '订单'},
+                    {value: 70, name: '点击'},
+                    {value: 100, name: '展现'}
+                ]
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>

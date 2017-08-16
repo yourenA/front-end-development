@@ -7,12 +7,6 @@ var zNodes=[
     {id:37,pId:36,name:"z1123"} ,
     {id:38,pId:37,name:"z123123123"}
 ];
-for(let i=0,len=zNodes.length;i<len;i++){
-    if(zNodes[i].pId===undefined){
-        console.log('不存在pid')
-    }
-}
-console.log(zNodes)
 function treeMenu(a){
     this.tree=a||[];//this.tree 为 传入的数组
     this.groups={};
