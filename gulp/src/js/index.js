@@ -1,96 +1,47 @@
-var zNodes=[
-    {id:1,name:"A"},
-    {id:2,name:"B"},
-    {id:3,name:"C"},
-    {id:31,pId:3,name:"C1"},
-    {id:36,pId:31,name:"z"},
-    {id:37,pId:36,name:"z1123"} ,
-    {id:38,pId:37,name:"z123123123"}
+/**
+ * json格式转树状结构
+ * @param   {json}      json数据
+ * @param   {String}    id的字符串
+ * @param   {String}    父id的字符串
+ * @param   {String}    children的字符串
+ * @return  {Array}     数组
+ */
+function transData(a, idStr, pidStr, chindrenStr){
+    var r = [], hash = {}, id = idStr, pid = pidStr, children = chindrenStr, i = 0, j = 0, len = a.length;
+    for(; i < len; i++){
+        hash[a[i][id]] = a[i];
+    }
+    for(; j < len; j++){
+        var aVal = a[j], hashVP = hash[aVal[pid]];
+        if(hashVP){
+            !hashVP[children] && (hashVP[children] = []);
+            hashVP[children].push(aVal);
+        }else{
+            r.push(aVal);
+        }
+    }
+    return r;
+}
+
+var jsonData = [
+{"id":"4","pid":"1","name":"大家电"},
+{"id":"5","pid":"1","name":"生活电器"},
+{"id":"1","pid":"0","name":"家用电器"},
+{"id":"2","pid":"0","name":"服饰"},
+{"id":"3","pid":"0","name":"化妆"},
+{"id":"7","pid":"4","name":"空调"},
+{"id":"8","pid":"4","name":"冰箱"},
+{"id":"9","pid":"4","name":"洗衣机"},
+{"id":"10","pid":"4","name":"热水器"},
+{"id":"11","pid":"3","name":"面部护理"},
+{"id":"12","pid":"3","name":"口腔护理"},
+{"id":"13","pid":"2","name":"男装"},
+{"id":"14","pid":"2","name":"女装"},
+{"id":"15","pid":"7","name":"海尔空调"},
+{"id":"16","pid":"7","name":"美的空调"},
+{"id":"19","pid":"5","name":"加湿器"},
+{"id":"20","pid":"5","name":"电熨斗"}
 ];
-function treeMenu(a){
-    this.tree=a||[];//this.tree 为 传入的数组
-    this.groups={};
-};
-treeMenu.prototype={
-    init:function(pid){
-        this.group(); // pid为要获取的id
 
-        return this.getDom(this.groups[pid]);
-    },
-    group:function(){
-        for(var i=0;i<this.tree.length;i++){
-            if(this.groups[this.tree[i].pId]){
-                this.groups[this.tree[i].pId].push(this.tree[i]);
-            }else{
-                this.groups[this.tree[i].pId]=[];
-                this.groups[this.tree[i].pId].push(this.tree[i]);
-            }
-        }
-    },
-    getDom:function(a){
-        if(!a){return ''}
-        var html='\n<ul >\n';
-        for(var i=0;i<a.length;i++){
-            html+='<li><a href="'+a[i].id+'">'+a[i].name+'</a>';
-            html+=this.getDom(this.groups[a[i].id]);
-            html+='</li>\n';
-        };
-        html+='</ul>\n';
-        return html;
-    }
-};
-var html=new treeMenu(zNodes).init(0);
-
-
-var tree = zNodes.reduce((o, x) => {
-    let id = x.id
-    let pId = x.pId
-    o[id] = o[id] || {children: []}
-    o[id].node = x
-    if (pId) {
-        o[pId] = o[pId] || {children: []} //改变父节点对象
-        o[pId].children.push(x)
-    }
-    console.log('o',o)
-    return o
-}, {})
-
-var node = {id:38,pId:37,name:"z123123123"}
-console.log(listParents(tree, node).map(x => x.name).concat(node.name).join(' -> '))
-
-console.log(listFirstChildren(tree, node).map(x => x.name).join(' -> '))
-
-function listParents(tree, node) {
-    if (!node.pId) {
-        return []
-    }
-
-    return _list(tree, tree[node.pId].node)
-
-    function _list (tree, node) {
-        console.log(node)
-        if (node.pId === undefined) {
-            return [node]//当没有pid的时候结束递归。跳出结构,有了跳出才有结果
-        } else {
-            return _list(tree, tree[node.pId].node).concat([node]) //递归，递归一般都是通过return
-        }
-    }
-}
-
-function listFirstChildren (tree, node) {
-    if (tree[node.id].children.length <= 0) {
-        return []
-    }
-
-    return _list(tree, tree[node.id].children[0])
-
-    function _list (tree, node) {
-        if (tree[node.id].children.length <= 0) {
-            return [node]
-        } else {
-            return [node].concat(_list(tree, tree[node.id].children[0]))
-        }
-    }
-}
-
-
+var jsonDataTree = transData(jsonData, 'id', 'pid', 'chindren');
+console.log(jsonDataTree);    
