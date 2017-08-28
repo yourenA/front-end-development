@@ -7,6 +7,7 @@
 ```
 $ node xxx.js //使用node来运行js
 ```
+>使用 nodemon 或 supervisor 热更新node
 
 ## HTTP 模块
 ```
@@ -21,7 +22,7 @@ const server = http.createServer((req, res) => { //回调方法(req, res)=>{} re
   
   // 在回调函数中区分不同url和method ,然后进行不同的处理，向客户端返回不同的结果
   
-  res.statusCode = 200;
+  res.statusCode = 200; 
   res.setHeader('Content-Type', 'text/plain');
   res.end('Hello World\n');
 });

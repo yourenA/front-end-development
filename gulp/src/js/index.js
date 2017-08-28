@@ -1,47 +1,55 @@
-/**
- * json格式转树状结构
- * @param   {json}      json数据
- * @param   {String}    id的字符串
- * @param   {String}    父id的字符串
- * @param   {String}    children的字符串
- * @return  {Array}     数组
- */
-function transData(a, idStr, pidStr, chindrenStr){
-    var r = [], hash = {}, id = idStr, pid = pidStr, children = chindrenStr, i = 0, j = 0, len = a.length;
-    for(; i < len; i++){
-        hash[a[i][id]] = a[i];
-    }
-    for(; j < len; j++){
-        var aVal = a[j], hashVP = hash[aVal[pid]];
-        if(hashVP){
-            !hashVP[children] && (hashVP[children] = []);
-            hashVP[children].push(aVal);
-        }else{
-            r.push(aVal);
+//找父节点
+var zNodes=[
+    {id:0,name:"Aaaa"},
+    {id:1,pId:0,name:"A"},
+    {id:11,pId:1,name:"A1"},
+    {id:12,pId:1,name:"A2"},
+    {id:13,pId:1,name:"A3"},
+    {id:2,pId:0,name:"B"},
+    {id:21,pId:2,name:"B1"},
+    {id:22,pId:2,name:"B2"},
+    {id:23,pId:2,name:"B3"},
+    {id:3,pId:0,name:"C"},
+    {id:31,pId:3,name:"C1"},
+    {id:32,pId:3,name:"C2"},
+    {id:33,pId:3,name:"C3"},
+    {id:34,pId:31,name:"x"},
+    {id:35,pId:31,name:"y"},
+    {id:36,pId:31,name:"z"},
+    {id:37,pId:36,name:"z1123"} ,
+    {id:38,pId:37,name:"z123123123"}
+];
+function  findP(zNodes,node) {
+    var ans=[];
+    for(var i=0;i<zNodes.length;i++){
+        if(node.pId==zNodes[i].id){
+            if(!zNodes[i].pId){
+                return zNodes[i];
+            }
+            ans.push(zNodes[i]);
+            return  ans.concat(findP(zNodes,zNodes[i]));
         }
     }
-    return r;
 }
+console.log(findP(zNodes,  {id:38,pId:37,name:"z123123123"}));
+// 输出
+//[ { id: 1, pId: 0, name: 'A' }, { id: 0, name: 'Aaaa' } ]
 
-var jsonData = [
-{"id":"4","pid":"1","name":"大家电"},
-{"id":"5","pid":"1","name":"生活电器"},
-{"id":"1","pid":"0","name":"家用电器"},
-{"id":"2","pid":"0","name":"服饰"},
-{"id":"3","pid":"0","name":"化妆"},
-{"id":"7","pid":"4","name":"空调"},
-{"id":"8","pid":"4","name":"冰箱"},
-{"id":"9","pid":"4","name":"洗衣机"},
-{"id":"10","pid":"4","name":"热水器"},
-{"id":"11","pid":"3","name":"面部护理"},
-{"id":"12","pid":"3","name":"口腔护理"},
-{"id":"13","pid":"2","name":"男装"},
-{"id":"14","pid":"2","name":"女装"},
-{"id":"15","pid":"7","name":"海尔空调"},
-{"id":"16","pid":"7","name":"美的空调"},
-{"id":"19","pid":"5","name":"加湿器"},
-{"id":"20","pid":"5","name":"电熨斗"}
-];
-
-var jsonDataTree = transData(jsonData, 'id', 'pid', 'chindren');
-console.log(jsonDataTree);    
+//找子节点
+function findC(zNodes,node) {
+    var ans=[];
+    for(var i=0;i<zNodes.length;i++){
+        if(node.id==zNodes[i].pId){
+            ans.push(zNodes[i]);
+            ans=ans.concat(findC(zNodes,zNodes[i]));
+        }
+    }
+    return ans;
+}
+console.log(findC(zNodes, {id:3,pId:0,name:"C"}));
+// 输出
+// [
+//     { id: 11, pId: 1, name: 'A1' },
+//     { id: 12, pId: 1, name: 'A2' },
+//     { id: 13, pId: 1, name: 'A3' }
+// ]

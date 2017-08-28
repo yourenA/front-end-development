@@ -18,7 +18,11 @@ res.redirect()   |  重定向请求。
 res.render()     |  渲染视图模板。
 res.send()       |  发送各种类型的响应。
 res.sendFile     |  以八位字节流的形式发送文件。
-res.sendStatus() |  设置响应状态代码，并将其以字符串形式作为响应体的一部分发送。
+res.sendStatus() |  设置响应状态代码，并将其以字符串形式作为响应体的一部分发送。res.sendStatus(200); // equivalent to res.status(200).send('OK')
+res.status(num)  |  设置http返回状态码
+
+res.status(401);
+res.json(json);
 
 ## express.Router
 

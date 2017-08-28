@@ -1,4 +1,6 @@
 # mongoose
+>要先使用 ```$ mongod --dbpath /d/mongodb/data```链接到mongodb数据库(后面为储存数据路径)
+
 ## 名词解释
 
 - Schema :一种以文件形式存储的数据库模型骨架，不具备数据库的操作能力
@@ -15,8 +17,17 @@ var mongoose = require('mongoose'),
 
 /**
  * 连接
+ * mongoose.connect(uri(s), [options], [options.useMongoClient], [callback])
  */
 mongoose.connect(DB_URL);
+
+/**
+  * mongoose.connection.on()监听了几个事件,
+  */
+mongoose.connection.on('connected', function () {    
+    console.log('Mongoose connection open to ' + DB_URL);  
+});    
+
 module.exports = mongoose;
 ```
 
@@ -42,6 +53,14 @@ UserSchema.methods.speak = function(){
 ```
 Schema 每一个字段属性
 - type : 类型
+    - String
+    - Number
+    - Boolean | Bool
+    - Array
+    - Buffer
+    - Date
+    - ObjectId | Oid
+    - Mixed
 - index : 是否索引
 - default : 初始值
 - required : 是否必须
@@ -106,7 +125,7 @@ PersonModel.findByName('krouky',function(err,persons){
 如果是Entity，使用save方法，如果是Model，使用create方法
 ```
   //使用Entity来增加一条数据
-    var krouky = new PersonModel({name:'krouky'}); 
+    var krouky = new PersonModel({name:'krouky'}); //new modelName({})创建一个实例
     krouky.save(callback);
     //使用Model来增加一条数据
     var MDragon = {name:'MDragon'};
@@ -132,21 +151,38 @@ PersonModel.findByName('krouky',function(err,persons){
     })
 ```
 
-### 更新Model.findByIdAndUpdate(id, [updatestr], [options], [callback])
-* id:根据_id
-* updatestr:更新的字段{name:value}
-* callback:参数为err和result
-```
-PersonModel.findById(id,function(err,person){
-  person.name = 'MDragon';
-  person.save(function(err){});//改变后再保存
-});
-```
-
 可以使用$set属性来配置，这样也不用先查询，如果更新的数据比较少，可用性还是很好的
 ```
 PersonModel.update({_id:_id},{$set:{name:'MDragon'}},function(err){});
 ```
+
+### 更新Model.findByIdAndUpdate(id, [updatestr], [options], [callback])
+* id:根据_id
+* updatestr:更新的字段{name:value}
+* callback:参数为err和result
+
+```
+    var id = '56f2558b2dd74855a345edb2';
+    var updatestr = {'userpwd': 'abcd'};
+    
+    User.findByIdAndUpdate(id, updatestr, function(err, res){
+        if (err) {
+            console.log("Error:" + err);
+        }
+        else {
+            console.log("Res:" + res);
+        }
+    })
+```
+### 根据id寻找实例
+```
+PersonModel.findById(id,function(err,person){//第二参数person为实例
+  person.name = 'MDragon'; //直接修改实例的属性
+  person.save(function(err){});//修改后再保存
+});
+```
+
+
 ### 更新Model.findOneAndUpdate(wherestr, updatestr, [options], [callback])
 * wherestr:条件的字段{name:value}
 * updatestr:更新的字段{name:value}
@@ -191,11 +227,12 @@ function getByConditions(){
 }
 
 getByConditions();
+
 User.find({userage: {$gte: 21, $lte: 65}}, callback);    //这表示查询年龄大于等21而且小于等于65岁
 ```
 ### 模糊查询
 ```
-  var whereStr = {'username':{$regex:/m/i}};
+  var whereStr = {'username':{$regex:/m/i}};//$regex 正则，用于模糊查询 //查询所有用户名中有'm'的名字，且不区分大小写
     
     User.find(whereStr, function(err, res){
         if (err) {
@@ -222,6 +259,25 @@ User.find({userage: {$gte: 21, $lte: 65}}, callback);    //这表示查询年龄
     })
 ```
 
+## 分页查询
+
+```
+    var pageSize = 5;                   //一页多少条 limit
+    var currentPage = 1;                //当前第几页
+    var sort = {'logindate':-1};        //排序（按登录时间倒序） sort
+    var condition = {};                 //条件 find 
+    var skipnum = (currentPage - 1) * pageSize;   //跳过数 skip 
+    
+    User.find(condition).skip(skipnum).limit(pageSize).sort(sort).exec(function (err, res) {
+        if (err) {
+            console.log("Error:" + err);
+        }
+        else {
+            console.log("Res:" + res);
+        }
+    })
+```
+
 ## 使用,exec代替回调
 ```
 var Person = mongoose.model('Person', yourSchema);
@@ -230,10 +286,10 @@ var Person = mongoose.model('Person', yourSchema);
 var query = Person.findOne({ 'name.last': 'Ghost' });//query为查询的结果
 
 // selecting the `name` and `occupation` fields
-query.select('name occupation');
+query.select('name occupation');//select 选取返回结果的某些字段
 
 // execute the query at a later time
-query.exec(function (err, person) {
+query.exec(function (err, person) { //exec 执行操作
   if (err) return handleError(err);
   console.log('%s %s is a %s.', person.name.first, person.name.last, person.occupation) // Space Ghost is a talk show host.
 })
@@ -242,16 +298,24 @@ query.exec(function (err, person) {
 ```
 Person //Modal，链式调用
 .find({ occupation: /host/ })
-.where('name.last').equals('Ghost')
-.where('age').gt(17).lt(66)
-.where('likes').in(['vaporizing', 'talking'])
-.limit(10)
-.sort('-occupation')
-.select('name occupation')
-.exec(callback);
+.where('name.last').equals('Ghost') //where()参数为魔偶一个字段，后面为选择的条件， equals:相等
+.where('age').gt(17).lt(66) //gt:大于 lt：小于，$lte：小于等于
+.where('likes').in(['vaporizing', 'talking']) in: 在数组内
+.limit(10) //输出条数限制
+.sort('-occupation') // sort:排序 '-'为降序
+.select('name occupation') //select 选取返回结果的某些字段
+.exec(callback); // exec: 执行上面的操作
 ```
 
-##建立多个modal模型关联
+排序
+```
+// sort by "field" ascending and "test" descending
+query.sort({ field: 'asc', test: -1 });
+// equivalent
+query.sort('field -test');
+```
+
+## 建立多个modal模型关联
 ```
 //博客schema
 var blogSchema = new mongoose.Schema({
@@ -259,7 +323,7 @@ var blogSchema = new mongoose.Schema({
     abstract: {type: String}, //摘要
     content: {type: String}, //文章内容
     click: {type: Number},//点击量
-    createtime: {type: String} //消费时间
+    createtime: {type: String} //创建时间
 })
 
 //创建model,第三个参数是实际表名
@@ -286,11 +350,11 @@ blogModel.create({...}, function (err, doc) {
 })
 ```
 
-##嵌套的populate处理数据
+## 嵌套的populate处理数据
 假设有如下mongodb的schema定义：
 ```
 drawApply = new Schema({
-    salesId: { type: Schema.ObjectId, ref: 'sales' },
+    salesId: { type: Schema.ObjectId, ref: 'sales' },//表drawApply的salesId属性指定表sales的_id
     money: Number,
     status: { type: Number, default: 0 },
     createTime: { type: Date, default: Date.now }
@@ -300,7 +364,7 @@ sales = new Schema({
     name: { type: String, required: true, unique: true },
     pwd: String,
     phone: String,
-    merchant: { type: Schema.ObjectId, ref: 'merchant' },
+    merchant: { type: Schema.ObjectId, ref: 'merchant' },//表sales的属性merchant指定表merchant的_id
     status: { type: Number, default: 0 }
 });
 
@@ -320,7 +384,8 @@ drawApply.find().populate('salesId', '_id name phone merchant').sort({createTime
 ```
 返回的结果中除了drawApply表的数据外，还会包含salesId中_id，name，phone，merchant四个属性的值。但是merchant属性的值是以ObjectId的形式显示的，如果想知道对应的merchant其它属性的值，则需要使用到嵌套的populate。代码如下：
 ```
-drawApply.find().populate({
+drawApply.find()
+.populate({
     path: 'salesId',// 指定drawApply中要填充的关联字段
     select: '_id name phone merchant',//在sales需要返回的字段
     model: 'sales',//在什么modal中获取数据
@@ -332,5 +397,38 @@ drawApply.find().populate({
   // list of drawApplies with salesIds populated and merchant populated
 });
 ```
+
+## mongoose 有两种调用方式
+1. callback
+```
+a.js
+回调形式，外面
+function getAll(cb){
+    xxModel.find({},cb);
+}
+module.exports.getAll=getAll;
+
+b.js
+var a=require('a');
+a.getAll(function(err,result){
+    console.log(result);
+})
+```
+2. promise
+```
+a.js
+function getAll() {
+  return Person.find({}).exec();
+}
+
+b.js
+var a=requre('a');
+a.getAll().then(fnction(rseult){
+    console.log(result);
+}).catch(function(err){
+    console.log(err);
+})
+```
+
 
 
