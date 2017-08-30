@@ -1,0 +1,16 @@
+# gitignore
+.idea
+.idea/
+*.iml
+out
+gen
+
+#log
+*.log
+
+#node_modules
+node_modules
+
+sequelize-meta.json
+
+

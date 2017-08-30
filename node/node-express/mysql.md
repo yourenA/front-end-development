@@ -163,24 +163,222 @@ Project
   });
 ```
 * findAll - 从数据库中查找多个元素
+- attributes查询返回的字段
+    - include:包括
+    - exclude:剔除
 ```
 // 通过指定属性查找
-Project.findAll({ where: { name: 'A Project' } }).then(function(projects) {
+Project.findAll({  attributes: { include: [[sequelize.fn('COUNT', sequelize.col('hats')), 'no_hats']] }， exclude: ['baz'] , where: { name: 'A Project' } }).then(function(projects) {
 // projects 是一个包含 Project 实例的数组
 })
 
 ```
+```
+'attributes': [
+        'emp_id', ['nick', 'user_nick'] //重命名SELECT `emp_id`, `nick` AS `user_nick` FROM `users`;
+    ]
+```
 
 * count / max / min / sum 
 
-#### create 
+#### 增加
+ 
+* 非持久化 
+```
+var user = User.build({
+    'emp_id': '1',
+    'nick': '小红',
+    'department': '技术部'
+});
+user.save().then(function(save_user){
+   //save_user 已经保存后
+});
+```
+* 持久化
 ```
     User.create({
-       mail: mail,
-       name: name,
-       passwd: passwd_code
+        'emp_id': '1',
+        'nick': '小红',
+        'department': '技术部'
    }).then(function(user) {
         // user为创建的实例
    });
 ```
+
+#### update
+
+* 非持久化
+```
+task.title = 'foooo'
+task.description = 'baaaaaar'
+task.save({fields: ['title']}).then(function() {
+ // 现在 title 是 'foooo' 但是 description 还是和以前一样
+})
+```
+
+* 持久化
+```
+task.update({ title: 'foooo', description: 'baaaaaar'}, {fields: ['title']}).then(function() {
+ // 现在 title 是 'foooo' 但是 description 还是和以前一样
+})
+```
+
+#### destroy
+```
+Post.destroy({
+  where: {
+    status: 'inactive'
+  }
+});
+// DELETE FROM post WHERE status = 'inactive';
+```
+
+### model之间的关联
+```源模型.method(目标模型)```
+
+* Model.belongsTo() － 属于
+BelongsTo关联表示一对一关系的**外键存在于源模型**。
+```
+var Player = this.sequelize.define('player', {/* attributes */})
+  , Team  = this.sequelize.define('team', {/* attributes */});
+
+Player.belongsTo(Team); // 会为Player添加一个teamId 属性以保持与Team 主键的关系,teamId 源于define()的第一个字符串参数
+
+User.belongsTo(Team, {as: 'role'}); // 会为 user添加 roleId 属性而不是 teamId
+
+User.belongsTo(Team, {foreignKey: 'fk_company'}); // 为User 添加fk_company 外键
+
+```
+
+* Model.hasOne() － 拥有一个
+HasOne关联表示一对一关系的**外键存在于目标模型**。
+```
+var User = sequelize.define('user', {/* ... */})
+var Project = sequelize.define('project', {/* ... */})
+ 
+// hasOne 关系
+Project.hasOne(User)
+
+/*
+  在这个示例中，hasOne会添加一个projectId 属性到User模型中
+  另外，Project.prototype 中会增加根据传入的第一个定义参数生成的访问器方法 getUser 和 setUser 置。
+  如果启用了underscore 设置，添加的属性会是 project_id 而不是 projectId.
+  外键会存在于users 表中
+  */
+```
+
+* Model.hasMany() － 拥有多个
+一个源模型连接多个目标模型
+```
+var User = sequelize.define('user', {/* ... */})
+var Project = sequelize.define('project', {/* ... */})
+ 
+// 定义 hasMany 关联
+Project.hasMany(User, {as: 'Workers'})
+```
+会向 User 中添加一个projectId或project_id属性。Project 的实例中会有访问器getWorkers 和 setWorkers。
+
+* Model.belongsToMany() － 多对多
+一个源模型连接多个目标模型。而且，目标模型也可以有多个相关的源。
+```
+Project.belongsToMany(User, {through: 'UserProject'});
+User.belongsToMany(Project, {through: 'UserProject'});
+```
+这会创建一个新模型UserProject其中会projectId和userId两个外键。是否使用驼峰命名取决与相关联的两个表。
+定义through选项后，Sequelize会尝试自动生成名字。
+在本例中，会为User添加方法 getUsers, setUsers, addUser,addUsers to Project, and getProjects, setProjects, addProject, and addProjects
+
+## 使用 sequelize-cli 生成 sequelize
+
+使用步骤
+1. 安装 sequelize 、mysql2 、 sequlize-cli ,可以全局安装sequlize-cli
+2. 配置 .sequelizerc ,指定 sequelize init 初始化的文件夹
+```
+const path = require('path')
+
+module.exports = {
+    'config': path.resolve('./app','config.json'),
+    'migrations-path': path.resolve('./app','migrations'),
+    'models-path': path.resolve('./app','models'),
+    'seeders-path': path.resolve('./app','seeders'),
+}
+```
+
+3. 执行 sequelize init 命令
+```
+$ node_modules/.bin/sequelize init 或 sequelize init 
+```
+上面的命令会在app目录自动生成migrations，models/index.js，seeders,config.json
+
+4. 创建model (可以自己手动创建)
+```
+sequelize model:create --name Todo --attributes 'text:string,complete:boolean,UserId:integer'
+```
+上面的命令会在migrations和models下面生成相关的js文件
+
+将 models/index.js 中的associate改为下面的形式
+```
+Object.keys(db).forEach(function(modelName) {
+  if (db[modelName].options.hasOwnProperty('associate')) {
+    db[modelName].options.associate(db);
+  }
+});
+```
+5. 将migrations中的文件转变思维数据库的表或者初始化数据数据，一般用于有外键约束的表初始化
+有外键约束的表(在migrations的js文件中各表之间有id链接)，使用sequelize db:migrate一定要确保表是新表(保证外键id正确)
+```
+sequelize db:migrate
+```
+>sequelize db:migrate相同的文件只能运行一次。 在配置文件中添加 "migrationStorage": "json" 可改变sequelizeMetade 存储形式，可以在sequelize-meta.json查看到成功migrate的文件名。
+>避免migrate出错。多次sequelize db:migrate会添加多次内容，可能导致出错
+
+migrations文件中操作，需要自己去修改
+- queryInterface.createTable() 创建表
+- queryInterface.addColumn() 添加字段
+- queryInterface.bulkInsert() 插入内容
+- ...
+
+
+6. 在model/index.js 中添加 ```sequelize.sync();```连接数据库(要确保数据库中有此数据库)
+
+7. 在seeders中文件内容转变为表中内容(不是初始化表内容)，第一次使用时可用于普通没有外键约束的表初始化
+```
+sequelize db:seed:all //执行多次就会添加多次内容
+```
+上面的命令会将seeders中的js文件转变为表中初始化数据
+文件模板20161123070819-user-seed.js
+```
+'use strict';
+var password ='123456';
+
+module.exports = {
+  up: function (queryInterface, Sequelize) {
+    /*
+      Add altering commands here.
+      Return a promise to correctly handle asynchronicity.
+
+      Example:
+      return queryInterface.bulkInsert('Person', [{
+        name: 'John Doe',
+        isBetaMember: false
+      }], {});
+    */
+    return queryInterface.bulkInsert('user', [ //向指定的表插入内容
+        {'name': "admin",'password':password,'permission':2 ,'created_at': new Date(), 'updated_at': new Date() } //每一行的内容
+      ], {})
+  },
+
+  down: function (queryInterface, Sequelize) {
+    /*
+      Add reverting commands here.
+      Return a promise to correctly handle asynchronicity.
+
+      Example:
+      return queryInterface.bulkDelete('Person', null, {});
+    */
+  }
+};
+
+```
+
 

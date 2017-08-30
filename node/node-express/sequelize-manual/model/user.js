@@ -3,7 +3,7 @@
  */
 var Sequelize = require('sequelize');
 var sequelize = require('./index');
-var BaseModel = require('./base');
+
 //第二步，定义模型User，告诉sequelize如何映射数据库表：
 /*
  * sequelize.define(name,{fields},{opt})
@@ -16,7 +16,7 @@ var User = sequelize.define('user', {
     id: {
         type: Sequelize.BIGINT,
         primaryKey: true,//主键
-        defaultValue: BaseModel.uid() //默认值
+        autoIncrement: true //自增
     },
     mail: {
         type: Sequelize.STRING(50),
@@ -63,20 +63,20 @@ var User = sequelize.define('user', {
 
 
 /**
- * sequelize.sync()同步模型到数据库
+ * sequelize.sync()同步模型到数据库, 如果数据库中已经有相关表，那不执行sequelize.sync() 也可以操作数据库
  * [options.force=false] 设置为 true，会在创建表前先删除原表，即：DROP TABLE IF EXISTS
  * [options.match] 添加匹配规则，只重建匹配的表，在force: true时非常有用
  * */
-User.sync({force:false}).then(function () {
+// User.sync({force:false}).then(function () {
     // 已创建数据表
-    return User.create({
-        firstName: 'John',
-        lastName: 'Hancock',
-        passwd: '12345',
-        mail: '5@qq.com',
-        title: 'title'
-    }).then(function (employee) {
-        console.log(employee.get('fullName')); // John Doe (SENIOR ENGINEER)
-    });
-});
+    // return User.create({
+    //     firstName: 'John',
+    //     lastName: 'Hancock',
+    //     passwd: '12345',
+    //     mail: '5@qq.com',
+    //     title: 'title'
+    // }).then(function (employee) {
+    //     console.log(employee.get('fullName')); // 使用get('colName')获取某一字段的值
+    // });
+// });
 module.exports = User;
