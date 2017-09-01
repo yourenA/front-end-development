@@ -7,7 +7,11 @@ router.get('/', function(req, res, next) {
 });
 router.post('/getUser',function (req,res,next) {
   // db.sequelize.models.user 获得sequelize中定义的某个model
-  dbModels.user.findAll().then(function (user) {
+  dbModels.user.findOne({
+    where: {
+      id: 1,
+    }
+  }).then(function (user) {
     res.json(user)
   });
 })

@@ -5,14 +5,15 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(module.filename);
 var env       = process.env.NODE_ENV || 'development';
-var config    = require('../config.json')[env];
+var config    = require( './../config.json')[env];
 var db        = {};
-
+var sequelize
 if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+   sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
+
 fs
   .readdirSync(__dirname)
   .filter(function(file) {
@@ -23,14 +24,22 @@ fs
     db[model.name] = model;
   });
 
+
 Object.keys(db).forEach(function(modelName) {
-  // console.log('db[modelName].associate(db)',db[modelName].options)
-  if (db[modelName].options.hasOwnProperty('associate')) {
-    // db[modelName].associate(db);
+  if (db[modelName].options.associate) {
     db[modelName].options.associate(db);
   }
 });
-sequelize.sync({force:false});
+
+const connection = async () => {
+  // 链接数据库并重新生成表
+  // return await client.sync({force:true});
+  // 链接数据库
+  return await sequelize.sync();
+};
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.connection = connection;
+
 module.exports = db;

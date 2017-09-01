@@ -217,4 +217,66 @@ var marked = require('marked');
 post.content = marked(post.content);//post.content为发送过来的内容
 ```
 
+## 使用multer 获取上传文件
+
+>Multer 不会为你添加任何扩展名, 你的程序应该返回一个完整的文件名。表单记得加上  enctype=‘multipart/form-data’
+
+* 简单操作(上传后无法得到原来后缀的文件)
+```
+var multer=require('multer');
+var upload = multer({ dest: 'uploads/' }) //定义存储上传文件的路径,以项目的根目录为标准，并不是当前js文件目录。文件夹需要提前建立，上传后的文佳将会没有后缀
+
+router.post('/profile', upload.single('avatar'), function (req, res, next) {
+ res.json({file:req.file,body:req.body})
+  // req.file 是 `avatar` 文件的信息 注意是file
+  // req.body 将具有文本域数据, 如果存在的话
+})
+
+router.post('/photos/upload', upload.array('photos', 12), function (req, res, next) { //12为最大的上传数量
+res.json({file:req.file,body:req.body})
+  // req.files 是 `photos` 文件数组的信息 注意事files
+  // req.body 将具有文本域数据, 如果存在的话
+})
+```
+
+* 使用DiskStorage磁盘存储
+```
+var multer=require('multer');
+var storage = multer.diskStorage({
+  destination: 'tmp/my-uploads',//字符串，运行express的时候就帮你自动创建，并不是上传文件的时候才建
+  destination: function (req, file, cb) { //回调函数，需要自己创建文件夹
+    cb(null, 'tmp/my-uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now()+ '-' + file.originalname); //为上传的文件添加后缀
+  }
+})
+
+var upload = multer({ 
+    storage: storage ,
+    limits:{
+        fileSize: 512000
+    }
+    });
+router.post('/profile', upload.single('avatar'), function (req, res, next) {
+  res.json({file:req.file,body:req.body})
+  // req.file 是 `avatar` 文件的信息 注意是file
+  // req.body 将具有文本域数据, 如果存在的话
+},function (err,req,res,next) { //处理上传过程中失败中间件
+   if (err.code === 'LIMIT_FILE_SIZE') {
+     res.send({ result: 'fail', error: { code: 1001, message: 'File is too big!!!!' } })
+     return
+   }
+ })
+```
+
+## 下载buffer
+```
+    var importData=[[1,2],[1,2]];
+    var buffer = xlsx.build([{name: "result", data: importData}]);
+    res.set('Content-Type', 'application/vnd.openxmlformats');
+    res.set('Content-Disposition', 'attachment; filename=result.xlsx');
+    res.send(buffer);
+```
+
 

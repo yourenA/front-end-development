@@ -106,6 +106,10 @@ User.sync({force: true}).then(function () {
 
 ### 使用model操作数据库
 
+>通过Sequelize获取的模型对象都是一个DAO（Data Access Object）对象，这些对象会拥有许多操作数据库表的实例对象方法（比如：save、update、destroy等），
+>需要获取“干净”的JSON对象可以调用.get({'plain': true})。
+
+
 #### find
 
 * 按已知 id查找,findById
@@ -310,7 +314,7 @@ $ node_modules/.bin/sequelize init 或 sequelize init
 ```
 上面的命令会在app目录自动生成migrations，models/index.js，seeders,config.json
 
-4. 创建model (可以自己手动创建)
+4. 创建model (可以自己手动创建) 在models中创建表
 ```
 sequelize model:create --name Todo --attributes 'text:string,complete:boolean,UserId:integer'
 ```
@@ -324,7 +328,8 @@ Object.keys(db).forEach(function(modelName) {
   }
 });
 ```
-5. 将migrations中的文件转变思维数据库的表或者初始化数据数据，一般用于有外键约束的表初始化
+5. 将migrations中的文件转变思维数据库的表或者初始化数据数据，一般用于有外键约束的表初始化。在migrations中插入有外键表数据
+
 有外键约束的表(在migrations的js文件中各表之间有id链接)，使用sequelize db:migrate一定要确保表是新表(保证外键id正确)
 ```
 sequelize db:migrate
@@ -339,14 +344,14 @@ migrations文件中操作，需要自己去修改
 - ...
 
 
-6. 在model/index.js 中添加 ```sequelize.sync();```连接数据库(要确保数据库中有此数据库)
+6. 在model/index.js 中添加 ```sequelize.sync();```连接数据库(要确保数据库中有此数据库) 
 
-7. 在seeders中文件内容转变为表中内容(不是初始化表内容)，第一次使用时可用于普通没有外键约束的表初始化
+7. 在seeders中文件内容转变为表中内容(不是初始化表内容)，第一次使用时可用于普通没有外键约束的表初始化 。在seeders中插入普通表数据
 ```
 sequelize db:seed:all //执行多次就会添加多次内容
 ```
 上面的命令会将seeders中的js文件转变为表中初始化数据
-文件模板20161123070819-user-seed.js
+文件模板20161123070819-user-seed.js 需要自己去修改。相关文件不能使用es6语法，否则会报错
 ```
 'use strict';
 var password ='123456';
