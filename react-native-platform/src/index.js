@@ -115,7 +115,7 @@ export default class Index extends Component {
                         </Scene>
                         <Scene key="tab5"  title="千百度" icon={TabIcon} tabIcon="book" navigationBarStyle={{backgroundColor: '#ffdb42'}}>
                             <Scene key='tool' title='工具'  duration={0} component={Tool} hideNavBar />
-                            <Scene key='mqtt' title='Mqtt test'  duration={0} component={Pic} hideNavBar  hideTabBar/>
+                            {/*<Scene key='mqtt' title='Mqtt test'  duration={0} component={Pic} hideNavBar  hideTabBar/>*/}
                             <Scene key='scanQR' title='扫描二维码'  duration={0} component={ScanQR} hideNavBar  hideTabBar/>
                             <Scene key='weather' title='天气'  duration={0} component={Weather} hideNavBar  hideTabBar/>
                             <Scene key='todolist' title='记事本'   hideNavBar

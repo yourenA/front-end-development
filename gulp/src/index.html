@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>title</title>
-    <script src="./js/lodash.min.js"></script>
-    <script>
+    <meta charset=" utf-8">
+    <meta name="author" content="http://www.jb51.net/" />
+    <title>指定被打印的内容</title>
 
-
-    </script>
 </head>
-<body >
-<div id="main">  </div>
-<script src="./js/index.js"></script>
+<body>
+
+<input id="btnPrint" type="button" value="打印预览" onclick=preview(1) />
+<style type="text/css" media=print>
+    .noprint{display : none }
+</style>
+
+
+<p class="noprint">不需要打印的地方</p>
+
+<script>
+    function preview(oper)
+    {
+        if (oper < 10)
+        {
+            bdhtml=window.document.body.innerHTML;//获取当前页的html代码
+            sprnstr="<!--startprint"+oper+"-->";//设置打印开始区域
+            eprnstr="<!--endprint"+oper+"-->";//设置打印结束区域
+            prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18); //从开始代码向后取html
+
+            prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));//从结束代码向前取html
+            window.document.body.innerHTML=prnhtml;
+            window.print();
+            window.document.body.innerHTML=bdhtml;
+        } else {
+            window.print();
+        }
+    }
+</script>
+<p>XXXXX</p>
+<!--startprint1-->要打印的内容<!--endprint1-->
+
 </body>
 </html>

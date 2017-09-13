@@ -32,7 +32,6 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => { //第一个参数 ctx 为上下文对象，里面存储有响应和请求
-  console.log(ctx.request.search)
   const start = new Date(); //初始时间
   await next();//await next(); 暂停当前的方法，将程序的控制权交给下一个中间件
   const ms = new Date() - start; //其他中间件处理完的时间
@@ -56,9 +55,17 @@ app.use(router.routes(), router.allowedMethods());
  * express错误处理
  * app.use(function(err, req, res, next) {}) //第一个参数为err
  * */
-app.on('error', function(err, ctx){
-  console.log(err)
-  logger.error('server error', err, ctx);
+// app.on('error', function(err, ctx){
+//   console.log(err)
+//   logger.error('server error', err, ctx);
+// });
+
+//500 error
+onerror(app, {template: __dirname + '/views' + '/500.ejs'});
+//404
+app.use(async (ctx,next)=>{
+  ctx.status = 404;
+  await ctx.render('404');
 });
 
 

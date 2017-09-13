@@ -5,7 +5,7 @@
 >* 真机调试要把/android/build.gradle中的2.2.3改为1.2.3和把/android/gradle/wrapper/gradle-wrapper.properties中的gradle-2.14.1-all.zip改为gradle-2.2-all.zip
 >* 电脑调试要把/android/build.gradle中的1.2.3改为2.2.3和把/android/gradle/wrapper/gradle-wrapper.properties中的gradle-2.2-all.zip改为gradle-2.14.1-all.zip
 >* 更改后重新yarn
->* 如果打包后不现实图片，先在根目录执行：react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+>* 如果打包后不显示本地图片，先在根目录执行：react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 >* 值得注意的是：我们在开发一个apk发布在应用商店时，需要我们自己的生成的签名文件，这个签名文件和开发环境默认的签名文件肯定是不同的，至少指纹证书SHA1就不同。所以，当我们通过我们自己生成的签名文件导出签名的apk时，百度地图的key应该是我们自己的签名文件中的指纹证书，如果还是用的是debug.keystore的SHA1申请的key,百度地图自然就会有问题。比如，我们导出apk的签名文件名字为myapp.keystore;那么可以通过在命令窗口中输入keytool -list -v -keystore myapp.keystore得到SHA1，然后通过这个SHA1去申请百度key，这样，你导出的签名apk的百度地图功能就不会只显示方格图加载不出来地图的问题了。
 
 
@@ -217,3 +217,9 @@ TouchableOpacity会在用户手指按下时降低按钮的**透明度**，而不
 某些场景中你可能需要检测用户是否进行了长按操作。可以在上面列出的任意组件中使用onLongPress属性来实现。
 
 ScrollView可以在垂直或水平方向滚动，还可以配置**pagingEnabled**属性来让用户整屏**整屏的滑动**。此外，**水平方向的滑动**还可以使用Android上的**ViewPagerAndroid** 组件。
+
+### 打包APP
+进入android目录
+```
+$ ./gradlew assembleRelease
+```
