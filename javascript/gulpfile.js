@@ -58,7 +58,12 @@ gulp.task('css', function() {
         .pipe(browserSync.reload({stream: true}));
 });
 gulp.task('js', function() {
-    gulp.src('./src/js/*.js')
+    gulp.src([
+        './src/js/*.js',
+        // './src/js/IIFE/*.js',
+        // './src/js/commonJs/*.js'
+        './src/js/AMD/*.js',
+    ])
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['es2015']
@@ -88,7 +93,12 @@ gulp.task('watch', function() {
     gulp.watch('src/sass/*.scss', ['sass']); //监控scss文件
     gulp.watch('src/css/*.css', ['css']); //监控css文件
     gulp.watch(['src/*.html'], ['html']); //监控html文件
-    gulp.watch(['src/js/*.js'], ['js']); //监控js文件
+    gulp.watch([
+        'src/js/*.js',
+        // 'src/js/IIFE/*.js',
+        // './src/js/commonJs/*.js',
+        './src/js/AMD/*.js',
+    ], ['js']); //监控js文件
     gulp.watch(['src/image/*'], ['image']); //监控图片文件
 });
 

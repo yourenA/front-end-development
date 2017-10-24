@@ -1,0 +1,13 @@
+.div {
+  border-radius: 16px;
+  overflow: hidden;
+  background: url("../image/bg.jpg") no-repeat;
+  cursor: pointer;
+  height: 32px;
+  line-height: 32px; }
+  .div div {
+    display: inline-block; }
+
+a {
+  color: #295;
+  font-size: 160px; }

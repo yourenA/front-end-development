@@ -1,0 +1,19 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JS Modules</title>
+</head>
+<body>
+<h1>
+    The Answer is
+    <span id="answer"></span>
+    <br>
+</h1>
+
+<script type="text/javascript" src="./js/my-app.js"></script><!--定义myApp={}-->
+<script type="text/javascript" src="./js/add.js"></script><!--在IIFE里面可以使用myApp-->
+<script type="text/javascript" src="./js/reduce.js"></script><!--在IIFE里面可以使用myApp-->
+<script type="text/javascript" src="./js/sum.js"></script><!--在IIFE里面可以使用myApp-->
+<script type="text/javascript" src="./js/main.js"></script><!-- myyApp ->> app 使用app作为myyApp的别名-->
+</body>
+</html>

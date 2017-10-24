@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <title>根据IP地址获取所在城市</title>
+    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+    <script type="text/javascript">
+        function getIpPlace() {
+            console.log(returnCitySN)
+            console.log(remote_ip_info)
+    }
+    </script>
+</head>
+<body>
+<form id="form1"runat="server">
+    <div>
+        <input id="Button1" type="button" value="根据IP地址获取所在城市" onclick="getIpPlace();"/>
+    </div>
+</form>
+</body>
+</html>

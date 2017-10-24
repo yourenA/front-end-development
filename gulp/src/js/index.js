@@ -1,55 +1,101 @@
-//找父节点
-var zNodes=[
-    {id:0,name:"Aaaa"},
-    {id:1,pId:0,name:"A"},
-    {id:11,pId:1,name:"A1"},
-    {id:12,pId:1,name:"A2"},
-    {id:13,pId:1,name:"A3"},
-    {id:2,pId:0,name:"B"},
-    {id:21,pId:2,name:"B1"},
-    {id:22,pId:2,name:"B2"},
-    {id:23,pId:2,name:"B3"},
-    {id:3,pId:0,name:"C"},
-    {id:31,pId:3,name:"C1"},
-    {id:32,pId:3,name:"C2"},
-    {id:33,pId:3,name:"C3"},
-    {id:34,pId:31,name:"x"},
-    {id:35,pId:31,name:"y"},
-    {id:36,pId:31,name:"z"},
-    {id:37,pId:36,name:"z1123"} ,
-    {id:38,pId:37,name:"z123123123"}
+const data=[
+    {
+        "test_name": "相加",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "A分组",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "相减",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 2
+    },
+    {
+        "test_name": "B分组",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "相加",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 2
+    },
+    {
+        "test_name": "C分组",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 2
+    },
+    {
+        "test_name": "相乘",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 3
+    },
+    {
+        "test_name": "相加",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 2
+    },
+    {
+        "test_name": "比较",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 2
+    },
+    {
+        "test_name": "阶乘",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "比较",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "阶乘",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "阶乘",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "阶乘",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    },
+    {
+        "test_name": "阶乘",
+        "status_code": 200,
+        "status_code_explain": "成功",
+        "level": 1
+    }
 ];
-function  findP(zNodes,node) {
-    var ans=[];
-    for(var i=0;i<zNodes.length;i++){
-        if(node.pId==zNodes[i].id){
-            if(!zNodes[i].pId){
-                return zNodes[i];
-            }
-            ans.push(zNodes[i]);
-            return  ans.concat(findP(zNodes,zNodes[i]));
-        }
+let resultAdata=[]
+for(let i=0,len=data.length;i<len;i++){
+    if(data[i].level>1){
+        console.log( resultAdata[i-1])
+        resultAdata[i-1].children=[data[i]]
+    }else{
+        resultAdata.push(data[i])
     }
 }
-console.log(findP(zNodes,  {id:38,pId:37,name:"z123123123"}));
-// 输出
-//[ { id: 1, pId: 0, name: 'A' }, { id: 0, name: 'Aaaa' } ]
-
-//找子节点
-function findC(zNodes,node) {
-    var ans=[];
-    for(var i=0;i<zNodes.length;i++){
-        if(node.id==zNodes[i].pId){
-            ans.push(zNodes[i]);
-            ans=ans.concat(findC(zNodes,zNodes[i]));
-        }
-    }
-    return ans;
-}
-console.log(findC(zNodes, {id:3,pId:0,name:"C"}));
-// 输出
-// [
-//     { id: 11, pId: 1, name: 'A1' },
-//     { id: 12, pId: 1, name: 'A2' },
-//     { id: 13, pId: 1, name: 'A3' }
-// ]

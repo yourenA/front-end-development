@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动触发库waypoints</title>
+    <script src="https://cdn.bootcss.com/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+    <style>
+        body{
+            width: 100%;
+            height: 200%;
+            padding-top: 500px;
+            padding-bottom: 500px;
+        }
+        .waypoints{
+            width: 100px;
+            height: 100px;
+            margin: 100px;
+            background: #2c3e50;
+            color: #ffffff;
+            text-align: center;
+            line-height: 100px;
+        }
+        #waypoints5{
+        }
+    </style>
+</head>
+<body>
+<div class="waypoints" id="waypoints1">1</div>
+<div class="waypoints" id="waypoints2">2</div>
+<div class="waypoints" id="waypoints3">3</div>
+<div class="waypoints" id="waypoints4">4</div>
+<div class="waypoints" id="waypoints5">5</div>
+<div class="waypoints" id="waypoints6">6</div>
+<div class="waypoints" id="waypoints7">7</div>
+<div class="waypoints" id="waypoints8">8</div>
+<script>
+    function notify(str) {
+        console.log(str)
+    }
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoints5'),
+        handler: function(direction) {
+            console.log(this)
+            var previousWaypoint = this.previous() //上一个 相当于上一个this
+            var nextWaypoint = this.next()//下一个
+            notify(this.element.id + ' triggers at ' + this.triggerPoint+" "+direction)// this.triggerPoint距离浏览器顶部的距离
+            this.destroy()
+        },
+        offset: '75%', //距离浏览器顶部75%的视图高度 ,负数表示元素顶部超出浏览器顶部多少
+//        offset: '200px' //距离浏览器顶部200px的视图高度
+//        offset: 'bottom-in-view', //当元素的底部触及窗口底部时,注意是底部
+//        context: document.getElementById('overflow-scroll')//上下文元素，嵌套的元素
+//        continuous: false,//是否连续，默认true
+//        enabled: false,
+//        horizontal: true
+    })
+</script>
+</body>
+</html>

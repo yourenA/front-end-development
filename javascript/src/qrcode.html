@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <script src="./js/qrcode.min.js">
+    </script>
+</head>
+<body>
+<div class="main">
+    <div class="inwrap">
+        <h1>QRCode 生成二维码
+        </h1>
+        <h2>示例
+        </h2>
+        <div class="example">
+            <h3>简单方式
+            </h3>
+            <div id="qrcode_1">
+            </div>
+        </div>
+        <div class="example">
+            <h3>设置参数方式
+            </h3>
+            <div id="qrcode_2">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    new QRCode(document.getElementById('qrcode_1'), 'your content');
+    var qrcode = new QRCode('qrcode_2', {
+                text: 'your content',
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            }
+    );
+</script>
+</body>
+</html>
