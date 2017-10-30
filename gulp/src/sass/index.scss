@@ -1,0 +1,36 @@
+@charset "UTF-8";
+.mui-switch {
+  width: 52px;
+  height: 31px;
+  vertical-align: middle;
+  position: relative;
+  border: 1px solid #dfdfdf;
+  background-color: #fdfdfd;
+  border-radius: 20px;
+  background-clip: content-box;
+  display: inline-block;
+  -webkit-appearance: none; //去掉input的默认样式
+  user-select: none;
+  outline: none; //去掉选中时的蓝色边框
+  transition: background-color ease 0.4s;
+  &:before {
+    content: '';
+    width: 29px;
+    height: 29px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: left 0.3s;
+  }
+  &:checked {
+    border-color: #64bd63;
+    box-shadow: #64bd63 0 0 0 16px inset;
+    background-color: #64bd63;
+    &:before {
+      left: 21px;
+    }
+  }
+}

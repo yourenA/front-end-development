@@ -58,12 +58,7 @@ gulp.task('css', function() {
         .pipe(browserSync.reload({stream: true}));
 });
 gulp.task('js', function() {
-    gulp.src([
-        './src/js/*.js',
-        // './src/js/IIFE/*.js',
-        // './src/js/commonJs/*.js'
-        './src/js/AMD/*.js',
-    ])
+    gulp.src(['./src/js/*.js',])
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['es2015']

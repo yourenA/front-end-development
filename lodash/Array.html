@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lodash</title>
-    <script src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
-    <script>
+   <!-- <script>
         /**
          * @function chunk
          * 按照size长度拆分数组
@@ -524,9 +523,176 @@
          * */
         const xorWith=_.xorWith([{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }],  [{ 'x': 1, 'y': 1 }, { 'x': 1, 'y': 2 }], _.isEqual);
         console.log('xorWith',xorWith)
+    </script>-->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="lodash.custom.min.js"></script>
+    <script>
+        var users = [
+            { 'user': 'barney',  'age': 36, 'active': true },
+            { 'user': 'fred',    'age': 40, 'active': false },
+            { 'user': 'pebbles', 'age': 1,  'active': true }
+        ];
+        console.log(_.find(users, function(o) { return o.age < 40; }))
     </script>
+    <style>
+        body {
+            background: #444444;
+            color: white;
+            font: 15px/1.51 system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+            margin:0 auto;
+            max-width:600px;
+            padding:20px;
+        }
+        .item {
+            border:4px solid white;
+            height:120px;
+            width:100%;
+            margin-bottom:50px;
+            background:#333;
+            padding:20px;
+        }
+        .color-1 { border-color: #9BFFBB}
+        .color-2 { border-color: #B9C6FF}
+        .color-3 { border-color: #FFA3D8}
+        .color-4 { border-color: #FF8E9B}
+        .h3 {
+            counter-reset: abc 2;           /* 在父节点 重置计数器成0 ，可以输入合法字符*/
+        }
+        h3:before {
+            counter-increment: abc;      /* 增加计数器值 */
+            content: "第 " counter(abc) " 部分: "; /* 显示计数器 */
+        }
+
+
+        ol {
+            counter-reset: section;                /* 为每个ol元素创建新的计数器实例 */
+            list-style-type: none;
+        }
+        li:before {
+            counter-increment: section;            /* 只增加计数器的当前实例 */
+            content: counters(section, "—") " :     ";   /* 为所有计数器实例增加以“.”分隔的值 */
+        }
+    </style>
 </head>
 <body>
+
+<div id='view' style='font-size:16px;border:1px solid red;width:200px;height:60px;line-height:25px;overflow:auto'></div>
+
+<div class="h3">
+    <h3>Introduction</h3>
+    <h3>Body</h3>
+    <h3>Conclusion</h3>
+</div>
+<!-- Learn about this code on MDN: https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Counters -->
+
+<ol>
+    <li>item</li>          <!-- 1     -->
+    <li>item               <!-- 2     -->
+        <ol>
+            <li>item</li>      <!-- 2.1   -->
+            <li>item</li>      <!-- 2.2   -->
+            <li>item           <!-- 2.3   -->
+                <ol>
+                    <li>item</li>  <!-- 2.3.1 -->
+                    <li>item</li>  <!-- 2.3.2 -->
+                </ol>
+                <ol class="ol">
+                    <li>item</li>  <!-- 2.3.1 -->
+                    <li>item</li>  <!-- 2.3.2 -->
+                    <li>item</li>  <!-- 2.3.3 -->
+                </ol>
+            </li>
+            <li>item</li>      <!-- 2.4   -->
+        </ol>
+    </li>
+    <li>item</li>          <!-- 3     -->
+    <li>item</li>          <!-- 4     -->
+</ol >
+<h1>Infinite scrolling throttled</h1>
+<div class="item color-1">Block 1</div>
+<div class="item color-2">Block 2</div>
+<div class="item color-3">Block 3</div>
+<div class="item color-4">Block 4</div>
+<script>
+
+    str = '这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本这是一个文本'
+    el = document.getElementById('view');
+
+    
+    function ellipsis(ele,str) {
+        for(let i=0; i<str.length; i++) {
+            ele.innerText = str.substr(0, i);
+            if( ele.offsetHeight < ele.scrollHeight) {
+                ele.style.overflow = 'hidden';
+                ele.innerText = str.substr(0, i-3) + '...';
+                break;
+            }
+        }
+    }
+    ellipsis(el,str)
+
+
+    // Very simple example.
+    // Probably you would want to use a
+    // full-featured plugin like
+    // https://github.com/infinite-scroll/infinite-scroll/blob/master/jquery.infinitescroll.js
+    $(document).ready(function(){
+
+        // Check every 200ms the scroll position
+        $(document).on('scroll', _.throttle(function(){
+            check_if_needs_more_content();
+        }, 300));//创建一个节流函数，在 wait 秒内最多执行 func 一次的函数
+
+        function check_if_needs_more_content() {
+            pixelsFromWindowBottomToBottom = 0 + $(document).height() - $(window).scrollTop() -$(window).height();
+
+            // console.log($(document).height());
+            // console.log($(window).scrollTop());
+            // console.log($(window).height());
+            //console.log(pixelsFromWindowBottomToBottom);
+
+            if (pixelsFromWindowBottomToBottom < 200){
+                // Here it would go an ajax request
+                $('body').append($('.item').clone());
+            }
+        }
+
+
+        var _this = this;
+        $('.ol').click(function(event){
+            console.log(this)
+            console.log(_this)
+        })
+    });
+
+    var safe = true;
+    function log() {
+        console.log('foo');
+    }
+    function throttled(fn,time) {
+        console.log(safe);
+        return function () { //因为throttled(log,1000)是有括号的，所以这里要返回一个function
+            if (safe) {
+                fn();
+                safe = false;
+                setTimeout(function() {
+                    safe = true;
+                }, time);
+            }
+        }
+
+    };
+    window.addEventListener('mousemove',throttled(log,1000))
+
+    var a=false;
+    a ? console.log(true) : console.log(false)
+    function console_log(content) {
+        console.log(`%c ${content}:`, "font-size:20pt",content)
+    }
+    console_log(123)
+</script>
+
+
 
 </body>
 </html>
