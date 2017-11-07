@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=" utf-8">
+    <title>title</title>
+    <style>
+        #inspector{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="mainContent">
+    <button id="inspector">防止挂机按钮</button>
+</div>
+<script>
+    window.onload=function () {
+        var inspector=document.querySelector('#inspector');
+        inspector.onclick=function () {
+            this.style.display='none';
+            setTimeout(function () {
+                inspector.style.display='block';
+            },2000)
+        }
+    }
+</script>
+</body>
+</html>

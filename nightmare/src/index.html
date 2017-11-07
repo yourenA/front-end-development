@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=" utf-8">
+    <title>title</title>
+</head>
+<body>
+<form >
+    <input type="text" id="username">
+    <input type="password" id="password">
+    <input type="checkbox" value="男"  name="xb">
+    <input type="checkbox" value="女" name="xb">
+    <select name="address" id="">
+        <option value="广州">广州</option>
+        <option value="茂名">茂名</option>
+        <option value="湛江">湛江</option>
+    </select>
+    <input type="button" id="submit" value="提交"/>
+</form>
+<script>
+    window.onload=function () {
+        var username=document.querySelector('#username')
+        var password=document.querySelector('#password')
+        var submit=document.querySelector('#submit')
+        submit.onclick=function () {
+            if(username.value==='username'&& password.value==='123456'){
+                window.location.href='/main.html'
+            }
+        }
+    }
+</script>
+</body>
+</html>

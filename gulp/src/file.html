@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="file" id="files" accept="image/gif,image/jpeg,image/jpg,image/png">
+<canvas id="canvas"></canvas>
+<img src="blank.gif" id="preview"/>
+<script>
+    var elem = document.getElementById('files');
+    elem.onchange = function (event) {
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            // 文件类型为 image 并且文件大小小于 200kb
+            if (files[i].type.indexOf('image/') !== -1 && files[i].size < 2048) {
+                console.log(files[i].name);
+            } else {
+                return false
+            }
+        }
+    }
+    var elem = document.getElementById('files'),
+            img = document.getElementById('preview');
+    elem.onchange = function () {
+        var files = elem.files,
+                reader = new FileReader();
+        if (files && files[0]) {
+            console.log(reader)
+            reader.onload = function (ev) {
+                img.src = ev.target.result;
+            }
+            reader.readAsDataURL(files[0]);//在客户端上传图片之后通过 readAsDataURL() 来显示图片。
+        }
+    }
+    var canvas = document.getElementById('canvas');
+    canvas.toBlob(function (blob) {
+        // 使用 createObjectURL 生成地址，格式为 blob:null/fd95b806-db11-4f98-b2ce-5eb16b38ba36
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.download = '123';//download有该属性才是下载，不然只是打开连接，设置下载名称
+        a.href = url;
+        // 模拟a标签点击进行下载
+        // 下载后告诉浏览器不再需要保持这个文件的引用了
+        a.text = 'xiazai'
+//        URL.revokeObjectURL(url);
+        document.body.appendChild(a)
+    });
+
+
+</script>
+</body>
+</html>

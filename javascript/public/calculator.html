@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算器</title>
+    <link rel="stylesheet" href="./css/calculator.css">
+</head>
+<body>
+
+<div class="errorHint" id="errorHint"><img src="https://github.com/crystalYY/calculator/blob/master/img/error.png?raw=true"></div>
+<table cellpadding="0">
+    <tr>
+        <th colspan="5">计算器</th>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <input type="text" value="0" name="showResult">
+        </td>
+    </tr>
+    <tr>
+        <td><button>7</button></td>
+        <td><button>8</button></td>
+        <td><button>9</button></td>
+        <td><button class="setChange" id="backSpace">Backspace</button></td>
+        <td><button class="setChange" id="clearNum">C</button></td>
+    </tr>
+    <tr>
+        <td><button>4</button></td>
+        <td><button>5</button></td>
+        <td><button>6</button></td>
+        <td><button>+</button></td>
+        <td><button>-</button></td>
+    </tr>
+    <tr>
+        <td><button>1</button></td>
+        <td><button>2</button></td>
+        <td><button>3</button></td>
+        <td><button>*</button></td>
+        <td><button>/</button></td>
+    </tr>
+    <tr>
+        <td><button>0</button></td>
+        <td><button>.</button></td>
+        <td><button>%</button></td>
+        <td colspan="2"><button class="setChange" id="gainResult">Enter</button></td>
+    </tr>
+</table>
+<script src="./js/calculator.js"></script>
+
+</body>
+</html>
