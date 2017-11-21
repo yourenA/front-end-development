@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset=" utf-8">
-    <meta name="author" content="http://www.jb51.net/" />
     <title>指定被打印的内容</title>
     <style>
         *{
@@ -11,11 +10,35 @@
         }
     </style>
     <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script>
 </head>
 <body>
 <!--<script src="./js/index.js">-->
 
 <label><input class="mui-switch" type="checkbox"> 默认未选中</label>
 <label><input class="mui-switch" type="checkbox" checked> 默认选中</label>
+<button id="btn">发送请求</button>
+<script>
+    $(document).ready(function(){
+        console.log('ready')
+            $('#btn').click(function () {
+                console.log('click')
+                $.ajax({
+                    type: "POST",
+                    url: "http://192.168.1.150:3010/user/login",
+                    data: {
+                        username:'123',
+                        password: '123'
+                    },
+                    success: function(msg){
+                        alert( "Data Saved: " + msg );
+                    }
+                });
+            })
+
+    });
+
+
+</script>
 </body>
 </html>

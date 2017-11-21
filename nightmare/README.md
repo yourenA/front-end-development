@@ -1,5 +1,5 @@
-# nightmare
-
+# nightmare 
+E2E自动化测试,nightmare 是一个基于 electron 的自动化库
 * **官网**:[http://www.nightmarejs.org/](http://www.nightmarejs.org/)
 * **github**:[https://github.com/segmentio/nightmare](https://github.com/segmentio/nightmare)
 
@@ -62,8 +62,11 @@ let nightmare = new Nightmare({
 * .inject(type, file) 注入文件 type为js或css
 * .evaluate(fn[, arg1, arg2,...])
 * .wait(ms/selector/fn)  等待多少ms/等待直到元素出现/等待直到返回true
- 
+* .end() 执行完成，等待对数据的处理
+
 * .cookies.get(name/query)
 * .cookies.set(name, value)
 * .cookies.clear([name])
 * .cookies.clearAll()
+
+* .screenshot([path][, clip])  对当前状态的页面截图 path:路径图片名 clip:{x: 0, y: 0, width: 0, height: 0}

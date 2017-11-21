@@ -1,4 +1,5 @@
 let Nightmare = require('nightmare')
+let Screenshot = require('nightmare-screenshot');
 let nightmare = new Nightmare({
     show: true,
     openDevTools: {
@@ -10,15 +11,21 @@ nightmare
     .viewport(1024, 768)
     .wait(1000)
     .type('#username', 'username')
+    .screenshot('1.png')
     .type('#password', '123456')
+    .screenshot('2.png')
     .check('input[value="男"]')
+    .screenshot('3.png')
     .wait(1000)
     .uncheck('input[value="男"]')
+    .screenshot('4.png')
     .wait(1000)
     .select('select[name="address"]',"湛江")
+    .screenshot('5.png')
     .wait(1000)
     .click('#submit')
     .wait('.mainContent')
+    .screenshot('./src/image/6.png',{x: 0, y: 0, width: 100, height: 100})
     .evaluate(() => {
         /* eslint-disable */
         function handle() {
