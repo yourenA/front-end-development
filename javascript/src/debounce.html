@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>debounce</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+        防抖动（Debounce）
+        防抖技术可以把多个顺序地调用合并成一次(最后一次)。
+        <p>多个delta时间内的操作只执行最后一次</p>
+    <script>
+        function debounce(fn, delta, context) {
+            var timeoutID = null;
+
+            return function () {
+                clearTimeout(timeoutID);
+                var args = arguments;
+                timeoutID = setTimeout(function () {
+                    fn.apply(context, args);
+                }, delta);
+            };
+        }
+
+        function Foo(data) {
+            this.data = data;
+        }
+        Foo.prototype.alert = function () {
+            console.log(this.data);
+        }
+
+        var foo = new Foo('hello world');
+        var debouncedAlert = debounce(foo.alert, 1000, foo);
+
+        window.onmousemove = debouncedAlert;
+    </script>
+</body>
+
+</html>

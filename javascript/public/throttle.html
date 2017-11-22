@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>throttle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    Throttle（节流阀）
+    只允许一个函数在 X 毫秒内执行一次。
+    <p>一开始就执行一次函数，delta时间后如果还有操作，才执行下一次</p>
+    <script>
+        function throttle(fn, delta, context) {
+            var safe = true;
+
+            return function () {
+                var args = arguments;
+
+                if (safe) {
+                    fn.call(context, args);
+                    safe = false;
+                    setTimeout(function () {
+                        safe = true;
+                    }, delta);
+                }
+            };
+        }    
+        function Foo(data) {
+            this.data = data;
+        }
+        Foo.prototype.alert = function () {
+            console.log(this.data);
+        }
+
+        var foo = new Foo('hello world');
+        var debouncedAlert = throttle(foo.alert, 1000, foo);
+
+        window.onmousemove = debouncedAlert;
+    </script>
+</body>
+
+</html>

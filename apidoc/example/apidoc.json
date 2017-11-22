@@ -1,0 +1,20 @@
+{
+  "name": "顶部标题",
+  "version": "0.3.0",
+  "description": "标题下面的描述",
+  "title": "网页标题",
+  "url" : "https://api.github.com/v1",
+  "sampleUrl": "https://api.github.com/v1",
+  "header": {
+    "title": "My own header title",
+    "filename": "header.md"
+  },
+  "footer": {
+    "title": "My own footer title",
+    "filename": "footer.md"
+  },
+  "template": {
+  	"withCompare": true,
+  	"withGenerator": true
+  }
+}

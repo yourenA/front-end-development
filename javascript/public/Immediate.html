@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>immediate</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+        immediate(前缘) 直到两次快速调用之间的停顿结束，事件才会再次触发。
+    <p>一开始就执行一次函数，当两次操作的间隔大于delta才会执行下一次</p>
+    <script>
+        function immediate(fn, delta, context) {
+            var timeoutID = null;
+            var safe = true;
+
+            return function () {
+                var args = arguments;
+
+                if (safe) {
+                    fn.call(context, args);
+                    safe = false;
+                }
+                clearTimeout(timeoutID);
+                timeoutID = setTimeout(function () {
+                    safe = true;
+                }, delta);
+            };
+        }
+        function Foo(data) {
+            this.data = data;
+        }
+        Foo.prototype.alert = function () {
+            console.log(this.data);
+        }
+
+        var foo = new Foo('hello world');
+        var debouncedAlert = immediate(foo.alert, 1000, foo);
+
+        window.onmousemove = debouncedAlert;
+    </script>
+
+</body>
+
+</html>
