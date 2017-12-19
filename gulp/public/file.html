@@ -8,19 +8,29 @@
 <input type="file" id="files" accept="image/gif,image/jpeg,image/jpg,image/png">
 <canvas id="canvas"></canvas>
 <img src="blank.gif" id="preview"/>
+<div class="dropbox">
+    <span class="banner-uploader">
+        <div class="ant-upload ant-upload-select ant-upload-select-text">
+            <span tabindex="0" class="ant-upload" role="button">
+                <input type="file" accept="" style="display: none;">
+                <i class="anticon anticon-plus banner-uploader-trigger"></i>
+            </span>
+        </div>
+    </span>
+</div>
 <script>
-    var elem = document.getElementById('files');
-    elem.onchange = function (event) {
-        var files = event.target.files;
-        for (var i = 0; i < files.length; i++) {
-            // 文件类型为 image 并且文件大小小于 200kb
-            if (files[i].type.indexOf('image/') !== -1 && files[i].size < 2048) {
-                console.log(files[i].name);
-            } else {
-                return false
-            }
-        }
-    }
+    //    var elem = document.getElementById('files');
+    //    elem.onchange = function (event) {
+    //        var files = event.target.files;
+    //        for (var i = 0; i < files.length; i++) {
+    //            // 文件类型为 image 并且文件大小小于 200kb
+    //            if (files[i].type.indexOf('image/') !== -1 && files[i].size < 2048) {
+    //                console.log(files[i].name);
+    //            } else {
+    //                return false
+    //            }
+    //        }
+    //    }
     var elem = document.getElementById('files'),
             img = document.getElementById('preview');
     elem.onchange = function () {

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js片段</title>
+    <script>
+        /**
+         * different(a,b) 过滤数组中b中不包括的值
+         * */
+        const different=(a,b)=>{
+            const s=new Set(b);//去除b中重复的项
+            return a.filter(x=>{
+                console.log(!s.has(x));
+                return !s.has(x) //set.has 返回一个布尔值，表示该值是否为Set的成员
+            })
+        }
+        console.log('different:',different([1,2,4],[1,2,3,3,3]))
+        console.log('different:',different([1,2,3,3,3],[1,2,4]))
+
+        /**
+         * ArrayConcat(arr,...args) 数组拼接
+         * */
+        const ArrayConcat=(arr,...args)=>{
+            return [].concat(arr,...args) //...[[4]]->[4]
+        }
+        console.log('ArrayConcat:',ArrayConcat([1], [1, 12, 3, 4,[4]]))
+
+        /**
+         * include(arr,val,index) 数组包括
+         * */
+        const include=(arr,val,index=0)=>{
+            return arr.slice(index).indexOf(val) != -1; //arr.slice注意是新数组哦~ 也就是说它不会修改原来数组的值。
+        }
+        console.log('include',include('hello word','wo'))
+        console.log('include',include([1,2,3],[1,2]))
+
+        /**
+         * intersection(a,b)数组交集
+         * */
+        const intersection=(a,b)=>{
+            const s =new Set(b)
+            return a.filter(x=>s.has(x))
+        }
+        console.log('intersection',intersection([1,2,3], [4,3,2,1]))
+
+        /**
+         * union(a,b)数组合集
+         * */
+        const union=(a,b)=>Array.from(new Set([...a,...b])) //使用Array.from方法将arrayLike转为真正的数组
+        console.log('union',union([1,2,3],[2,3,4]))
+
+        /**
+         * similarity(arr1,arr2)求两个数组的交集
+         * */
+        const similarity=(arr1,arr2)=>arr1.filter((v)=>arr2.includes(v))
+        console.log('similarity',similarity([1,2,3], [1,2,4]))
+
+        /**
+         * remove(arr,func) 移除数组中的元素
+         * */
+        const arr=[1,2,3,4]
+        const remove=(arr,func)=>{
+            return Array.isArray(arr)?arr.filter(func).reduce((acc,val)=>{
+                arr.splice(arr.indexOf(val),1); //用splice删除数组中的值会直接将某几项从数组中完全删除，会导致数组length值的改变
+                return acc.concat(val)
+            },[]):[]
+        }
+        console.log('remove',remove(arr,(x)=>x % 2 ===0))//返回删除的元素
+        console.log(arr)//原数组改变
+
+        /**
+         * sample(arr) 数组随机取样
+         * */
+        const sample=arr=>arr[Math.floor(Math.random()*arr.length)]
+        console.log('sample',sample([1,2,34,5]))
+
+        /**
+         * without(arr,...restParams)排除数组指定的值
+         * */
+        const without=(arr,...restParams)=>arr.filter(v=>{
+            console.log('...restParams',...restParams)
+            console.log('restParams',restParams)
+            return restParams.indexOf(v)===-1
+        })
+        console.log('without', without([2, 1, 2, 3], 1, 2) )
+
+
+        /**
+         * chunk(array，size) 数组分块
+         * */
+        const chunk=(arr,size)=>{
+            //Array.from方法还支持类似数组的对象。所谓类似数组的对象，本质特征只有一点，即必须有length属性。
+            //Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。
+            return Array.from({length:Math.ceil(arr.length / size)},(v,i)=>{
+                console.log(i*size,i*size+size)
+                return arr.slice(i*size,i*size+size)
+            })
+        }
+
+        console.log('chunk',chunk([1,2,3,4,5], 2))
+
+        /**
+         * compact(arr)过滤假值
+         * */
+        const compact=(arr)=>arr.filter(v=>v)
+        console.log('compact',compact([123,0,{},null]))
+
+        /**
+         * countOccurrence(arr , val) 统计出现的次数
+         * */
+        const countOccurrence=(arr,val)=>arr.reduce((a,v)=>v===val?a+1:a+0,0)
+        console.log('countOccurrence', countOccurrence([1,1,2,1,2,3], 1))
+
+        /**
+         * deepFlatten(arr)深度平铺数组
+         * */
+        const deepFlatten=(arr)=>{
+            console.log('...arr',...arr)
+            return [].concat(...arr.map((v)=>Array.isArray(v)?deepFlatten(v):v));
+        }
+        console.log('deepFlatten',deepFlatten([1,[2],[[3],4],5]) )
+
+        /**
+         * fill(arr,val,start,end) 填充数组
+         * */
+        const fill=(arr,val,start=0,end=arr.length)=>{
+            return arr.map((v,i)=>i>=start&&i<end?val:v)
+        }
+        console.log('fill',fill([1,2,3,4],'8',1,3))
+
+        /**
+         * filterNonUnique  滤除掉非唯一值，使数组仅包含唯一值
+         * */
+        const filterNonUnique=arr=>arr.filter(val=>arr.indexOf(val)===arr.lastIndexOf(val))
+        console.log('filterNonUnique',filterNonUnique([1,2,2,3,4,4,5]))
+
+        /**
+         * groupBy(arr,func)分组
+         * */
+        const groupBy=(arr,func)=>{
+            return arr.map(typeof func ==='function'?func:val=>val[func]).reduce((acc,val,i)=>{
+                console.log('acc',acc)
+                console.log('val',val)
+                console.log('i',i)
+                acc[val]=(acc[val]||[]).concat(arr[i])
+                return acc
+            },{})
+        }
+        console.log('groupBy',groupBy([6.1, 4.2, 6.3], Math.floor))
+
+
+        /**
+         * initializeArrayRange(start,end)初始化特定范围数组
+         * */
+        //Array(6) 相当于 [undefined × 6]
+        //Array.apply(null,Array(6)) 相当于[undefined, undefined, undefined, undefined, undefined, undefined]
+        const initializeArrayRange=(end,start=0)=>Array.apply(null,Array(end-start)).map((v,i)=>i+start);
+        console.log('initializeArrayRange',initializeArrayRange(5,1))
+
+        /**
+         * initializeArray 初始化特定个数和值的数组
+         * */
+        initializeArray=(n,value=0)=>Array(n).fill(value)
+        console.log('initializeArray',initializeArray(5,2))
+
+        /**
+         * last(arr) 获取数组最后一个元素
+         * */
+        //const last=(arr)=>arr[arr.length-1]
+        const last=(arr)=>arr.slice(-1)[0]
+        console.log('last',last([1,2,3]))
+
+        /**
+         * Median(arr) 获取数字数组的中值
+         * */
+        const median=arr=>{
+            const mid=Math.floor(arr.length/2),
+                   nums=arr.sort((a,b)=>a-b);
+            return mid%2 !==0?nums[mid]:(nums[mid-1]+nums[mid])/2
+        }
+        console.log('median',median([0,10,-2,7]) )
+
+        /**
+         * shuffle 随机排列数组
+         * */
+        const shuffle=arr=>arr.sort(()=>Math.random()-0.5)
+        console.log('shuffle',shuffle([1,2,3]))
+
+        /**
+         * unique 数组去重
+         * */
+        const unique=arr=>[...new Set(arr)]
+        console.log('unique',unique([1,2,2,3,4,4,5]))
+
+
+        /**
+         * 页面底部是否可见（滚动条是否滚动到地步底部）
+         * */
+        const bottomVisible=_=>{
+            console.log(document.documentElement.clientHeight)//页面视窗高度
+            console.log(window.scrollY)//页面滚动条位置
+            console.log(document.documentElement.scrollHeight)//文档的高度
+            return (document.documentElement.clientHeight+window.scrollY>=document.documentElement.scrollHeight)|| document.documentElement.clientHeight;
+        }
+        console.log('bottomVisible', bottomVisible())
+
+    </script>
+</head>
+<body>
+    <div style="height:4000px"></div>
+    <div id="ele" style="width: 100px;height: 100px;background: #64bd63"></div>
+    <script>
+        /**
+         * 判断元素是否在可是窗口可见
+         * */
+        //innerWidth包括滚动条 document.documentElement.clientWeight 不包括滚动条
+        const elementIsVisibleInViewPort=(el,partiallyVisible=false)=>{
+            const {left,top,right,bottom}=el.getBoundingClientRect();//左侧，右侧离window左侧距离。顶部，底部离window顶部距离
+            console.log('left',left,'top',top,'right',right,'bottom',bottom)
+            console.log('innerHeight',innerHeight,'innerWidth',innerWidth)
+            console.log('top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth')
+            console.log('((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))')
+            return partiallyVisible?((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&
+            ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
+                    :top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+        }
+        console.log('elementIsVisibleInViewPort',elementIsVisibleInViewPort(document.getElementById('ele')))
+        console.log('elementIsVisibleInViewPort',elementIsVisibleInViewPort(document.getElementById('ele')),true)
+
+        /**
+         * 获取滚动条位置
+         * */
+        const getScrollPos=(ele=window)=>{
+            console.log(ele.pageYOffset)
+            console.log(ele.scrollTop)
+            console.log(ele.scrollY)
+            return({
+                x:(ele.pageXOffset !== undefined)?ele.pageXOffset:ele.scrollLeft,
+                y:(ele.pageYOffset !== undefined)?ele.pageYOffset:ele.scrollTop
+            })
+        }
+        getScrollPos(document.getElementById('ele'))
+
+        /**
+         * 回到顶部
+         * */
+        const scrollToTop = _ => {
+            const c = document.documentElement.scrollTop || document.body.scrollTop;
+            if (c > 0) {
+                window.requestAnimationFrame(scrollToTop);
+                window.scrollTo(0, c - c / 8);
+            }
+        };
+
+        /**
+         * 休眠
+         * */
+        const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms))
+        async function sleepyWork() {
+            console.log('I\'m going to sleep for 1 second.');
+            await sleep(1000);
+            console.log('I woke up after 1 second.');
+        }
+
+        /**
+         * 大写每个单词的首字母
+         * */
+        //\b单词边界  \B非单词边界
+        const capitalizeEveryWord=(str)=>str.replace(/\b[a-z]/g,char=>char.toUpperCase())
+        console.log('capitalizeEveryWord',capitalizeEveryWord('hello world!'))
+
+        /**
+         * 首字母大写
+         * */
+        const capitalize=([first,...rest])=>{
+            console.log([first,...rest])
+            console.log(first)
+            console.log(rest)
+            return first.toUpperCase()+rest.join('')
+        }
+        console.log( 'capitalize',capitalize('myName') )
+
+        /**
+         * 交换两个变量的值
+         * */
+        //[varA, varB] = [varB, varA];
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+<p class="copy">这是需要复制的内容</p>
+<script>
+    function copyToClipboard(text) {
+        if (window.clipboardData) { // Internet Explorer
+            window.clipboardData.setData("Text", text);
+        } else {
+            var textArea = document.createElement("textarea");
+            textArea.style.background = 'transparent';
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                if (!document.execCommand('copy')) {
+                    copyToClipboardMozilla(text);
+                } else {
+                    showInfo("提示", "复制成功")
+                }
+
+            } catch (err) {
+                console.log('Oops, unable to copy');
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+
+    function copyToClipboardMozilla(text) {
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    }
+
+    $(".copy").on("mouseenter", function () {
+        $(this).css("background-color", "#c8c9c8");
+        $(this).focus();
+        var textArea = document.createElement("textarea");
+        textArea.style.background = 'transparent';
+        textArea.id = "copyContent";
+        textArea.value = $(this).text();
+        document.body.appendChild(textArea);
+        textArea.select();
+    })
+
+    $(".copy").on("mouseleave", function () {
+        $(this).css("background-color", "");
+        document.body.removeChild(document.getElementById("copyContent"));
+    })
+
+</script>
+</body>
+</html>
