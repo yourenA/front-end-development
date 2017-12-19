@@ -284,6 +284,28 @@
          * 交换两个变量的值
          * */
         //[varA, varB] = [varB, varA];
+
+        /**
+         * JSON.parse() 接受第二个参数，改变返回值
+         * */
+        const user = [{
+            name: 'John',
+            email: 'john@awesome.com',
+            plan: 'Pro'
+        }];
+
+        const userStr = JSON.stringify(user);
+
+        const newUserStr = JSON.parse(userStr, (key, value) => {
+            console.log('key',key)
+            console.log('value',value)
+            if (typeof value === 'string') {
+                return value.toUpperCase();
+            }
+            return value;
+        });
+
+        console.log(newUserStr);
     </script>
 </body>
 </html>
