@@ -1,0 +1,123 @@
+@charset "UTF-8";
+/* Variables */
+$bg-image: "https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?q=80&fm=jpg&s=c895a1f219d174952415b9b7a0811e62";
+$bg-overlay: rgba(0,235,235,0.7);
+
+$primary-color: #FFFFFF;
+$primary-font: "Amatic SC", cursive;
+$secondary-color: #FFF0A5;
+$secondary-font: "Abril Fatface", cursive;
+$body-color: #999999;
+$body-font: Helvetica, Arial, sans-serif;
+
+/* Fonts */
+
+/* Mixins */
+@mixin bg-images(
+  $image-path: "https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?q=80&fm=jpg&s=c895a1f219d174952415b9b7a0811e62",
+  $overlay-color: rgba(255,255,255,0.8),
+  $position: center center) {
+
+  animation: bgFadeIn 1s ease-in both;
+  position: relative;
+
+  &:before {
+    content: ' ';
+    background:
+            linear-gradient(
+                            $overlay-color,
+                            $overlay-color
+            ),
+            url($image-path); //渐变 图片
+    background-color: #CCCCCC;
+    background-attachment: fixed;//背景图片固定不动。
+    background-position: $position;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  @keyframes bgFadeIn {
+    0% { background-color: rgba(255, 255, 255, 1); }
+    100% { background-color: rgba(255, 255, 255, 0); }
+  }
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  color: $body-color;
+  font-family: $body-font;
+  font-size: 10px;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 750px;
+  padding: 0 24px;
+}
+
+header {
+  @include bg-images(
+          $image-path: $bg-image,
+          $overlay-color: $bg-overlay
+  );
+  padding: 28px;
+  text-align: center;
+
+  .container {
+    margin: 12rem auto;
+  }
+
+  h1 {
+    border-bottom: 2px solid $primary-color;
+    border-top: 2px solid $primary-color;
+    color: $primary-color;
+    font-family: $primary-font;
+    font-size: 8.75rem;
+    margin: 0;
+  }
+
+  h3 {
+    color: $secondary-color;
+    font-family: $secondary-font;
+    font-size: 3.75rem;
+    font-style: italic;
+    font-weight: 100;
+    margin: 0;
+  }
+}
+
+section {
+  padding: 2rem;
+
+  p {
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+
+    &.lead-in {
+      font-size: 3rem;
+
+      &:first-letter {
+        font-size: 7.25rem;
+        display: block;
+        float: left;
+        position: relative;
+        line-height: .1;
+        top: -0.200em;
+      }
+
+    }
+  }
+}
