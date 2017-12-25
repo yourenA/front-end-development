@@ -2,11 +2,312 @@
 <html>
 <head>
     <meta charset=" utf-8">
-    <meta name="author" content="http://www.jb51.net/" />
-    <title>jsfiddle</title>
-
+    <title>some javascript question</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link href="https://cdn.bootcss.com/prism/9000.0.1/themes/prism-okaidia.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/prism.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/9000.0.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
 </head>
-<body style="height: 2000px">
-<script async src="//jsfiddle.net/kpdamt1o/embed/js,html,css,result/dark/"></script>
+<body>
+<header>
+    <div class="container">
+        <h1>-Front-end-development-</h1>
+        <h3>HTML CSS JAVASCRIPT</h3>
+    </div><!-- /.container -->
+</header>
+<section>
+    <div class="container item">
+        <p class="lead-in">Doctype（文档类型）的作用是什么?</p>
+        <p>DOCTYPE是文档类型声明元素,它的作用是告诉xml解析器,将使用哪个dtd文件对此xml文档进行解析.</p>
+        <p>HTML 5 不基于 SGML，因此不需要对 DTD 进行引用，但是需要 doctype 来规范浏览器的行为（让浏览器按照它们应该的方式来运行）。</p>
+        <p>SGML是标准通用标记语言,简单的说，就是比HTML,XML更老的标准，这两者都是由SGML发展而来的。BUT，HTML5不是的。</p>
+    </div>
+    <div class="container item">
+        <p class="lead-in">浏览器的渲染过程</p>
+        <p>1、首先获取html，然后构建dom树</p>
+        <p>2、其次根据css构建render树，render树中不包含定位和几何信息</p>
+        <p>3、最后构建布局数，布局是含有元素的定位和几何信息</p>
+    </div>
+    <div class="container item">
+        <p class="lead-in">利用manifest属性进行缓存缓存</p>
+        <p>首先给html标签添加manifest属性</p>
+        <pre class="line-numbers" ><code class="language-markup">
+&lt;!DOCTYPE HTML>
+&lt;html manifest="demo.appcache">
+&lt;head>
+    &lt;title>文档标题&lt;/title>
+&lt;/head>
+
+&lt;body>
+文档内容......
+&lt;/body>
+&lt;/html></code></pre>
+        <p>demo.appcache格式如下</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+  CACHE MANIFEST
+  #v1.2
+  CACHE :           //表示需要缓存的文件
+    a.js
+    b.js
+NETWORK:    //表示只在用户在线的时候才需要的文件，不会缓存
+  c.js
+FALLBACK
+/        /index.html     //表示如果找不到第一个资源就用第二个资源代替</code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">reset CSS 文件的作用和使用它的好处及弊端?</p>
+        <p>作用：</p>
+        <p>重置浏览器的默认样式</p>
+        <p>好处：</p>
+        <p>因为现在的浏览器很多，并且每个浏览器都有自己的默认样式，这样就会导致一个页面在多个浏览器下展示产生差异，所以我们需要做一些处理使每个浏览器下展示一致，故需要css reset</p>
+        <p>弊端：</p>
+        <p>并不是所有的标签都有默认的margin，padding，reset而且连后面有用的样式也干掉了</p>
+        <p>更好的替换者：Normalize.css 详细：http://jerryzou.com/posts/aboutNormalizeCss/</p>
+    </div>
+    <div class="container item">
+        <p class="lead-in">页面导入样式时，使用link和@import有什么区别？</p>
+        <p>区别1：link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。</p>
+        <p>区别2：link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。</p>
+        <p>区别3：link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。</p>
+        <p>区别4：ink支持使用Javascript控制DOM去改变样式；而@import不支持。</p>
+    </div>
+    <div class="container item">
+        <p class="lead-in">Label的作用是什么？是怎么用的？</p>
+        <p>label标签来定义表单控制间的关系,当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单控件上。</p>
+        <pre  class="line-numbers"><code class="language-markup">
+&lt;label for="Name">Number:&lt;/label> &lt;input type=“text“name="Name" id="Name"/>
+&lt;label>Date:&lt;input type="text" name="B" />&lt;/label></code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">li与li之间有看不见的空白间隔是什么原因引起的？有什么解决办法？</p>
+        <p>原因：浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。</p>
+        <p>解决方法</p>
+        <p>1. 将所有&lt;写在同一行。不足：代码不美观。</p>
+        <p>2. 将&lt;ul>内的字符尺寸直接设为0，即font-size: 0。不足：&lt;ul>中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。</p>
+        <p>3. 消除&lt;ul>的字符间隔letter-spacing: -8px，而这也设置了&lt;li>内的字符间隔，因此需要将&lt;li>内的字符间隔设为默认letter-spacing: normal。 </p>
+    </div>
+    <div class="container item">
+        <p class="lead-in">不同的清除浮动的技巧</p>
+        <ul>
+            <li>
+                <p>1.使用空标签清除浮动</p>
+                <pre  class="line-numbers"><code class="language-css">.clearfix { clear:both; }</code></pre>
+            </li>
+            <li>
+                <p>2.包含浮动元素的父标签添加css属性使用overflow</p>
+                <pre  class="line-numbers"><code class="language-css">.container { overflow:auto; zoom:1;}</code></pre>
+            </li>
+            <li>
+                <p>3.使用after伪对象清除浮动</p>
+                <p>该方法中必须为需要清除浮动元素的伪对象中设置 height:0，否则该元素会比实际高出若干像素；content属性是必须的，但其值可以为空</p>
+                <pre  class="line-numbers"><code
+                        class="language-css">.container:after { content:'';height:0;overflow:hidden;clear:both}</code></pre>
+            </li>
+        </ul>
+    </div>
+    <div class="container item">
+        <p class="lead-in">如何使用CSS sprites</p>
+        <p>CSS
+            sprite即把网页中比较小的一些小图片整合到一张图片文件中，再利用CSS的background-image属性插入图片，然后利用background-position属性对图片所需要的部分进行精确定位，从而达到减少服务器请求次数的目的</p>
+        <pre  class="line-numbers"><code class="language-css">
+.sp {background: url(00.png) no-repeat;}
+.sp-1 {background-position: 0px 0px;}
+.sp-2 {background-position: -26px 0px;}
+.sp-3 {background-position: -26px -27px;}
+.sp-4 {background-position: 0px -27px;}
+        </code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">使用媒体查询</p>
+        <pre  class="line-numbers"><code class="language-markup">
+&lt;!-- link元素中的CSS媒体查询 --&gt;
+&lt;link rel="stylesheet" media="(max-width: 800px)" href="example.css"/&gt;</code>
+        </pre>
+        <pre  class="line-numbers"><code class="language-css">
+@media screen and (min-width:960px) and (max-width:1200px){
+    body{
+        background:yellow;
+    }
+}
+        </code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">JavaScript的闭包</p>
+        <p>闭包简单的说就是一个函数能访问外部函数的变量，这就是闭包</p>
+        <p>最典型的闭包--将定义在函数中的函数作为返回值</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+function a(x){
+       var tem=3;
+      function b(y){
+          console.log(x+y+(++tem));
+     }
+     return b;
+}
+        </code></pre>
+        <p>闭包的另一种作用是隔离作用域</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+for(var i=0;i<2;i++){
+      (function(i){
+             setTimeout(function(){
+              console.log(i);
+        },0)
+    })(i);
+}
+        </code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">利用call和apply改变this指向</p>
+        <p>call和apply的区别在于参数</p>
+        <p>他们两个的第一个参数都是一样的，表示调用该函数的对象，apply的第二个参数是数组，是[arg1,arg2,arg3]这种形式，而call是arg1,arg2,arg3这样的形式</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+function a(x){
+       var tem=3;
+      function b(y){
+          console.log(x+y+(++tem));
+     }
+     return b;
+}
+        </code></pre>
+        <p>闭包的另一种作用是隔离作用域</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+for(var i=0;i<2;i++){
+      (function(i){
+             setTimeout(function(){
+              console.log(i);
+        },0)
+    })(i);
+}
+        </code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">cookies，sessionStorage 和 localStorage 的区别？</p>
+        <p>共同点：</p>
+        <p>都是保存在浏览器端，且同源的。</p>
+        <p>不同点：</p>
+        <p>cookie 的大小是受限的，并且每次你请求一个新的页面的时候Cookie都会被发送过去,服务器和客户端都可以访问</p>
+        <p>sessionStorage 仅在当前浏览器窗口关闭前有效</p>
+        <p>localStorage 用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的</p>
+    </div>
+    <div class="container item">
+        <p class="lead-in">事件冒泡机制</p>
+        <p>事件从根节点开始，逐级派送到子节点，若节点绑定了事件动作，则执行动作，然后继续走，这个阶段称为“捕获阶段(Capture)”；</p>
+        <p>执行完捕获阶段后，事件由子节点往根节点派送，若节点绑定了事件动作，则执行动作，然后继续走，这个阶段称为“冒泡阶段(Bubble)”</p>
+        <p><b>事件委托</b>，通过给body 元素添加事件监听，然后通过判断event.target 然后对不同的target产生不同的行为</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+window.onload = function() {
+    document.getElementById("body").addEventListener("click",eventPerformed);
+}
+function eventPerformed(event) {
+    var target = event.target;
+     //event.target为点击目标，event.currentTarget为点击活动对象，如event.target为span，currentTarget为body
+    switch (target.id) {
+        case "span":
+            alert("您好，我是span。");
+            break;
+        case "div1":
+            alert("您好，我是第二层div。");
+            break;
+        case "div2":
+            alert("您好，我是最外层div。");
+            break;
+    }
+}
+        </code></pre>
+    </div>
+
+    <div class="container item">
+        <p class="lead-in">解决jquery和prototype库冲突问题</p>
+        <p>1. jquery.js 在 prototype.js 之前引入</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+$('#msg').hide();</code></pre>
+        <p>$此时代表的prototype.js中定义的$符号，如果我们想要调用jquery.js中的工厂选择函数功能的话，只能用全称写法JQuery('#msg').hide();</p>
+        <p>2. prototype.js 在 jquery.js 之前引入</p>
+        <p>解决的方法 1：在编写完 使用了 jquery 中的 $的代码后 用JQuery.noConflict()来让Jquery放弃对$的所有权</p>
+        <p>解决的方法 2：自定义jquery 的别名</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+var $j=JQuery.noConflict();
+$j('#msg').hide();//此处$j就代表JQuery</code></pre>
+    </div>
+
+    <div class="container item">
+        <p class="lead-in">何谓同源策略以及解决同源策略的方法</p>
+        <p>所谓同源，就是必须协议、域名、端口都一致的，才叫做同源。</p>
+        <p>如果非同源，那么在请求数据时，浏览器会在控制台中报一个异常，提示拒绝访问。</p>
+        <p>只要你在服务端设定这个Access-Control-Allow-Origin的header就可以允许跨域访问了。</p>
+        <p>jsonp（利用script标签的跨域能力）跨域、websocket（html5的新特性，是一种新协议）跨域、设置代理服务器（由服务器替我们向不同源的服务器请求数据）、
+            CORS（跨源资源共享，cross origin resource sharing）、iframe跨域、postMessage(包含iframe的页面向iframe传递消息)
+    </div>
+    <div class="container item">
+        <p class="lead-in">jQuery中 $.extend 和 $.fn.extend 的区别</p>
+        <p>1. $.extend</p>
+        <p>$.extend</p>
+        <p>$.extend(dest,src1,src2,src3)合并多个对象</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+ var newSrc=$.extend(dest,src1,src2,src3...);//将src1,src2,src3...合并到dest中,返回值为合并后的dest</code></pre>
+        <p>$.extend(src) 则该方法就只能有一个src参数，该方法就是将src合并到jquery的<b>全局对象</b>中去</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+ $.extend({
+  hello:function(){alert('hello');}
+  });
+ //然后可以通过$.hello()调用</code></pre>
+        <p>2. $.extend</p>
+        <p>$.fn.extend(src) 该方法将src合并到jquery的<b>实例对象</b>中去</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+ $.extend({
+  hello:function(){alert('hello');}
+  });
+ //然后可以通过$(div).hello()调用</code></pre>
+        <p>所以jQuery.fn.extend拓展的是jQuery对象（原型的）的方法啊！
+            对象是啥？就是类的实例化嘛，例如$("#abc") ，$(div)。
+            那就是说，jQuery.fn.extend拓展的方法，你得用在jQuery对象上面才行啊</p>
+
+
+    </div>
+    <div class="container item">
+        <p class="lead-in">编写JQuery插件</p>
+        <p>jQuery插件开发分为<b>类级别(全局)</b>开发和<b>对象级别(类的实例化，例如$("#abc") ，$(div))</b>开发，因为类级别开发在真实项目中几乎不用，下面只对象级别进行探究。</p>
+        <pre  class="line-numbers"><code class="language-javascript">
+;(function($){ //;防止与前面的内容出现混乱
+    $.fn.tab = function(options){ // $.fn.tab 定义插件
+
+        var defaults = {
+            //各种参数，各种属性
+            currentClass:'current',
+            tabNav:'.tab_nav>li',
+            tabContent:'tab_content>div',
+            eventType:'click'
+        }
+        var options = $.extend(defaults,options);
+
+        this.each(function(){ //所有调用该插件的对象
+            //功能代码
+            var _this = $(this);
+            _this.find(options.tabNav).on(options.eventType, function(){
+                $(this).addClass(options.currentClass).siblings().removeClass(options.currentClass);
+                var index = $(this).index();
+                _this.find(options.tabContent).eq(index).show().siblings().hide();
+
+            });
+
+        });
+        return this;//把对象返回出去的时候才可以使用链式操作
+    }
+})(jQuery);//在jQuery环境下封装自己的插件，首先为避免与其他库的冲突，需要在插件的后面传一个jQuery参数进去，对应的函数里面的参数写入$
+//通过  $('.tab').tab(); 调用</code></pre>
+    </div>
+    <div class="container item">
+        <p class="lead-in">前端优化（提高网页的加载速度）</p>
+        <p>1、使用css sprites，可以有效的减少http请求数 </p>
+        <p>2、使用缓存 </p>
+        <p>3、压缩js，css文件，减小文件体积 </p>
+        <p>4、使用cdn，减小服务器负担 </p>
+        <p>5、懒加载图片 </p>
+        <p>6、预加载css，js文件 </p>
+        <p>7、避免dom结构的深层次嵌套 </p>
+        <p>8、给DOM元素添加样式时，把样式放到类中，直接给元素添加类，减少重构，回流</p>
+    </div>
+</section>
+
 </body>
 </html>
