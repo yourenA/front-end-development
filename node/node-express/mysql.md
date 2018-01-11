@@ -348,10 +348,11 @@ migrations文件中操作，需要自己去修改
 
 7. 在seeders中文件内容转变为表中内容(不是初始化表内容)，第一次使用时可用于普通没有外键约束的表初始化 。在seeders中插入普通表数据
 ```
-sequelize db:seed:all //执行多次就会添加多次内容
+sequelize seed:generate --name user
 ```
-上面的命令会将seeders中的js文件转变为表中初始化数据
-文件模板20161123070819-user-seed.js 需要自己去修改。相关文件不能使用es6语法，否则会报错
+创建seeders文件
+
+文件模板20161123070819-user.js 需要自己去修改。相关文件不能使用es6语法，否则会报错
 ```
 'use strict';
 var password ='123456';
@@ -385,5 +386,11 @@ module.exports = {
 };
 
 ```
+
+
+```
+sequelize db:seed:all //执行多次就会添加多次内容
+```
+上面的命令会将seeders中的js文件转变为表中初始化数据
 
 

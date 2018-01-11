@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var reader = new FileReader();
+        reader.readAsDataURL(document.querySelector('#slideFile').files[0]);
+        reader.onload = function(theFile) {
+            var image = new Image();
+            image.src = theFile.target.result;
+            image.onload = function () {
+                formData.append("imageW", this.width);
+                formData.append("imageH", this.height);
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

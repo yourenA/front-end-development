@@ -70,6 +70,8 @@ app.all('*', function(req, res, next) {
   else  next();
 });
 ```
+* 如果跨域使用session 需要设置```res.header("Access-Control-Allow-Credentials", true);```,并且```Access-Control-Allow-Origin```不能使用*号，必须指定明确的、与请求网页一致的域名。
+然后ajax请求需要设置```withCredentials = true```
 
 
 ## config-lite
@@ -98,6 +100,7 @@ app.use(session({
 }));
 
 ```
+
 
 **设置session**
 ```
@@ -217,7 +220,16 @@ password = sha1(password);
 var marked = require('marked');
 post.content = marked(post.content);//post.content为发送过来的内容
 ```
-
+## 使用crypto（md5）加密
+```
+var crypto = require('crypto');
+exports.md5 = function(str){
+    if(!str){
+        return null;
+    }
+    return crypto.createHash('md5').update(str).digest('hex');
+};
+```
 ## 使用multer 获取上传文件
 
 >Multer 不会为你添加任何扩展名, 你的程序应该返回一个完整的文件名。表单记得加上  enctype=‘multipart/form-data’

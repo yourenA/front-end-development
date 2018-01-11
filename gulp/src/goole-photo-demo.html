@@ -1,0 +1,111 @@
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080">
+    <title>Cats</title>
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .fav-list {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2px;
+        }
+
+         .fav-list::after{
+          content: '';
+          flex-grow: 999999999;
+          order: 999999999;
+        }
+        .fav-list > div { /*不需要定义宽度和高度，由子节点撑开*/
+            margin: 2px;
+            position: relative;
+        }
+
+        .fav-list > div > i {
+            display: block;
+            background-color: lightblue;
+            /* display: none; */
+        }
+
+        .fav-list > div > img {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body  class="ng-scope">
+<div class="fav-list">
+    <!-- ngRepeat: img in imgs -->
+    <!--
+
+    <div ng-repeat="img in imgs" style="width:{{img.width*200/img.height}}px;">这个公式计算了图片高度为200时的宽度的值
+        <i style="padding-bottom:{{img.height/img.width*100}}%"></i>这个公式让此元素及其父元素的比例与图片原始比例相同，因为是垂直方向的 padding，所以是高度除以宽度
+        <img src="{{img.url}}" alt="">
+     </div>
+    -->
+    <div  style="flex-grow:133.33333333333334;flex-basis:320px;" class="ng-scope"><!-- flex-basis 指定了 flex 元素在主轴方向上的初始大小-->
+        <i style="padding-bottom:75%"></i>
+        <img ng-src="photo-23583825.jpg" src="photo-23583825.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:150.03750937734435;flex-basis:360.0900225056264px;" class="ng-scope">
+        <i style="padding-bottom:66.64999999999999%"></i>
+        <img ng-src="stock-photo-21964829.jpg" src="stock-photo-21964829.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:149.8079385403329;flex-basis:359.539052496799px;" class="ng-scope">
+        <i style="padding-bottom:66.75213675213675%"></i>
+        <img ng-src="stock-photo-148928293.jpg" src="stock-photo-148928293.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:177.77777777777777;flex-basis:426.6666666666667px;" class="ng-scope">
+        <i style="padding-bottom:56.25%"></i>
+        <img ng-src="stock-photo-132311221.jpg" src="stock-photo-132311221.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:149.35064935064935;flex-basis:358.4415584415584px;" class="ng-scope">
+        <i style="padding-bottom:66.95652173913044%"></i>
+        <img ng-src="stock-photo-65681789.jpg" src="stock-photo-65681789.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:149.7005988023952;flex-basis:359.2814371257485px;" class="ng-scope">
+        <i style="padding-bottom:66.8%"></i>
+        <img ng-src="stock-photo-135203031.jpg" src="stock-photo-135203031.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:177.77777777777777;flex-basis:426.6666666666667px;" class="ng-scope">
+        <i style="padding-bottom:56.25%"></i>
+        <img ng-src="stock-photo-142950305.jpg" src="stock-photo-142950305.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:150.58823529411765;flex-basis:361.4117647058824px;" class="ng-scope">
+        <i style="padding-bottom:66.40625%"></i>
+        <img ng-src="stock-photo-7979718.jpg" src="stock-photo-7979718.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:149.36519790888724;flex-basis:358.4764749813294px;" class="ng-scope">
+        <i style="padding-bottom:66.95%"></i>
+        <img ng-src="stock-photo-132118343.jpg" src="stock-photo-132118343.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:150.03750937734435;flex-basis:360.0900225056264px;" class="ng-scope">
+        <i style="padding-bottom:66.64999999999999%"></i>
+        <img ng-src="stock-photo-138436811.jpg" src="stock-photo-138436811.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:84.3;flex-basis:202.32px;" class="ng-scope">
+        <i style="padding-bottom:118.62396204033215%"></i>
+        <img ng-src="stock-photo-146914861.jpg" src="stock-photo-146914861.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:148.3679525222552;flex-basis:356.08308605341244px;" class="ng-scope">
+        <i style="padding-bottom:67.4%"></i>
+        <img ng-src="stock-photo-136947953.jpg" src="stock-photo-136947953.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+    <div  style="flex-grow:149.81273408239701;flex-basis:359.55056179775283px;" class="ng-scope">
+        <i style="padding-bottom:66.75%"></i>
+        <img ng-src="stock-photo-146231033.jpg" src="stock-photo-146231033.jpg">
+    </div><!-- end ngRepeat: img in imgs -->
+</div>
+
+
+
+</body>
+</html>

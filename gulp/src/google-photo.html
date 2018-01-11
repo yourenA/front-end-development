@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>谷歌photo 布局</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        section{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .item{
+            margin: 5px;
+            height: 200px;
+            flex-grow: 1;/*grow：放大。flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）*/
+        }
+        section::after {
+            content: '';
+            flex-grow: 999999999; /*最后一行的剩余空间就基本全被这一个元素的 grow 占掉了*/
+        }
+        img {
+            height: 200px;
+            width: 100%;
+            /*
+            object-fit
+            contain: 中文释义“包含”。保持原有尺寸比例。保证替换内容尺寸一定可以在容器里面放得下。因此，此参数可能会在容器内留下空白。
+cover: 中文释义“覆盖”。保持原有尺寸比例。保证替换内容尺寸一定大于容器尺寸，宽度和高度至少有一个和容器一致。因此，此参数可能会让替换内容（如图片）部分区域不可见。
+            **/
+            object-fit: cover;/* objectposition和object-fit只针对替换元素（form，img，video）有作用*/
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="item">
+        <img src="./image/bg.jpg" />
+
+    </div>
+    <div class="item">
+        <img src="./image/icon2.png" />
+
+    </div>
+    <div class="item">
+        <img src="./image/icon3.png" />
+
+    </div>
+    <div class="item">
+        <img src="./image/bg.jpg" />
+
+    </div>
+    <div class="item">
+        <img src="./image/bg.jpg" />
+
+    </div>
+    <div class="item">
+        <img src="./image/icon4.png" />
+
+    </div>
+    <div class="item">
+        <img src="./image/bg.jpg" />
+
+    </div>
+    <div class="item">
+        <img src="./image/icon2.png" />
+
+    </div>
+    <div class="item">
+        <img src="./image/icon3.png" />
+
+    </div>
+    <div class="item">
+        <img src="./image/bg.jpg" />
+
+    </div>
+    <div class="item">
+        <img src="./image/bg.jpg" />
+
+    </div>
+    <div class="item">
+        <img src="./image/icon4.png" />
+
+    </div>
+</section>
+</body>
+</html>
