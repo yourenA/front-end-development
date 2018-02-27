@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv = "X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Title</title>
+    <link rel="stylesheet" href="./css/flex.css">
+
 </head>
 <body>
-
+    <div class="container" >
+        <div class="left"></div>
+        <div class="right" id="right"></div>
+    </div>
+    <script>
+        var w=document.documentElement.offsetWidth
+        console.log(w)
+        console.log( document.getElementById('right'))
+        document.getElementById('right').style.width=w-200+'px'
+    </script>
 </body>
 </html>
