@@ -36,6 +36,9 @@ DELETE FROM tb_name WHERE id=3;
 ```
 
 ## 使用sequelize操作数据库
+
+>注意:先使用3.x版本的sequelize，使用4.x版本 associate 会出错
+
 我们读写的都是JavaScript对象，Sequelize帮我们把对象变成数据库中的行。
 ```
 用Sequelize查询pets表，代码像这样：
