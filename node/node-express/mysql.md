@@ -169,6 +169,9 @@ Project
     console.log(result.rows);
   });
 ```
+如果有 include 需要添加```distinct:true```，否则连删除的数据也会被计算在总数中
+
+
 * findAll - 从数据库中查找多个元素
 - attributes查询返回的字段
     - include:包括
@@ -294,6 +297,28 @@ User.belongsToMany(Project, {through: 'UserProject'});
 这会创建一个新模型UserProject其中会projectId和userId两个外键。是否使用驼峰命名取决与相关联的两个表。
 定义through选项后，Sequelize会尝试自动生成名字。
 在本例中，会为User添加方法 getUsers, setUsers, addUser,addUsers to Project, and getProjects, setProjects, addProject, and addProjects
+
+
+多对多新建数据
+```
+  /*
+     * 同时添加code 与 tag，以及它们的关系codetag
+     * */
+    dbModels.code.create({
+        title: req.body.title,
+        codeCategoryId:1,
+        limit: 1,
+        markdown: req.body.markdown,
+        tags: [
+            { name: 'string beans' }, { name: 'coffee' }, { name: 'milk' }
+        ]
+    },{
+        include: [dbModels.tag]
+    }).then(function (code) {
+        res.status(200).json(code)
+
+    })
+```
 
 ## 使用 sequelize-cli 生成 sequelize
 
