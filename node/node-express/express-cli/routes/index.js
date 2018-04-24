@@ -5,13 +5,15 @@ var path = require('path');
 /* GET home page. */
 // 该路由使用的中间件，当前定义的router都会使用到这个中间件
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
+  console.log('Time:11111111 ', Date.now());
   next();//如果当前中间件没有终结请求-响应循环，则必须调用 next() 方法将控制权交给下一个中间件，否则请求就会挂起。
 });
 
 router.get('/', function(req, res, next) {
-  console.log('局部路由')
-  res.render('index', { title: 'Express' }) //终结请求-响应循环
+  console.log('局部路由1110000')
+  let i=0;
+  console.log(i)
+  res.render('index', { title: 'Express111' }) //终结请求-响应循环
 });
 
 var multer=require('multer');

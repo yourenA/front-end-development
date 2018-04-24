@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #messages { margin-bottom: 40px }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io.connect('http://localhost:3000');// io.connect()需要连接的地址
+        socket.on('connect', function () {
+          console.log('client',socket.id)
+          console.log('链接服务器socket成功')
+          socket.on('msg', function(msg) { //端户端接收到服务端的数据
+            console.log(msg)
+          })
+        });
+        $('form').submit(function(){
+          socket.emit('chat message', $('#m').val());//客户端服务端发送数据
+          $('#m').val('');
+          return false;
+        });
+        socket.on('chat message', function(msg){ //端户端接收到服务端的数据
+          $('#messages').append($('<li>').text(msg));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      });
+    </script>
+ <!--   <script>
+      // 注意：这里的示例加入了译者自己的理解，如果觉得不通，可以查看官网示例
+      var socket = io(); // TIP: io() 不带参数会开启自动发现
+      socket.on('connect', function () { // TIP: 你也可以直接监听具体事件，而不用监听 `connect` 事件！
+        socket.emit('ferret', {data:'data'}, function (data) {
+          // 回调将在服务器端调用 cb() 后执行
+          console.log(data); // data 将会是 'woot'
+        });
+        socket.on('ferret', function (data) {
+          console.log(data);
+        })
+      });
+    </script>-->
+
+  </body>
+</html>

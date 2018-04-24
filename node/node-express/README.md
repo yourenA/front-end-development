@@ -57,10 +57,51 @@ app.get('port');//get获取端口
 > 注意：当 code 比如为 `<h1>hello</h1>` 这种字符串时，`<%= code %>` 会原样输出 `<h1>hello</h1>`，而 `<%- code %>` 则会显示 H1 大的 hello 字符串。
 
  ```<%- include('components/nav') %>``` 在一个ejs中引入另一个ejs
+ 
+## morgan打印日志 
+```
+var express = require('express');
+var app = express();
+var morgan = require('morgan');
 
+//在控制台打印
+app.use(morgan('dev'));
+
+//在文件打印
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+app.use(morgan('short', { STREAM: accessLogStream}));
+
+app.use(function(req, res, next){
+    res.send('ok');
+});
+
+app.listen(3000);
+```
+
+也可以自定义日志格式，参考[https://segmentfault.com/a/1190000007769095#articleHeader6](https://segmentfault.com/a/1190000007769095#articleHeader6)
+
+* 日志切割
+```
+var FileStreamRotator = require('file-stream-rotator')
+var logDirectory = path.join(__dirname, 'log')
+
+// 判断log目录是否存在
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+
+// create a rotating write stream
+var accessLogStream = FileStreamRotator.getStream({
+  date_format: 'YYYYMMDD',
+  filename: path.join(logDirectory, 'access-%DATE%.log'),
+  frequency: 'daily',
+  verbose: false
+})
+
+// setup the logger
+app.use(morgan('combined', {stream: accessLogStream}))
+```
 ## 解决跨域问题
 ```
-	//设置跨域访问
+//设置跨域访问
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
