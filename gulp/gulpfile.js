@@ -82,6 +82,7 @@ gulp.task('image', function() {
         .pipe(imagemin())
         .pipe(gulp.dest('./public/image'))
 });
+
 gulp.task('release', ['sass','css', 'html','js','dist-js','image']);
 
 gulp.task('watch', function() {

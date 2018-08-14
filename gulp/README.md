@@ -1,4 +1,4 @@
-# gulp
+# gulp 自动化构建工具
 
 ```
 $ npm install -g gulp
@@ -8,7 +8,7 @@ $ npm install gulp --save-dev
 
 ## 常用插件
 
-* babel = require("gulp-babel") 编译es6
+* babel = require("gulp-babel") 编译es6 依赖babel-preset-es2015
 * sass = require('gulp-ruby-sass') 编译sass 
 >注意使用gulp-ruby-sass不能又中文路径，即使是父文件也不能有中文路径，否则不能动态刷新
 >

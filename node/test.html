@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            $("#ExportLL").click(function(){
+
+                var rows = $('#dataGrid').datagrid('getRows')//获取当前页的数据行
+                var currentIndex = 0;
+                function getImg(){
+                    if(currentIndex>=rows.length){
+                        return;
+                    }
+                    var url = 'http://218.76.162.174:9090/baas/WaterService/API/UploadRecordJC';
+                    console.log(i);
+                    $.ajax({
+                        type: 'get',
+                        url: url,
+                        async: false,
+                        cache: true,
+                        dataType:'json',
+                        data: {
+                            VerifyType:'JC',
+                            VerifyCode:'12345678901234567890',
+                            ProductNo:rows[currentIndex]['meternumber'],
+                            YearMonth:'201507',
+                            LastDate:'2015-%2006-01',
+                            ThisDate:'2015-07-07',
+                            LastTon:'69',
+                            ThisTon:'73',
+                            UserCode :'63393'
+                        },
+                        success: function(json){
+                            currentIndex++;
+                            console.log("第"+currentIndex+"次upload 成功");
+                            getImg();
+                        },
+                        error: function(data){
+                            console.log("error...");
+                            currentIndex++;
+                            console.log("第"+currentIndex+"次upload 错误");
+                            getImg();
+                        }
+                    });
+                }
+
+
+
+//                var total=new Array;
+                for (var i = 0; i < rows.length; i++) {
+//                    total[i] = rows[i]['meternumber']; //获取指定列
+                    $.ajax({
+                        type:'post',
+                        url : 'http://218.76.162.174:9090/baas/WaterService/API/UploadRecordJC',
+                        async: false,//设置成同步
+                        data: {
+                            VerifyType:'JC',
+                            VerifyCode:'12345678901234567890',
+                            ProductNo:rows[i]['meternumber'],
+                            YearMonth:'201507',
+                            LastDate:'2015-%2006-01',
+                            ThisDate:'2015-07-07',
+                            LastTon:'69',
+                            ThisTon:'73',
+                            UserCode :'63393'
+                        },dataType:'json',
+                        success : function(data){
+                            alert(JSON.stringify(data));
+                        }
+                    });
+                }
+//                alert(total);
+                alert(11111);
+            })
+        })
+    </script>
+</head>
+<body>
+<div id="myDiv"><h2>通过 AJAX 改变文本</h2></div>
+<button id="testAjax" type="button">Ajax改变内容</button>
+</body>
+</html>

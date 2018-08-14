@@ -1,98 +1,28 @@
-[
-  {
-    "title": "0-0",
-    "key": "0-0",
-    "children": [
-      {
-        "title": "0-0-0",
-        "key": "0-0-0",
-        "children": [
-          {
-            "title": "0-0-0-0",
-            "key": "0-0-0-0"
-          },
-          {
-            "title": "0-0-0-1",
-            "key": "0-0-0-1"
-          },
-          {
-            "title": "0-0-0-2",
-            "key": "0-0-0-2"
-          }
-        ]
-      },
-      {
-        "title": "0-0-1",
-        "key": "0-0-1",
-        "children": [
-          {
-            "title": "0-0-1-0",
-            "key": "0-0-1-0"
-          },
-          {
-            "title": "0-0-1-1",
-            "key": "0-0-1-1"
-          },
-          {
-            "title": "0-0-1-2",
-            "key": "0-0-1-2"
-          }
-        ]
-      },
-      {
-        "title": "0-0-2",
-        "key": "0-0-2"
-      }
-    ]
-  },
-  {
-    "title": "0-1",
-    "key": "0-1",
-    "children": [
-      {
-        "title": "0-1-0",
-        "key": "0-1-0",
-        "children": [
-          {
-            "title": "0-1-0-0",
-            "key": "0-1-0-0"
-          },
-          {
-            "title": "0-1-0-1",
-            "key": "0-1-0-1"
-          },
-          {
-            "title": "0-1-0-2",
-            "key": "0-1-0-2"
-          }
-        ]
-      },
-      {
-        "title": "0-1-1",
-        "key": "0-1-1",
-        "children": [
-          {
-            "title": "0-1-1-0",
-            "key": "0-1-1-0"
-          },
-          {
-            "title": "0-1-1-1",
-            "key": "0-1-1-1"
-          },
-          {
-            "title": "0-1-1-2",
-            "key": "0-1-1-2"
-          }
-        ]
-      },
-      {
-        "title": "0-1-2",
-        "key": "0-1-2"
-      }
-    ]
-  },
-  {
-    "title": "0-2",
-    "key": "0-2"
-  }
-]
+{
+  "cell_voltage_lora": 34,
+  "point0_freeze_value": "00002768",
+  "meter_address": "{0x01,0x00,0x88,0x05,0x13,0x93}",
+  "cover_is_opened": "00000000",
+  "collect_time": "20360604250258",
+  "status_code": 0,
+  "unit": "m3",
+  "water_temperature": 24,
+  "reflow_up_time": "00000000",
+  "read_meter_times": 24,
+  "temp_up": 0,
+  "cell_voltage_1": 36,
+  "meter_time": "20360605003305",
+  "temp_up_time": "00000000",
+  "meter_revalue": "00000001",
+  "empty_pipe_alarm": "36060500",
+  "meter_number": "88051393",
+  "signal": 128,
+  "unit_revalue": "m3",
+  "flow_up_time": "00000000",
+  "reflow_up": "0000",
+  "flow_up": 0,
+  "meter_index": 1,
+  "cell_voltage_2": 36,
+  "low_voltage": "00000000",
+  "meter_value": "00000276"
+}
