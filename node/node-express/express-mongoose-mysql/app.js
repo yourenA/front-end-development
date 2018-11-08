@@ -9,6 +9,10 @@ var session = require('express-session');
 global.db=mongoose.connect("mongodb://localhost:27017/reactNote"); //global.db全局变量，在其他页面也可以使用
 global.dbHandle=require("./dbbase-mongoose/dbHandle.js");
 
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose connection open to "mongodb://localhost:27017/reactNote' );
+});
+
 var routes = require('./routes/index-mongoose');
 var users = require('./routes/users-mysql');
 
@@ -25,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //自带中间件：express4.X之后不再依赖于Connect。除了自带express.static之外，所有其他中间件都放到单独模块中
 app.use(logger('dev'));

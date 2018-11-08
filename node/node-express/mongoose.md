@@ -85,7 +85,6 @@ userSchema.pre('save', function (next) {
 PersonSchema.methods.findSimilarTypes = function(cb){
    return this.model('Person'①).find({type:this.type},cb);//从model寻找type.this为实例
 }
-
 使用
 var PersonModel = mongoose.model('Person'①,PersonSchema);
 var krouky = new PersonSchema({name:'krouky',type:'前端工程师'});//Schema 实例,

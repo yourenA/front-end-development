@@ -24,6 +24,7 @@ $ npm install gulp --save-dev
 * sourcemaps = require('gulp-sourcemaps') 文件映射
 * clean = require('gulp-clean') 清除文件
 * browserSync = require('browser-sync') 开启前端服务器，自动刷新
+> 使用本地主机地址 $ browser-sync start --proxy localhost:8001 将本地8001映射到3000端口，控制台是3001端口
 
 ## gulp命令
 ```

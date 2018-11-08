@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        let obj={
+            a_1:12,
+            a_2:123,
+            a_3:124,
+            b_1:125,
+            b_2:126,
+            b_3:127,
+            c:123,
+            addv:'12'
+        }
+        let arr=[]
+        for(let i in obj){
+            let apli=i.split('_')
+            console.log('apli',apli)
+            let len=apli.length;
+            if(len>=2){
+                if(arr.indexOf(apli[1])<0){
+                    arr.push(apli[1])
+                }
+//                arr.push(i)
+            }
+        }
+        console.log(arr)
+        const arr2=[]
+        for(let i=0;i<arr.length;i++){
+            arr2.push({
+                a:obj[`a_${arr[i]}`],
+                b:obj[`b_${arr[i]}`]
+            })
+        }
+        console.log('arr2',arr2)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

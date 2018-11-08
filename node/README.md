@@ -56,7 +56,7 @@ Url {
 
 ## path 模块
 
-变量**__dirname**表示当前运行js目录
+变量  *__dirname* 表示当前js文件的目录
 ```
 const path = require('path');
 
@@ -76,12 +76,25 @@ path.join(__dirname,'c','main.js')
 path.resolve()//可以想象现在你在shell下面，从左到右运行一遍cd path命令，最终获取的绝对路径/文件名，就是这个接口所返回的结果了
 //默认是在当前的目录下 console.log( path.resolve('') )
 ```
+对比
+```
+const path = require('path'); 
+let myPath = path.join(__dirname,'/img/so'); 
+let myPath2 = path.join(__dirname,'./img/so'); 
+let myPath3 = path.resolve(__dirname,'/img/so'); //到根目录
+let myPath4 = path.resolve(__dirname,'./img/so'); 
+console.log(__dirname); //D:\myProgram\test 
+console.log(myPath); //D:\myProgram\test\img\so 
+console.log(myPath2); //D:\myProgram\test\img\so 
+console.log(myPath3); //D:\img\so<br> 
+console.log(myPath4); //D:\myProgram\test\img\so
+```
 
 ## fs 模块
 * 所有的方法都有异步和同步的形式。
 * err 是回调方法的第一个参数
 
-异步方法
+异步方法`
 ```
 fs.unlink('/tmp/hello', (err) => { 
   if (err) throw err;

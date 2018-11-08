@@ -3,7 +3,7 @@
  */
 var Sequelize = require('sequelize');//注意mysql是驱动，我们不直接使用，但是sequelize会用。
 var config = require('.././config/config');
-//第一步，创建一个sequelize对象实例：
+//第一步，链接数据库
 var sequelize = new Sequelize(
     config.db.name,
     config.db.user,

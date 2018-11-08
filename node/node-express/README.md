@@ -319,13 +319,13 @@ var upload = multer({ dest: 'uploads/' }) //定义存储上传文件的路径,�
 
 router.post('/profile', upload.single('avatar'), function (req, res, next) {
  res.json({file:req.file,body:req.body})
-  // req.file 是 `avatar` 文件的信息 注意是file
+  // req.file 是 `avatar` 文件的信息,单个文件 注意是file,
   // req.body 将具有文本域数据, 如果存在的话
 })
 
 router.post('/photos/upload', upload.array('photos', 12), function (req, res, next) { //12为最大的上传数量
-res.json({file:req.file,body:req.body})
-  // req.files 是 `photos` 文件数组的信息 注意事files
+res.json({file:req.files,body:req.body})
+  // req.files 是 `photos` 文件数组的信息，多个文件 注意事files
   // req.body 将具有文本域数据, 如果存在的话
 })
 ```

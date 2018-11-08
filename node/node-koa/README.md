@@ -57,5 +57,5 @@ app.use(async (ctx, next) => {
  
  - ctx.render() 渲染视图模板
  
- - router.prefix('api') 设置没个路由的前缀
+ - router.prefix('api') 设置每个路由的前缀
  

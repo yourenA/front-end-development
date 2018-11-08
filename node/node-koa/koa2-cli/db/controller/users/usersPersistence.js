@@ -13,7 +13,7 @@ exports.signin = async function (name, password) {
 		}
 	});
 	if (user) {
-		return user.get({'plain': true})
+		return user.get({'plain': true}) //获取有用的信息
 	} else {
 		return language['name or password error'];
 	}
@@ -25,7 +25,7 @@ exports.getUsers = async  (countPerPage, currentPage)=> {
 	 * 返回格式{count:num,rows:[{}]}
 	 * */
 	return await db.user.findAndCountAll({
-		attributes: attributes,
+		// attributes: attributes,
 		limit: countPerPage,
 		offset: countPerPage * (currentPage - 1)
 	});

@@ -11,7 +11,7 @@ var sequelize
 if (config.use_env_variable) {
    sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
-   sequelize = new Sequelize(config.database, config.username, config.password, config);
+   sequelize = new Sequelize(config.database, config.username, config.password, config); //初始化数据库连接
 }
 
 fs
@@ -32,10 +32,10 @@ Object.keys(db).forEach(function(modelName) {
 });
 
 const connection = async () => {
-  // 链接数据库并重新生成表
-  // return await client.sync({force:true});
-  // 链接数据库
-  return await sequelize.sync();
+  // 同步数据库并重新生成表
+  // return await sequelize.sync({force:true});
+  // 调用sequelize.sync()方法即可以将模型及关联关系同步到数据库中。
+  // return await sequelize.sync();
 };
 
 db.sequelize = sequelize;

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本柱状图</title>
+    <script src="js/echarts.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #404a59;
+        }
+        .input-box {
+            position: fixed;
+            top: 30px;
+            right: 100px;
+            z-index: 999;
+            color: #ffffff;
+        }
+
+        .input-box input, .input-box button {
+            width: 70px;
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+            border: 1px solid #64bd63;
+        }
+    </style>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width:100vw;height:100vh"></div>
+<div class="input-box"><label for="time"></label><input type="number" id="time">毫秒<input id="button" type="button"
+                                                                                         value="确定"/></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var timer = null
+    var setIntervalTime = 50;
+    var timeInput = document.getElementById('time')
+    var button = document.getElementById('button')
+    console.log('button',button)
+    timeInput.value = setIntervalTime
+    var myChart = null;
+    myChart = echarts.init(document.getElementById('main'));
+    var textColor='#eee'
+
+    function renderChart(time) {
+        var data = [];
+        var now = +new Date();
+        var oneDay = 24 * 3600 * 1000;
+        var temMillisecond = time;
+        var value = Math.random() * 1000+50;
+        function randomData() {
+            now = new Date(+now + temMillisecond);
+            value =  value + Math.random() * 21 - 10;
+            return {
+                name: now.toString(),
+                value: [
+                    now,
+                    Math.round(value)
+                ]
+            }
+        }
+
+        for (var i = 0; i < 1; i++) {
+            data.push(randomData());
+        }
+
+        option = {
+            color: ['#c23531', '#d48265', '#FF69B4', '#ca8622'],
+            title: {
+                text: '动态数据 + 时间坐标轴',
+                textStyle: {
+                    color: textColor
+                }
+            },
+            backgroundColor: '#404a59',
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    params = params[0];
+                    var date = new Date(params.name);
+                    return date.getTime() + ' : ' + params.value[1];
+                },
+                axisPointer: {
+                    animation: false
+                }
+            },
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color:textColor
+                    }
+                },
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: textColor
+                    }
+                },
+            },
+            series: [{
+                name: '模拟数据',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: data,
+//                markArea: {
+//                    data: [
+//                        [{
+//                            yAxis:200,
+//                            itemStyle: {
+//                                normal: {
+//                                    color: 'rgba(183,234,209,0.7)'
+//                                }
+//                            }
+//                        }, {
+//                            yAxis: 50
+//                        }],
+//                    ]
+//                },
+            }]
+        };
+        myChart.setOption(option);
+        timer = setInterval(function () {
+            //        console.log('randomData')
+            //        data.shift();
+            data.push(randomData());
+            myChart.setOption({
+                series: [{
+                    data: data
+                }]
+            });
+        }, time);
+    }
+    button.onclick=function () {
+        if(timer){
+            clearInterval(timer)
+        }
+        if (myChart) {
+            myChart.clear()
+        }
+        renderChart(parseInt(timeInput.value))
+    }
+
+    timeInput.onkeydown=function(event){
+        console.log('onkeydown')
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode==13){ // enter 键
+            if(timer){
+                clearInterval(timer)
+            }
+            if (myChart) {
+                myChart.clear()
+            }
+            renderChart(parseInt(timeInput.value))
+        }
+
+    };
+
+</script>
+</body>
+</html>

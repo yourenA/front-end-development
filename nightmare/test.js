@@ -10,7 +10,7 @@ nightmare
     .goto('http://localhost:4001/')
     .viewport(1024, 768)
     .wait(1000)
-    .type('#username', 'username')
+    .type('#username', 'username1234')
     .screenshot('1.png')
     .type('#password', '123456')
     .screenshot('2.png')
@@ -27,6 +27,7 @@ nightmare
     .wait('.mainContent')
     .screenshot('./src/image/6.png',{x: 0, y: 0, width: 100, height: 100})
     .evaluate(() => {
+        //在网页调试工具中显示
         /* eslint-disable */
         function handle() {
             // 一个叫inspector的button
@@ -42,5 +43,6 @@ nightmare
     })
     .evaluate(() => document.title)
     // .end() //因为要循环，所以这里不能用end
-    .then(title => console.log(`${title} => 加载完成`))
+    // .then()在控制台显示
+    .then(title => console.log(`${title} => 加载完成` ))
     .catch(err => console.error(err))

@@ -96,6 +96,8 @@ var User = sequelize.define('user', {
   }
 }, {
   freezeTableName: true // Model 对应的表名将与model名相同
+  paranoid:true,//paranoid为true（此种模式下，删除数据时不会进行物理删除，而是设置deletedAt为当前时间
+
 });
 
 User.sync({force: true}).then(function () {
@@ -324,6 +326,7 @@ User.belongsToMany(Project, {through: 'UserProject'});
 
 使用步骤
 1. 安装 sequelize 、mysql2 、 sequlize-cli ,可以全局安装sequlize-cli
+
 2. 配置 .sequelizerc ,指定 sequelize init 初始化的文件夹
 ```
 const path = require('path')
@@ -372,11 +375,12 @@ migrations文件中操作，需要自己去修改
 - ...
 
 
-6. 在model/index.js 中添加 ```sequelize.sync();```连接数据库(要确保数据库中有此数据库) 
+6. 在model/index.js 中添加 ```sequelize.sync();```连接数据库(要确保数据库中有此数据库) 。
+>也可以不使用sync()，定义Sequelize对象的时候就会连接数据库，可以直接操作数据库。直接修改model文件，然后在数据库中手动修改表结构
 
 7. 在seeders中文件内容转变为表中内容(不是初始化表内容)，第一次使用时可用于普通没有外键约束的表初始化 。在seeders中插入普通表数据
 ```
-sequelize seed:generate --name user
+sequelize seed:generate --name seed的名字
 ```
 创建seeders文件
 

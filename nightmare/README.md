@@ -55,7 +55,7 @@ let nightmare = new Nightmare({
 * .mousedown/mouseup/mouseover/mouseout(selector) 鼠标移动操作
 * .type(selector[, text])  将文本输入到选择器元素中，也可以触发键盘事件 .type('body', '\u000d') body触发回车键
 * .insert(selector[, text])  输入文本
-* .check/uncheck(selector)  选择某一个多选框checkbox 
+* .check/uncheck(selector)  选择/不选某一个多选框checkbox 
 * .select(selector, option)  下拉选择(select选择器，option值)
 * .scrollTo(top, left)  滚动条位置
 * .viewport(width, height)  设置窗口大小

@@ -5,13 +5,12 @@
     <title>根据IP地址获取所在城市</title>
     <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
     <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-    <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
-    <script type="text/javascript">
-        function getIpPlace() {
-            console.log(returnCitySN)
-            console.log(remote_ip_info)
-    }
+    <script>
+        function testJson(obj) {
+            console.log("省["+obj.pro+"] 市["+obj.city+"] 区["+obj.region+"]")
+        }
     </script>
+    <script src="http://whois.pconline.com.cn/ipJson.jsp?callback=testJson&ip=116.23.231.250"></script>
 </head>
 <body>
 <form id="form1"runat="server">

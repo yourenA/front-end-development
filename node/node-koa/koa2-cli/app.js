@@ -42,7 +42,7 @@ app.use(async (ctx, next) => { //第一个参数 ctx 为上下文对象，里面
  * koa使用路由 router.use() , 然后 app.use(router.routes())
  * express使用路由 app.use()
  * */
-router.use('/', index.routes(), index.allowedMethods());
+router.use('/', index.routes(), index.allowedMethods());//.allowedMethods处理的业务是当所有路由中间件执行完成之后,若ctx.status为空或者404的时候,丰富response对象的header头.
 router.use('/api', users.routes(), users.allowedMethods());
 
 app.use(router.routes(), router.allowedMethods());
@@ -62,7 +62,8 @@ app.use(router.routes(), router.allowedMethods());
 
 //500 error
 onerror(app, {template: __dirname + '/views' + '/500.ejs'});
-//404
+
+//如果前面没有处理，这里就会返回404。如果前面程序已经有返回结果，如render,body，则不会到达这一步
 app.use(async (ctx,next)=>{
   ctx.status = 404;
   await ctx.render('404');
