@@ -10,11 +10,11 @@ let nightmare = new Nightmare({
         mode: 'detach'
     },
 })
-
+// mocha -t 300000 getTuc.js (-t设置mocha超时时间)
 nightmare
     .goto('https://tuchong.com/1608305/following/')
     .viewport(1920, 900)
-    .evaluate((selector, done) => {
+    .evaluate((selector, done) => { //evaluate在浏览器中处理，如果参数大于传进来的参数，最后一个参数为callback
         //针对浏览器前端，在网页调试工具中显示
         var resultArr=[]
         function handle() {
@@ -33,11 +33,9 @@ nightmare
                 console.log('正在加载......')
                 setTimeout(handle, 500);
             }
-
-
         }
 
-        setTimeout(handle, 1000);
+        setTimeout(handle, 500);
 
     },null)
     .then(result =>{

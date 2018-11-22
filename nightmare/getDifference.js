@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2018/11/8.
  */
-let fensi=require('./fensi.json');
-let guanzhu=require('./guanzhu.json')
+let fensi=require('./daijiaruFS.json');
+let guanzhu=require('./daijiaruGZ.json')
 let difference=require('lodash/difference')
 
 let Nightmare = require('nightmare')
@@ -18,6 +18,7 @@ let nightmare = new Nightmare({
 })
 var differenceItems=difference(guanzhu,fensi)
 console.log(differenceItems)
+return false
 nightmare
     .goto('https://tuchong.com/community')
     .viewport(1920, 900)
@@ -31,30 +32,31 @@ nightmare
     .click('.slash-list .slash-item:nth-of-type(2) a')
     .evaluate((differenceItems, done) => {
         //针对浏览器前端，在网页调试工具中显示
+        //不能直接使用外部变量，要通过参数传递进来
         console.log('ready')
-        // function handle() {
-        //     document.body.scrollTop = document.body.scrollTop + window.innerHeight;
-        //     var inspector = document.querySelector('.icon-end');
-        //     if (window.getComputedStyle(inspector, null)['display'] === 'block') {
-        //         console.log('加载完成')
-        //         var itemLen=document.querySelectorAll('.col-item').length;
-        //         for(let i=0;i<itemLen;i++){
-        //             let text=document.querySelectorAll('.nick-name')[i].text;
-        //             if(differenceItems.indexOf(text)>=0){
-        //                 console.log('index',i,' name:',text);
-        //                 document.querySelectorAll('.card-body-top .btn')[i].click()
-        //             }
-        //         }
-        //         done(null)
-        //
-        //     } else {
-        //         console.log('正在加载......')
-        //         setTimeout(handle, 500);
-        //     }
-        //
-        //
-        // }
-        //
+        function handle() {
+            document.body.scrollTop = document.body.scrollTop + window.innerHeight;
+            var inspector = document.querySelector('.icon-end');
+            if (window.getComputedStyle(inspector, null)['display'] === 'block') {
+                console.log('加载完成')
+                var itemLen=document.querySelectorAll('.col-item').length;
+                for(let i=0;i<itemLen;i++){
+                    let text=document.querySelectorAll('.nick-name')[i].text;
+                    if(differenceItems.indexOf(text)>=0){
+                        console.log('index',i,' name:',text);
+                        document.querySelectorAll('.card-body-top .btn')[i].click() //点击安纳按钮
+                    }
+                }
+                done(null)
+
+            } else {
+                console.log('正在加载......')
+                setTimeout(handle, 500);
+            }
+
+
+        }
+
         // setTimeout(handle, 1000);
 
     },differenceItems)
