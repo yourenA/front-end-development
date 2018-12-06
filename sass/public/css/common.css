@@ -50,6 +50,17 @@ div.BRWOpacity {
 div.px2rem {
   height: 7.8125rem; }
 
+/*
+  div.flexibleFontSize {
+  font-size: 16px; }
+
+  [data-dpr="2"] div.flexibleFontSize {
+    font-size: 32px; }
+
+  [data-dpr="3"] div.flexibleFontSize {
+    font-size: 48px; }
+
+ */
 div.flexibleFontSize {
   font-size: 16px; }
   [data-dpr="2"] div.flexibleFontSize {
@@ -87,6 +98,8 @@ div.ZIndex {
     .actions .actions-btn:active, .actions .actions-btn:hover {
       background: #e6e6e6; }
 
+.box div.theme {
+  background: #5e5e5e; }
 .theme-light div.theme {
   background: #f2f2f2;
   color: #000; }

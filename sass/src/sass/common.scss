@@ -124,6 +124,18 @@ div.px2rem {
   }
 }
 
+/*
+  div.flexibleFontSize {
+  font-size: 16px; }
+
+  [data-dpr="2"] div.flexibleFontSize {
+    font-size: 32px; }
+
+  [data-dpr="3"] div.flexibleFontSize {
+    font-size: 48px; }
+
+ */
+
 div.flexibleFontSize {
   @include font-dpr(16px);
 }
@@ -213,12 +225,12 @@ $breakpoints: (
   }
 }
 
-//利用map更换主题
+//利用map更换主题，theme后面为类名
 $themes: (
         theme1: theme-light,
         theme2: theme-dark
 );
-//嵌套map
+//嵌套map，theme后面为具体属性
 $config: (
         theme1: (
                 background: #f2f2f2,
@@ -240,6 +252,9 @@ $config: (
 }
 
 div.theme {
+  .box &{
+    background: #5e5e5e;
+  }
   //遍历$themes
   @each $key, $value in $themes {
     @if map-has-key($config, $key) {

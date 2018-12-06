@@ -7,130 +7,292 @@
     <link rel="stylesheet" href="./css/common.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
     <script src="./js/index.js"></script>
+    <style>
+        .test{
+            font-size: 16px;
+        }
+        html {
+            /*background: url('image/bg.jpg') no-repeat center center fixed;*/
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        button {
+            background-image: linear-gradient(#5187c4, #1c2f45);
+            background-size: auto 200%;
+            background-position: 0 100%;
+            transition: background-position 0.5s;
+            border: 0;
+            outline: none;
+            padding: 15px;
+        }
+
+        button:hover {
+            background-position: 0 0;
+        }
+
+        .blurry-text {
+            color: transparent;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .blurry-text::selection {
+            color: transparent;
+        }
+
+        pre {
+            white-space: pre-line;
+            word-wrap: break-word;
+        }
+        pre::selection {
+            color: transparent;
+        }
+        .loading {
+            width: 100px;
+            margin: 0 auto;
+        }
+
+        .loading:after {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            animation: ellipsis 2s infinite;
+            content: "\2026\2026"; /* ascii ... code for the ellipsis character */
+        }
+
+        @keyframes ellipsis {
+            from {
+                width: 2px;
+            }
+            to {
+                width: 26px;
+            }
+        }
+
+        .container{
+            min-height: 100px;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        input[type=text], textarea {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            outline: none;
+            padding: 3px 0px 3px 3px;
+            margin: 5px 1px 3px 0px;
+            border: 1px solid #9edd5d;
+        }
+        input[type=text]:focus, textarea:focus {
+            padding: 3px 0px 3px 3px;
+            margin: 5px 1px 3px 0px;
+            border: 1px solid rgba(81, 203, 238, 1);
+        }
+
+
+        a {
+            border-bottom:1px solid #bbb;
+            color:#666;
+            display:inline-block;
+            position:relative;
+            text-decoration:none;
+        }
+        a:hover,
+        a:focus {
+            color:#36c;
+        }
+        a:active {
+            top:1px;
+        }
+        /* Tooltip styling */
+        a[data-tooltip]:after {
+            border-top: 8px solid hsla(0,0%,0%,.85);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            content: "";
+            display: none;
+            height: 0;
+            width: 0;
+            left: 25%;
+            position: absolute;
+        }
+        a[data-tooltip]:before {
+            background: hsla(0,0%,0%,.85);
+            color: #f6f6f6;
+            content: attr(data-tooltip);
+            display: none;
+            font-family: sans-serif;
+            font-size: 14px;
+            height: 32px;
+            left: 0;
+            line-height: 32px;
+            padding: 0 15px;
+            position: absolute;
+            text-shadow: 0 1px 1px hsla(0,0%,0%,1);
+            white-space: nowrap;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -o-border-radius: 5px;
+            border-radius: 5px;
+        }
+        a[data-tooltip]:hover:after {
+            display: block;
+            top: -9px;
+        }
+        a[data-tooltip]:hover:before {
+            display: block;
+            top: -41px;
+        }
+        a[data-tooltip]:active:after {
+            top: -10px;
+        }
+        a[data-tooltip]:active:before {
+            top: -42px;
+        }
+    </style>
 </head>
 <body>
-    <div class="div     var">
-        <a href="">定义变量与嵌套</a>
+<div class="test ">
+    <button>这是一个按钮</button>
+    <div style="width: 200px" class="blurry-text ">
+            <pre>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            </pre>
     </div>
-
-    <div class="div css3prefix">
-        定义css3兼容属性前缀
+    <div class="loading "></div>
+    <div class="container">
+        <div class="item" style="width: 50px;height: 50px"></div>
+        <div class="item" style="width: 50px;height: 50px"></div>
+        <div class="item" style="width: 50px;height: 50px"></div>
     </div>
+    <input type="text">
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <a href="" data-tooltip="12321312">tooltip</a>
+</div>
+<div class="div     var">
+    <a href="">定义变量与嵌套</a>
+</div>
 
-    <div class="div clearfix">清除浮动</div>
-    <div class="div BRWOpacity">
-        定义黑白色透明度
+<div class="div css3prefix">
+    定义css3兼容属性前缀
+</div>
+
+<div class="div clearfix">清除浮动</div>
+<div class="div BRWOpacity">
+    定义黑白色透明度
+</div>
+<div class="div opacity">
+    <a href="">定义透明度</a>
+</div>
+<div class="div message-error">定义valid error warning info颜色组</div>
+<div class="div message-valid">定义valid error warning info颜色组</div>
+<div class="div message-warning">定义valid error warning info颜色组</div>
+<div class="div message-info">定义valid error warning info颜色组</div>
+
+<div class="div px2rem">px转rem</div>
+
+<div class="div flexibleFontSize">
+    手淘flexible字号设置
+</div>
+
+<div class="div ZIndex">
+    利用map定义不同的z-index
+</div>
+
+<div class="div breakpoint">
+    利用map处理断点
+</div>
+
+<div class="div theme-dark">
+    <div class="theme">
+        利用map更换theme
     </div>
-    <div class="div opacity">
-        <a href="">定义透明度</a>
+</div>
+<div class="div theme-light">
+    <div class="theme">
+        利用map更换theme
     </div>
-    <div class="div message-error">定义valid error  warning info颜色组</div>
-    <div class="div message-valid">定义valid error  warning info颜色组</div>
-    <div class="div message-warning">定义valid error  warning info颜色组</div>
-    <div class="div message-info">定义valid error  warning info颜色组</div>
+</div>
+<div class="div arrow">
+    三角箭头
+</div>
+<div class="div">
+    进度条
+    <p class="bar-progress">
+        <span class="progress-percent" style="transform: translateX(-50%)"></span>
+    </p>
+</div>
+<div class="div">
+    <div class="circle-progress">
+        <div class="circle-left">
+            <div class="left-inner "></div>
 
-    <div class="div px2rem">px转rem</div>
-
-    <div class="div flexibleFontSize">
-        手淘flexible字号设置
-    </div>
-
-    <div class="div ZIndex">
-        利用map定义不同的z-index
-    </div>
-
-    <div class="div breakpoint">
-        利用map处理断点
-    </div>
-
-    <div class="div theme-dark">
-        <div class="theme">
-            利用map更换theme
         </div>
-    </div>
-    <div class="div theme-light">
-        <div class="theme">
-            利用map更换theme
+        <div class="circle-right">
+            <div class="right-inner"></div>
         </div>
+        <span class="progress-num">0%</span>
     </div>
-    <div class="div arrow">
-        三角箭头
-    </div>
-    <div class="div">
-        进度条
-        <p class="bar-progress">
-            <span class="progress-percent" style="transform: translateX(-50%)"></span>
-        </p>
-    </div>
-    <div class="div">
-        <div class="circle-progress">
-            <div class="circle-left">
-                <div class="left-inner "></div>
+    <div class="circle-progress">
+        <div class="circle-left">
+            <div class="left-inner "></div>
 
-            </div>
-            <div class="circle-right">
-                <div class="right-inner" ></div>
-            </div>
-            <span class="progress-num">0%</span>
         </div>
-        <div class="circle-progress">
-            <div class="circle-left">
-                <div class="left-inner "></div>
-
-            </div>
-            <div class="circle-right">
-                <div class="right-inner" ></div>
-            </div>
-            <span class="progress-num">0%</span>
+        <div class="circle-right">
+            <div class="right-inner"></div>
         </div>
+        <span class="progress-num">0%</span>
     </div>
+</div>
 
-    <div >
-        <div class="range-wrap">
-            <input type="range" class="range"  >
-        </div>
+<div>
+    <div class="range-wrap">
+        <input type="range" class="range">
     </div>
+</div>
 
-    <ul >
-        <li><a href="#">Aaaa</a>
-            <ul >
-                <li><a href="#">A</a>
-                    <ul >
-                        <li><a href="#">A1</a></li>
-                        <li><a href="#">A2</a></li>
-                        <li><a href="#">A3</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">B</a>
-                    <ul >
-                        <li><a href="#">B1</a></li>
-                        <li><a href="#">B2</a></li>
-                        <li><a href="#">B3</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">C</a>
-                    <ul >
-                        <li><a href="#">C1</a>
-                            <ul >
-                                <li><a href="#">x</a></li>
-                                <li><a href="#">y</a></li>
-                                <li><a href="#">z</a>
-                                    <ul >
-                                        <li><a href="#">z1123</a>
-                                            <ul >
-                                                <li><a href="#">z123123123</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">C2</a></li>
-                        <li><a href="#">C3</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<ul>
+    <li><a href="#">Aaaa</a>
+        <ul>
+            <li><a href="#">A</a>
+                <ul>
+                    <li><a href="#">A1</a></li>
+                    <li><a href="#">A2</a></li>
+                    <li><a href="#">A3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">B</a>
+                <ul>
+                    <li><a href="#">B1</a></li>
+                    <li><a href="#">B2</a></li>
+                    <li><a href="#">B3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">C</a>
+                <ul>
+                    <li><a href="#">C1</a>
+                        <ul>
+                            <li><a href="#">x</a></li>
+                            <li><a href="#">y</a></li>
+                            <li><a href="#">z</a>
+                                <ul>
+                                    <li><a href="#">z1123</a>
+                                        <ul>
+                                            <li><a href="#">z123123123</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#">C2</a></li>
+                    <li><a href="#">C3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
 </body>
 </html>
