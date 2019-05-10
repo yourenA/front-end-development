@@ -1,0 +1,37 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+@color: #4D926F; //变量定义 sass 为$
+
+#header {
+  color: @color;
+  h2 {
+    color: @color;
+  }
+}
+
+//mixin 使用 . 定义，以及 . 引用
+.rounded-corners (@radius: 5px) {//mixin  sass为@mixin定义，@include引用
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @color: #000) {
+  box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+}
+#header {
+  margin: 10px auto;
+  border: 1px solid #00aee8;
+  .rounded-corners; //当rounded-corners 没有默认参数，也可以直接调用.rounded-corners
+  .box-shadow(2px, 5px);
+}
+#footer {
+  .rounded-corners(10px);
+}
+
+

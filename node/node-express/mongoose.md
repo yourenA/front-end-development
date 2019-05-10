@@ -1,5 +1,12 @@
 # mongoose
->要先使用 ```$ mongod --dbpath /d/mongodb/data```链接到mongodb数据库(后面为储存数据路径)
+#### Windows可视化工具: Robomongo
+#### Windows手动开启
+```$ mongod --dbpath /d/mongodb/data```
+链接到mongodb数据库(后面为储存数据路径) 。
+
+#### Windows自动开启
+```$ mongod --config "D:\mongodb\mongo.config" --install --serviceName "MongoDB"```
+```$ net start MongoDB```
 
 ## 名词解释
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        if (window.Notification) {
+            //do something
+            if(Notification.permission === 'granted'){
+                console.log('用户允许通知');
+                var n = new Notification('状态更新提醒',{
+                    body: '你的朋友圈有3条新状态，快去查看吧',
+                })
+            }else if(Notification.permission === 'denied'){
+                console.log('用户拒绝通知');
+            }else{
+                console.log('用户还没选择，去向用户申请权限吧');
+                Notification.requestPermission().then(function(permission) {
+                    if(permission === 'granted'){
+                        var n = new Notification('状态更新提醒',{
+                            body: '你的朋友圈有3条新状态，快去查看吧',
+                            tag: 'youren',
+                            icon: 'http://lf6-tccdn-tos.pstatp.com/obj/tuchong-avatar/ll_1608305_4',
+                            requireInteraction: true,
+                            data: {
+                                url: 'http://106.13.7.195:3001'
+                            }
+                        })
+                    }else if(permission === 'denied'){
+                        console.log('用户拒绝通知');
+                    }
+                });
+            }
+
+        }else{
+            alert('浏览器不支持Notification');
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

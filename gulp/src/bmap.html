@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jYNU39RZ3k37NUz1QduizaYD"></script>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <title>地址解析</title>
+</head>
+<body>
+<div id="allmap" style="overflow:hidden;zoom:1;position:relative;">
+    <div id="map" style="height:90%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+</div>
+<div id="result">
+    <input type="button" value="获取绘制的覆盖物个数" onclick="getAll()"/>
+    <input type="button" value="清除所有覆盖物" onclick="clearAll()"/>
+</div>
+<script src="./js/bmap.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+
+</script>

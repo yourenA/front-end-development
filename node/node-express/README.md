@@ -172,7 +172,7 @@ app.use(session({
     maxAge: config.session.maxAge// 过期时间，即maxAge后session和相应的cookie失效过期 
     //如果maxAge不设置，默认为null，这样的expire的时间就是浏览器的关闭时间，即每次关闭浏览器的时候，session都会失效
   },
-  store: new MongoStore({// store将 session 存储到 mongodb
+  store: new MongoStore({// store将 session 存储到 mongodb , 会自动在mongodb中添加sessions表
     url: config.mongodb// mongodb 地址
   })
 }));

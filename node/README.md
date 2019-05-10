@@ -119,3 +119,17 @@ fs.stat('index.txt',function(err,stats){
 　　console.log('是否为目录(isDirectory) ? ' + stats.isDirectory());
 });
 ```
+
+## cross-env 跨平台地设置及使用环境变量
+```
+npm i --save-dev cross-env
+```
+
+```
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node index.js",
+    "production": "cross-env NODE_ENV=production node index.js",
+    "production-seeds": "cross-env NODE_ENV=production node_modules/.bin/sequelize db:seed:all",
+    "development-seeds": "cross-env NODE_ENV=development node_modules/.bin/sequelize db:seed:all"
+  },
+```

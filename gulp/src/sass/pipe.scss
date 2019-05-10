@@ -1,0 +1,405 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.pipe-container {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 0 40px;
+  min-width: 1400px;
+  position: relative;
+  .pipe-bg {
+    width: 100%;
+  }
+  .absolute-item {
+    position: absolute;
+  }
+  .interface1 {
+    width: 7%;
+    height: 13%;
+    left: 10%;
+    top: 29.5%;
+  }
+  .jianya1 {
+    width: 8%;
+    height: 16.5%;
+    left: 18%;
+    top: 28%;
+  }
+  .yalibiao1 {
+    width: 8%;
+    height: 16.5%;
+    left: 25%;
+    top: 28%;
+  }
+
+  .interface2 {
+    width: 5%;
+    height: 10%;
+    left: 40%;
+    top: 7.3%;
+  }
+  .interface3 {
+    width: 5%;
+    height: 10%;
+    left: 40%;
+    top: 31.8%;
+  }
+  .interface4 {
+    width: 5%;
+    height: 10%;
+    left: 40%;
+    top: 53.7%
+  }
+  .jianya2 {
+    width: 6%;
+    height: 12%;
+    left: 48%;
+    top: 6.5%
+  }
+  .jianya3 {
+    width: 6%;
+    height: 12%;
+    left: 48%;
+    top: 31%
+  }
+  .jianya4 {
+    width: 6%;
+    height: 12%;
+    left: 48%;
+    top: 53%
+  }
+  .yalibiao2 {
+    width: 6%;
+    height: 12%;
+    left: 57%;
+    top: 6.5%
+  }
+  .yalibiao3 {
+    width: 6%;
+    height: 12%;
+    left: 57%;
+    top: 31%
+  }
+  .yalibiao4 {
+    width: 6%;
+    height: 12%;
+    left: 57%;
+    top: 53%
+  }
+
+  .interface5 {
+    width: 5%;
+    height: 10%;
+    left: 72%;
+    top: 7.3%;
+  }
+  .interface6 {
+    width: 5%;
+    height: 10%;
+    left: 72%;
+    top: 31.8%;
+  }
+  .interface7 {
+    width: 5%;
+    height: 10%;
+    left: 72%;
+    top: 53.7%
+  }
+  .interface8 {
+    transform: rotate(270deg);
+    width: 4%;
+    height: 9%;
+    left: 65.3%;
+    top: 61.7%
+  }
+  .yalibiao5 {
+    transform: rotate(270deg);
+    width: 4%;
+    height: 9%;
+    left: 65.5%;
+    top: 66.7%
+  }
+  .xieyafa1 {
+    width: 5%;
+    height: 10%;
+    left: 58.5%;
+    top: 69.4%
+  }
+  .zuixia1 {
+    width: 5%;
+    height: 10%;
+    left: 58.5%;
+    top: 82.2%
+  }
+
+  .interface9 {
+    width: 5%;
+    height: 10%;
+    left: 39%;
+    top: 82.8%
+  }
+  .xieyazhishi1 {
+    width: 5%;
+    height: 10%;
+    left: 46%;
+    top: 82.8%
+  }
+  .shuicao {
+    width: 11%;
+    height: 24%;
+    left: 26%;
+    top: 71.8%
+  }
+  .water {
+    background: #41d7dd;
+    width: 9.43%;
+    height: 10%;
+    left: 26.8%;
+    bottom: 5.9%
+
+  }
+  .arrow {
+    overflow: hidden;
+    .img1 {
+      position: absolute;
+      width: auto;
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      top: 0;
+      animation: rightan linear 3s infinite;
+    }
+    .img2 {
+      position: absolute;
+      width: auto;
+      height: 100%;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      animation: rightan linear 3s 1.5s infinite;
+    }
+  }
+  .arrow1 {
+    width: 25%;
+    height: 4%;
+    top: 36%;
+    left: 7%;
+  }
+  .arrow2 {
+    width: 50%;
+    height: 3%;
+    top: 12.5%;
+    left: 37%;
+    .img1 {
+      animation: rightan linear 4s infinite;
+    }
+    .img2 {
+      animation: rightan linear 4s 2s infinite;
+    }
+  }
+  .arrow3 {
+    width: 50%;
+    height: 3%;
+    top: 36.7%;
+    left: 37%;
+    .img1 {
+      animation: rightan linear 4s infinite;
+    }
+    .img2 {
+      animation: rightan linear 4s 2s infinite;
+    }
+  }
+  .arrow4 {
+    width: 50%;
+    height: 3%;
+    top: 58.7%;
+    left: 37%;
+    .img1 {
+      animation: rightan linear 4s infinite;
+    }
+    .img2 {
+      animation: rightan linear 4s 2s infinite;
+    }
+  }
+  .arrow5 {
+    width: 11%;
+    height: 3%;
+    top: 70.7%;
+    left: 62.6%;
+    transform: rotate(90deg);
+    .img1 {
+      animation: rightan linear 2s infinite;
+    }
+  }
+  .arrow6 {
+    width: 25%;
+    height: 3%;
+    top: 88%;
+    left: 38%;
+    transform: rotate(180deg);
+  }
+  @keyframes rightan {
+    from {
+      left: 0;
+      opacity: 0;
+    }
+    1% {
+      left: 0;
+      opacity: 1;
+    }
+    to {
+      left: 120%;
+    }
+  }
+
+  .blue {
+    font-size: 17px;
+    color: #337ab7;
+  }
+  .black {
+    font-size: 17px;
+    color: #3d3e3d;
+  }
+  .text1 {
+    left: 5%;
+    top: 42%;
+  }
+  .text2 {
+    left: 19.5%;
+    top: 42%;
+  }
+  .text3 {
+    left: 27%;
+    top: 42%;
+  }
+  .text4 {
+    left: 48.5%;
+    top: 17%;
+  }
+  .text5 {
+    left: 58%;
+    top: 17%;
+  }
+  .text6 {
+    left: 48.5%;
+    top: 41%;
+  }
+  .text7 {
+    left: 58%;
+    top: 41%;
+  }
+  .text8 {
+    left: 48.5%;
+    top: 63%;
+  }
+  .text9 {
+    left: 58%;
+    top: 63%;
+  }
+
+  .text10 {
+    right: 10%;
+    top: 17%;
+  }
+  .text11 {
+    right: 10%;
+    top: 41%;
+  }
+  .text12 {
+    right: 10%;
+    top: 63%;
+  }
+  .text13 {
+    left: 27%;
+    top: 68%;
+  }
+  .text14 {
+    left: 69%;
+    top: 70%;
+  }
+  .text15 {
+    left: 59%;
+    top: 78%;
+  }
+  .text16 {
+    left: 44%;
+    top: 92%;
+  }
+
+  .desc-text{
+    padding: 5px 5px 0 5px;
+    width: 150px;
+    display: inline-block;
+    background: #c0c0c0;
+    border-radius: 8px;
+    font-size: 12px;
+    border: 1px solid #000;
+    span{
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #337ab7;
+    }
+  }
+  .data-text{
+    font-size: 14px;
+    font-weight: bold;
+    color: #337ab7;
+  }
+  .desc-text1{
+    left: 24%;
+    top: 23%;
+  }
+  .data-text1{
+    left: 27%;
+    top: 29%;
+  }
+
+  .desc-text2{
+    left: 55%;
+    top: 0%;
+  }
+  .data-text2{
+    left: 58%;
+    top: 6%;
+  }
+  .desc-text3{
+    left: 55%;
+    top: 25%;
+  }
+  .data-text3{
+    left: 58%;
+    top: 31%;
+  }
+  .desc-text4{
+    left: 55%;
+    top: 47%;
+  }
+  .data-text4{
+    left: 58%;
+    top: 53%;
+  }
+  .desc-text5{
+    left: 68.5%;
+    top: 62%;
+  }
+  .data-text5{
+    left: 69%;
+    top: 68%;
+  }
+  .data-text6{
+    left: 59%;
+    top: 81%;
+  }
+  .data-text7{
+    left: 46%;
+    top: 81%;
+  }
+
+}

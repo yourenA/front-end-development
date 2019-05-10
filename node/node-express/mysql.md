@@ -230,7 +230,7 @@ task.save({fields: ['title']}).then(function() {
 
 * 持久化
 ```
-task.update({ title: 'foooo', description: 'baaaaaar'}, {fields: ['title']}).then(function() {
+task.update({ title: 'foooo', description: 'baaaaaar'}, {where:{},fields: ['title']}).then(function() {
  // 现在 title 是 'foooo' 但是 description 还是和以前一样
 })
 ```
@@ -376,7 +376,7 @@ migrations文件中操作，需要自己去修改
 
 
 6. 在model/index.js 中添加 ```sequelize.sync();```连接数据库(要确保数据库中有此数据库) 。
->也可以不使用sync()，定义Sequelize对象的时候就会连接数据库，可以直接操作数据库。直接修改model文件，然后在数据库中手动修改表结构
+>也可以不使用sync()，定义Sequelize对象的时候就会连接数据库，可以直接操作数据库。直接修改model文件，然后在数据库中手动修改表结构，如果在model中设置默认值，在设计表时就不用手动设置
 
 7. 在seeders中文件内容转变为表中内容(不是初始化表内容)，第一次使用时可用于普通没有外键约束的表初始化 。在seeders中插入普通表数据
 ```
