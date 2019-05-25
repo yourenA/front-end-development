@@ -17,10 +17,8 @@
             var safe = true;
 
             return function () {
-                var args = arguments;
-
                 if (safe) {
-                    fn.call(context, args);
+                    fn.call(context);
                     safe = false;
                     setTimeout(function () {
                         safe = true;

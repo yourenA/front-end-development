@@ -17,9 +17,8 @@
 
             return function () {
                 clearTimeout(timeoutID);
-                var args = arguments;
                 timeoutID = setTimeout(function () {
-                    fn.apply(context, args);
+                    fn.apply(context);
                 }, delta);
             };
         }

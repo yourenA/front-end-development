@@ -9,26 +9,24 @@
 </head>
 
 <body>
-        immediate(前缘) 直到两次快速调用之间的停顿结束，事件才会再次触发。
+        immediate(即时) 直到两次快速调用之间的停顿结束，事件才会再次触发。
     <p>一开始就执行一次函数，当两次操作的间隔大于delta才会执行下一次</p>
     <script>
         function immediate(fn, delta, context) {
             var timeoutID = null;
             var safe = true;
-
             return function () {
-                var args = arguments;
-
                 if (safe) {
-                    fn.call(context, args);
-                    safe = false;
+                    fn.call(context);
+                    safe = false; //将safe改为false下次就不会进去这个判断
                 }
-                clearTimeout(timeoutID);
+                clearTimeout(timeoutID); //清除timeoutID,只有最后一个timeoutID才有机会将safe改为true
                 timeoutID = setTimeout(function () {
-                    safe = true;
+                    safe = true; //delta秒之后才将safe改为true，
                 }, delta);
             };
         }
+
         function Foo(data) {
             this.data = data;
         }
