@@ -1,0 +1,6 @@
+﻿newmtl DEFAULT_MTL
+Kd 0.878 0.949 1.000
+
+newmtl MTL0 
+Kd 0.645 0.679 0.700
+

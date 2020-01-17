@@ -1,0 +1,225 @@
+<style>
+    * {
+        touch-action: pan-y;
+    }
+    *{margin: 0;padding: 0;}
+    body{background: #333;}
+    #box{position: relative;overflow: hidden;background: #000;}
+    #box img{position: absolute;cursor:move}
+    #box img.tip{
+        transform:translate(-50%,-50%);
+        cursor:pointer;
+    }
+</style>
+<div id="box" style="width: 100vw;height: 100vh">
+    <img src="./image/1.jpg"  alt="">
+    <img src="./image/2.png"  alt="">
+    <img src="./image/normal.png"  alt="" class="tip">
+</div>
+<script>
+    ;(function() {
+        var d =document, //d 为document
+                on = function(b,o){
+            for(var a in o){
+                b["on"+a] = o[a];
+            }
+        };
+        var left=1200,top=1200
+        var isRun,
+                startX,
+                startY,
+                endX,
+                endY,
+                rX,
+                rY,
+                bgX=0, //向左偏移
+                bgY=0, //向上偏移
+                $b = d.getElementById("box");//box div
+        ww =parseInt($b.offsetWidth),//box 宽
+                wh =parseInt($b.offsetHeight), //box 高
+                i = $b.getElementsByTagName('img')[1],//img 图片
+                dt = $b.getElementsByTagName('img')[0],//img 图片
+                tip = $b.getElementsByTagName('img')[2],//img 图片
+                img = i.style,
+                dtImg = dt.style,
+                tipImg = tip.style,
+                imgw = parseInt(i.offsetWidth), //图片宽
+                imgh = parseInt(i.offsetHeight), //图片高
+                scaleSize = 1; //比率
+        var tipbgX=0,tipbgY=0
+        function rs(){
+            var w,h; //图片实际宽高
+            //以完全显示图片为基准,如果改为>，则为以铺满屏幕为基准
+            if(ww/wh < imgw/imgh){
+                w = ww; // 实际宽=box宽
+                h = imgh*ww/imgw; // 实际宽/实际高=图片宽/图片高 -》 实际高=实际宽*图片高/图片宽
+                bgX=0;
+                bgY=-(h-wh)/2;
+                scaleSize = ww/imgw;//初始比率
+            }else{
+                w = imgw*wh/imgh;
+                h = wh;
+                bgX = -(w-ww)/2;
+                bgY=0;
+                scaleSize = wh/imgh;
+            }
+
+            img.width= dtImg.width = w+"px";
+            img.height= dtImg.height = h+"px";
+            rX=bgX
+            rY=bgY
+            img.left =  dtImg.left = bgX+"px";
+            img.top = dtImg.top = bgY+"px";
+            tipImg.left = bgX+left*scaleSize+"px";
+            tipImg.top = bgY+top*scaleSize+"px";
+
+            tipbgX=bgX+left*scaleSize;
+            tipbgY=bgY+top*scaleSize
+        }
+        i.onload=function () {
+            imgw = parseInt(i.offsetWidth); //图片宽
+            imgh = parseInt(i.offsetHeight);//图片高
+            rs();
+        }
+        /* Init */
+        on(d,{
+            "mousedown": function(e){
+                //按中建快速还原大小
+//                console.log('-----mousedown-----')
+//                console.log('e.which',e.which)
+                if(e.which===2){
+                    rs();
+                }
+                if(e.which===1 && e.target && (e.target === i)){
+                    isRun = true;
+                    startX = e.pageX;
+                    startY = e.pageY;
+//                    console.log('startX',startX)
+//                    console.log('startY',startY)
+//                    console.log('isRun',isRun)
+                    console.log('-------------------')
+                    return false;
+                }
+            },
+            "mouseup": function(e){
+                if(e.which!==1){
+                    return;
+                }
+                img.cursor = "default";
+                isRun = false;
+                bgX = rX;
+                bgY = rY;
+//                console.log('isRun',isRun)
+                return false;
+            },
+            "mousemove": function(e){
+
+                if(e.which!==1){
+                    return;
+                }
+
+                if(isRun){
+                    img.cursor = "move";
+                    endX = e.pageX;
+                    endY = e.pageY;
+//                    console.log('endX',endX)
+//                    console.log('endY',endY)
+                    rX = bgX+endX-startX;
+                    rY = bgY+endY-startY;
+                    img.left =   dtImg.left = rX+"px";
+                    img.top =  dtImg.top = rY+"px";
+
+                    tipImg.left = rX+left*scaleSize+"px";
+                    tipImg.top = rY+top*scaleSize+"px";
+                }
+            },
+            "mousewheel":function(e){
+                //以鼠标为中心缩放，同时进行位置调整
+                var deltaY = 0;
+                var x = e.pageX;
+                var y = e.pageY;
+                if (e.cancelable) {
+                    // 判断默认行为是否已经被禁用
+                    if (!e.defaultPrevented) {
+                        e.preventDefault();
+                    }
+                }
+
+
+                if(e.target && (e.target === i)){
+                    x = x-$b.offsetLeft;
+                    y = y-$b.offsetTop;
+
+                    var p = -(e.deltaY)/1000;
+                    var ns=scaleSize;
+                    ns += p;
+//                    console.log('ns',ns)
+                    ns = ns<0.2 ? 0.2 :(ns > 2 ? 2 : ns);//可以缩小到0.1,放大到5倍
+
+                    //计算位置，以鼠标所在位置为中心
+                    //以每个点的x、y位置，计算其相对于图片的位置，再计算其相对放大后的图片的位置
+                    bgX = bgX-(x-bgX)*(ns-scaleSize)/(scaleSize);
+                    bgY = bgY-(y-bgY)*(ns-scaleSize)/(scaleSize);
+                    scaleSize = ns;//更新倍率
+
+                    img.width = dtImg.width = imgw*ns+"px";
+                    img.height = dtImg.height= imgh*ns+"px";
+                    img.top = dtImg.top= bgY+"px";
+                    img.left  = dtImg.left= bgX+"px";
+
+                    tipImg.left = bgX+left*scaleSize+"px";
+                    tipImg.top = bgY+top*scaleSize+"px";
+                }
+            }
+        });
+
+
+        var tipstartX,tipstartY,tipisRun,tipendX,tipendY,tipX,tipY;
+
+        on(tip,{
+            "mousedown": function(e){
+                //按中建快速还原大小
+                console.log('e.target',e.target === tip)
+                if(e.which===1 && e.target && (e.target === tip)){
+                    console.log('tip mousedown')
+                    tipisRun = true;
+                    tipstartX = e.pageX;
+                    tipstartY = e.pageY;
+                    console.log('tipstartX',tipstartX)
+                    return false;
+                }
+            },
+            "mouseup": function(e){
+                console.log('tip mouseup')
+                if(e.which!==1){
+                    return;
+                }
+
+                tipisRun = false;
+                tipbgX = tipX;
+                tipbgY = tipY;
+                return false;
+            },
+            "mousemove": function(e){
+                if(e.which!==1){
+                    return;
+                }
+                console.log('tip mousemove')
+                if(tipisRun){
+                    tipendX = e.pageX;
+                    tipendY = e.pageY;
+                    console.log('tipbgY',tipbgY)
+                    console.log('tipendY',tipendY)
+                    console.log('tipstartX',tipstartX)
+                    tipX = tipbgX+tipendX-tipstartX;
+                    tipY = tipbgY+tipendY-tipstartY;
+
+                    console.log('tipX',tipX)
+                    tipImg.left =tipX+"px";
+                    tipImg.top = tipY+"px";
+                }
+            },
+        });
+
+    })();
+</script>
