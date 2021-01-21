@@ -15,6 +15,6 @@
     "express": "^4.15.3",
     "file-stream-rotator": "^0.2.1",
     "morgan": "^1.8.2",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.4.0"
   }
 }
