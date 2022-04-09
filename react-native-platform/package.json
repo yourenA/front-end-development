@@ -9,7 +9,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "ele-react-native-location": "^0.2.2",
-    "moment": "^2.18.1",
+    "moment": "^2.29.2",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
     "react-native-baidu-map": "^0.6.0",
