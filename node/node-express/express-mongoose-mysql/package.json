@@ -25,7 +25,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-session": "^1.15.1",
-    "mongoose": "^4.3.7",
+    "mongoose": "^4.13.21",
     "morgan": "~1.6.1",
     "mysql": "^2.13.0",
     "react": "^0.14.6",
